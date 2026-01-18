@@ -7,6 +7,16 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 **Timeline**: 4-6 weeks (after Phase 1)
 **Goal**: Support all major AI providers and Git platforms
 
+### Key Additions in Phase 2
+- **Anthropic (Claude)** and **Google Gemini** AI providers
+- **GitLab, Bitbucket, Azure DevOps** platform integrations
+- **Streaming review responses** for better UX
+- **Review caching** and **incremental reviews**
+- **IDE extensions** (VS Code)
+- **Full codebase indexing** for context
+- **Jira/Linear integration** for business context
+- **Test generation** capabilities
+
 ---
 
 ## Prerequisites
@@ -141,12 +151,112 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 ### Milestone 9: Enhanced Configuration
 **Status**: Not Started
 
-- [ ] Path-specific configurations
-- [ ] Team overrides
-- [ ] Configuration validation API
-- [ ] Configuration preview
-- [ ] Configuration templates
-- [ ] Import/export configs
+- [ ] Path-specific configurations:
+  - [ ] Per-directory rules
+  - [ ] Per-file-type instructions
+  - [ ] Inherited configurations
+- [ ] Team overrides:
+  - [ ] Team-level config inheritance
+  - [ ] Override priority chain
+- [ ] Configuration validation API:
+  - [ ] Real-time validation
+  - [ ] Preview effective config
+  - [ ] Diff against defaults
+- [ ] Configuration preview:
+  - [ ] What would be reviewed
+  - [ ] Which rules apply where
+- [ ] Configuration templates:
+  - [ ] React/TypeScript template
+  - [ ] Python/Django template
+  - [ ] Go template
+  - [ ] Java/Spring template
+- [ ] Import/export configs:
+  - [ ] Export as YAML
+  - [ ] Import from URL
+  - [ ] Share between repos
+
+### Milestone 9b: Streaming & Real-time Features
+**Status**: Not Started
+
+- [ ] **Streaming review responses:**
+  - [ ] Server-Sent Events (SSE) implementation
+  - [ ] Real-time comment appearance during review
+  - [ ] Progress percentage updates
+  - [ ] File completion notifications
+- [ ] **Review caching:**
+  - [ ] Cache reviews by commit SHA
+  - [ ] Skip unchanged files on re-review
+  - [ ] Cache invalidation on config change
+- [ ] **Incremental reviews:**
+  - [ ] Only review changed files since last review
+  - [ ] Track file changes across commits
+  - [ ] Smart context inclusion for changed dependencies
+- [ ] **Real-time progress tracking:**
+  - [ ] WebSocket fallback for SSE
+  - [ ] Progress bar in dashboard
+  - [ ] Estimated time remaining
+
+### Milestone 9c: IDE Extensions
+**Status**: Not Started
+
+- [ ] **VS Code Extension:**
+  - [ ] Pre-commit review trigger
+  - [ ] Inline review comments
+  - [ ] Configuration editor
+  - [ ] API key management
+  - [ ] Review history panel
+- [ ] **JetBrains Plugin (basic):**
+  - [ ] IntelliJ IDEA support
+  - [ ] WebStorm support
+  - [ ] PyCharm support
+  - [ ] Pre-commit review
+
+### Milestone 9d: Test Generation
+**Status**: Not Started
+
+- [ ] **Test generation service:**
+  - [ ] Analyze changed code
+  - [ ] Generate unit test suggestions
+  - [ ] Support for Jest, Vitest, pytest
+  - [ ] Configurable test style
+- [ ] **Test coverage integration:**
+  - [ ] Identify untested code in diff
+  - [ ] Suggest test cases for coverage gaps
+- [ ] **Test commands:**
+  - [ ] `/test` command in PR comments
+  - [ ] Generate tests for selected function
+  - [ ] Test file creation suggestions
+
+### Milestone 9e: Business Context Integration
+**Status**: Not Started
+
+- [ ] **Jira integration:**
+  - [ ] Link PRs to Jira tickets
+  - [ ] Validate against acceptance criteria
+  - [ ] Auto-update ticket status
+- [ ] **Linear integration:**
+  - [ ] Link PRs to Linear issues
+  - [ ] Context from issue description
+- [ ] **Custom webhook integration:**
+  - [ ] Review completion webhooks
+  - [ ] Slack notifications
+  - [ ] Teams notifications
+
+### Milestone 9f: Full Codebase Indexing
+**Status**: Not Started
+
+- [ ] **Codebase graph building:**
+  - [ ] Function/class dependency mapping
+  - [ ] Import/export relationship tracking
+  - [ ] Cross-file reference resolution
+- [ ] **Vector embeddings:**
+  - [ ] Code chunk embeddings
+  - [ ] Semantic similarity search
+  - [ ] Related file discovery
+- [ ] **Context enhancement:**
+  - [ ] Include related files in review context
+  - [ ] Show impact of changes across codebase
+  - [ ] Multi-hop investigation capabilities
 
 ### Milestone 10: Multi-Tenant Enhancements
 **Status**: Not Started

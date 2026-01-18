@@ -7,6 +7,14 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 **Timeline**: 6-8 weeks (after Phase 2)
 **Goal**: Enterprise-ready platform with advanced security and scalability
 
+### Key Enterprise Differentiators
+- **Self-hosting at 50 seats** (vs CodeRabbit's 500-seat minimum)
+- **FedRAMP authorization path** (no competitor has this)
+- **Air-gapped deployment** for defense/government
+- **Pre-built compliance packages** (HIPAA, PCI, SOX)
+- **CodeGuru migration path** for AWS customers
+- **Custom AI model support** (Ollama, vLLM)
+
 ---
 
 ## Prerequisites
@@ -109,38 +117,165 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 ### Milestone 6: Self-Hosted Enhancements
 **Status**: Not Started
 
+- [ ] **Self-hosting at 50 seats** (key differentiator):
+  - [ ] 50-seat minimum (vs CodeRabbit's 500)
+  - [ ] Mid-market pricing tier
+  - [ ] Simplified deployment for smaller teams
 - [ ] Air-gapped deployment:
-  - [ ] Offline installation
-  - [ ] Local AI model support
+  - [ ] Offline installation package
+  - [ ] Local AI model support (Ollama/vLLM)
   - [ ] Container registry mirroring
+  - [ ] Offline documentation
+  - [ ] Air-gap verification checklist
 - [ ] High availability:
   - [ ] Multi-node deployment
-  - [ ] Load balancer configuration
-  - [ ] Session persistence
+  - [ ] Load balancer configuration (nginx, HAProxy)
+  - [ ] Session persistence with Redis cluster
+  - [ ] Database replication setup
 - [ ] Kubernetes deployment:
-  - [ ] Helm charts
-  - [ ] Operator pattern
-  - [ ] Auto-scaling
+  - [ ] Helm charts (production-ready)
+  - [ ] Operator pattern for GitOps
+  - [ ] Auto-scaling based on queue depth
+  - [ ] Resource limits and requests
+  - [ ] Pod disruption budgets
 - [ ] Backup and recovery:
-  - [ ] Automated backups
+  - [ ] Automated daily backups
   - [ ] Point-in-time recovery
+  - [ ] Cross-region backup replication
   - [ ] Disaster recovery guide
+  - [ ] RTO/RPO documentation
+
+### Milestone 6b: FedRAMP Authorization Path
+**Status**: Not Started
+
+**Note**: No AI code review tool currently holds FedRAMP authorization. This is a major market opportunity.
+
+- [ ] **FedRAMP assessment preparation:**
+  - [ ] Gap analysis against FedRAMP Moderate baseline
+  - [ ] Remediation plan development
+  - [ ] Third-party assessor (3PAO) selection
+- [ ] **Technical controls:**
+  - [ ] Continuous monitoring implementation
+  - [ ] Vulnerability scanning (ongoing)
+  - [ ] Penetration testing (annual)
+  - [ ] Incident response procedures
+- [ ] **Documentation:**
+  - [ ] System Security Plan (SSP)
+  - [ ] Control implementation descriptions
+  - [ ] Continuous monitoring plan
+- [ ] **Timeline and budget:**
+  - [ ] 12-18 months to authorization
+  - [ ] $500K-$1M estimated cost
+  - [ ] Dedicated compliance FTE
+
+### Milestone 6c: Compliance Packages
+**Status**: Not Started
+
+- [ ] **Pre-built rule packages:**
+  - [ ] HIPAA compliance rules
+    - [ ] PHI detection and flagging
+    - [ ] Encryption requirement checks
+    - [ ] Access control patterns
+  - [ ] PCI-DSS rules
+    - [ ] Cardholder data patterns
+    - [ ] Encryption validation
+    - [ ] Secure coding checks
+  - [ ] SOX compliance rules
+    - [ ] Audit trail requirements
+    - [ ] Access control checks
+  - [ ] GDPR rules
+    - [ ] Personal data handling
+    - [ ] Data retention checks
+- [ ] **Compliance reporting:**
+  - [ ] Automated compliance reports
+  - [ ] Evidence collection for audits
+  - [ ] Remediation tracking
+- [ ] **Industry templates:**
+  - [ ] Healthcare template
+  - [ ] Financial services template
+  - [ ] Government template
+
+### Milestone 6d: CodeGuru Migration
+**Status**: Not Started
+
+**Note**: Amazon CodeGuru was discontinued November 2025. Target these orphaned customers.
+
+- [ ] **Migration tools:**
+  - [ ] CodeGuru config import
+  - [ ] Rule mapping documentation
+  - [ ] One-click migration guide
+- [ ] **Java/Python optimization:**
+  - [ ] Deep Java analysis rules
+  - [ ] Python performance patterns
+  - [ ] AWS SDK best practices
+- [ ] **Marketing assets:**
+  - [ ] CodeGuru comparison page
+  - [ ] Migration blog post
+  - [ ] Case study template
 
 ### Milestone 7: Custom AI Models
 **Status**: Not Started
 
-- [ ] Self-hosted model support:
-  - [ ] Ollama integration
+- [ ] **Self-hosted model support:**
+  - [ ] Ollama integration (full)
   - [ ] vLLM integration
-  - [ ] Custom endpoint configuration
-- [ ] Model configuration:
-  - [ ] Custom model parameters
-  - [ ] Prompt customization
-  - [ ] Response formatting
-- [ ] Model testing:
+  - [ ] Text Generation Inference (TGI)
+  - [ ] Custom endpoint configuration (OpenAI-compatible)
+  - [ ] Azure OpenAI Service
+  - [ ] AWS Bedrock
+  - [ ] Google Vertex AI
+- [ ] **Model configuration:**
+  - [ ] Custom model parameters per organization
+  - [ ] Prompt customization templates
+  - [ ] Response formatting rules
+  - [ ] Model fallback chains
+- [ ] **Model testing:**
   - [ ] Test endpoint connectivity
-  - [ ] Benchmark performance
-  - [ ] Quality comparison
+  - [ ] Latency benchmarking
+  - [ ] Quality comparison against reference
+  - [ ] Token cost estimation
+- [ ] **Model fine-tuning support:**
+  - [ ] Organization-specific fine-tuning
+  - [ ] Code style learning
+  - [ ] Custom rule training
+  - [ ] Feedback loop integration
+
+### Milestone 7b: Cross-Repository Context
+**Status**: Not Started
+
+- [ ] **Monorepo support:**
+  - [ ] Package dependency tracking
+  - [ ] Cross-package impact analysis
+  - [ ] Shared code detection
+- [ ] **Microservices context:**
+  - [ ] API contract validation
+  - [ ] Service dependency mapping
+  - [ ] Breaking change detection
+- [ ] **Multi-repo semantic search:**
+  - [ ] Organization-wide code search
+  - [ ] Similar code detection
+  - [ ] Shared pattern identification
+
+### Milestone 7c: Engineering Metrics Platform
+**Status**: Not Started
+
+- [ ] **Code quality trends:**
+  - [ ] Quality score over time
+  - [ ] Issue density by repository
+  - [ ] Technical debt tracking
+- [ ] **Review effectiveness:**
+  - [ ] Issue acceptance rate
+  - [ ] False positive rate tracking
+  - [ ] Time to resolution
+- [ ] **Developer productivity insights:**
+  - [ ] Review feedback patterns
+  - [ ] Common issue categories
+  - [ ] Learning recommendations
+- [ ] **Executive dashboards:**
+  - [ ] Organization overview
+  - [ ] Team comparisons
+  - [ ] ROI metrics
+  - [ ] Cost optimization suggestions
 
 ### Milestone 8: Advanced Analytics
 **Status**: Not Started

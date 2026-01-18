@@ -35,12 +35,12 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 
 | Field | Value |
 |-------|-------|
-| **Date** | January 2026 |
-| **Work Done** | Initial project scaffolding and documentation |
-| **Key Decisions** | N/A - Initial setup |
+| **Date** | January 18, 2026 |
+| **Work Done** | Roadmap expansion - Added all missing features from comprehensive planning documents |
+| **Key Decisions** | BYOK from day 1, 50-seat self-hosting minimum, FedRAMP as enterprise opportunity |
 | **Blockers** | None |
 | **Next Priority** | Initialize npm projects (Next.js, Strapi, Express) |
-| **Notes** | Foundation complete. Ready to begin Phase 1 implementation. |
+| **Notes** | Roadmaps now include: BYOK, zero-retention, streaming, test generation, IDE extensions, FedRAMP path, compliance packages, CodeGuru migration, full codebase indexing. All 3 phase roadmaps comprehensively detailed. |
 
 ---
 
@@ -133,40 +133,63 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 - [ ] Implement OAuth flow
 - [ ] Test webhook end-to-end
 
-### 1.6 OpenAI Integration
+### 1.6 OpenAI Integration & BYOK
 
 - [ ] Install OpenAI SDK
 - [ ] Create OpenAI provider class
-- [ ] Implement review generation
-- [ ] Create system prompt
-- [ ] Handle token limits
-- [ ] Implement retry logic
+- [ ] Implement review generation with streaming
+- [ ] Create system prompt with customization
+- [ ] Handle token limits and cost calculation
+- [ ] Implement retry logic with exponential backoff
 - [ ] Add rate limit handling
 - [ ] Test with various diffs
+- [ ] **BYOK Implementation:**
+  - [ ] Encrypted API key storage (AES-256)
+  - [ ] Key validation endpoint
+  - [ ] User-level vs organization-level keys
+  - [ ] Key hint storage (last 4 chars)
 
 ### 1.7 Review Engine
 
-- [ ] Create diff parser
-- [ ] Implement file filtering
-- [ ] Create diff chunking logic
-- [ ] Build review job processor
-- [ ] Implement comment formatting
-- [ ] Add severity classification
+- [ ] Create diff parser (unified diff format)
+- [ ] Implement file filtering with glob patterns
+- [ ] Create diff chunking logic for context window
+- [ ] Handle large PRs (100+ files) with batching
+- [ ] Build review job processor with Bull
+- [ ] Implement comment formatting (markdown, code blocks)
+- [ ] Add severity classification (critical, major, minor, info)
+- [ ] Add category tagging (bug, security, performance, style)
 - [ ] Create review queue worker
-- [ ] Handle job retries
-- [ ] Track processing progress
-- [ ] Log usage statistics
+- [ ] Handle job retries with dead letter queue
+- [ ] Track processing progress with SSE updates
+- [ ] Log usage statistics and costs
+- [ ] **Automated code review checklist:**
+  - [ ] Forbidden patterns detection
+  - [ ] TypeScript quality checks
+  - [ ] Security checks (SQL injection, XSS, secrets)
 
 ### 1.8 Configuration System
 
-- [ ] Create YAML schema
-- [ ] Implement YAML parser
-- [ ] Add schema validation
+- [ ] Create YAML schema (.codereview.yaml)
+- [ ] Implement YAML parser with error reporting
+- [ ] Add JSON Schema validation
 - [ ] Set up default values
-- [ ] Implement config caching
+- [ ] Implement config caching with Redis
 - [ ] Fetch config from repository
-- [ ] Handle config inheritance
+- [ ] Handle config inheritance (org → repo → PR)
 - [ ] Validate config API endpoint
+- [ ] Path filtering with glob patterns
+- [ ] Path-specific instructions
+- [ ] Custom guidelines support
+
+### 1.8b Security Architecture
+
+- [ ] Zero-retention architecture (no code storage)
+- [ ] Sandboxed analysis environments
+- [ ] API key encryption (AES-256)
+- [ ] TLS 1.2+ in transit
+- [ ] No model training on customer code
+- [ ] JWT with short expiry and refresh rotation
 
 ### 1.9 Authentication UI
 
@@ -182,34 +205,63 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 ### 1.10 Dashboard UI
 
 - [ ] Create dashboard layout
-- [ ] Build sidebar navigation
-- [ ] Create header component
-- [ ] Build dashboard home page
-- [ ] Implement loading states
+- [ ] Build sidebar navigation with icons
+- [ ] Create header component with user menu
+- [ ] Build dashboard home page with stats
+- [ ] Implement loading states (skeletons)
 - [ ] Implement error states
-- [ ] Add responsive design
+- [ ] Add responsive design (mobile-first)
 - [ ] Create breadcrumb navigation
+- [ ] **Key Components:**
+  - [ ] RepositoryList component
+  - [ ] ReviewViewer component
+  - [ ] CostTracker component
+  - [ ] AnalyticsCharts component (Recharts)
+- [ ] **State Management (Redux Toolkit):**
+  - [ ] Auth slice
+  - [ ] Repositories slice
+  - [ ] Reviews slice
+  - [ ] Settings slice
+
+### 1.10b Marketing Website
+
+- [ ] Landing page with hero, features, pricing preview
+- [ ] Features page (AI reviews, BYOK, self-hosting)
+- [ ] Pricing page (Free, BYOK, Pro, Team, Enterprise)
+- [ ] Documentation section (Getting Started, Config, API)
+- [ ] Legal pages (Privacy, Terms, Security)
 
 ### 1.11 Repository Management UI
 
-- [ ] Create repositories list page
-- [ ] Build repository card component
-- [ ] Create connect repository flow
+- [ ] Create repositories list page with filters
+- [ ] Build repository card component with status
+- [ ] Create connect repository flow (OAuth)
 - [ ] Implement repository detail page
 - [ ] Build repository settings page
 - [ ] Add enable/disable toggle
-- [ ] Create delete confirmation
-- [ ] Show webhook status
+- [ ] Create delete confirmation dialog
+- [ ] Show webhook status indicator
 
 ### 1.12 Review Display UI
 
-- [ ] Create reviews list page
-- [ ] Build review card component
+- [ ] Create reviews list page with pagination
+- [ ] Build review card component with summary
 - [ ] Create review detail page
-- [ ] Implement comment display
-- [ ] Build diff view with comments
+- [ ] **DiffViewer component (Monaco Editor):**
+  - [ ] Unified and side-by-side diff
+  - [ ] Inline comment markers
+  - [ ] Syntax highlighting
+  - [ ] File tree navigation
+- [ ] **CommentThread component:**
+  - [ ] Threaded comments
+  - [ ] Severity badges
+  - [ ] Category tags
+  - [ ] Code snippets
+- [ ] **Streaming updates:**
+  - [ ] SSE for live review progress
+  - [ ] Progress indicator
 - [ ] Add status indicators
-- [ ] Implement filtering
+- [ ] Implement filtering (severity, category, file)
 - [ ] Add search functionality
 
 ### 1.13 Settings UI
@@ -224,14 +276,20 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 
 ### 1.14 Testing
 
-- [ ] Set up testing framework (Vitest)
-- [ ] Write Microservice unit tests
-- [ ] Write Client component tests
+- [ ] **Testing framework setup (Vitest):**
+  - [ ] vitest.config.ts with coverage thresholds
+  - [ ] Test utilities and custom matchers
+  - [ ] MSW for API mocking
+  - [ ] Test fixtures factory (faker.js)
+- [ ] Write Microservice unit tests (services, providers)
+- [ ] Write Client component tests (render tests)
 - [ ] Write utility function tests
-- [ ] Create integration tests
-- [ ] Set up E2E testing (Playwright)
-- [ ] Write core user flow tests
-- [ ] Achieve 80% coverage
+- [ ] Create integration tests (API, webhooks, reviews)
+- [ ] **E2E tests (Playwright):**
+  - [ ] Auth flows
+  - [ ] Repository connection
+  - [ ] Review viewing
+- [ ] Achieve 80% line and branch coverage
 
 ### 1.15 Polish & Launch Prep
 
@@ -252,7 +310,7 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 
 - [ ] Install Anthropic SDK
 - [ ] Create Anthropic provider class
-- [ ] Implement Claude review generation
+- [ ] Implement Claude review generation (Opus, Sonnet, Haiku)
 - [ ] Add token counting
 - [ ] Configure model selection
 - [ ] Add to provider factory
@@ -264,7 +322,7 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 
 - [ ] Install Google AI SDK
 - [ ] Create Gemini provider class
-- [ ] Implement Gemini review generation
+- [ ] Implement Gemini review generation (Pro, Flash)
 - [ ] Add token counting
 - [ ] Configure model selection
 - [ ] Add to provider factory
@@ -308,17 +366,56 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 - [ ] Add to platform factory
 - [ ] Test with Azure DevOps
 
-### 2.6 Usage Analytics
+### 2.6 Streaming & Caching
+
+- [ ] **Streaming review responses (SSE)**
+- [ ] **Review caching by commit SHA**
+- [ ] **Incremental reviews (only changed files)**
+- [ ] Real-time progress tracking
+- [ ] WebSocket fallback
+
+### 2.7 IDE Extensions
+
+- [ ] **VS Code Extension:**
+  - [ ] Pre-commit review trigger
+  - [ ] Inline review comments
+  - [ ] Configuration editor
+  - [ ] API key management
+- [ ] **JetBrains Plugin (basic):**
+  - [ ] IntelliJ IDEA, WebStorm, PyCharm
+
+### 2.8 Test Generation
+
+- [ ] Test generation service (Jest, Vitest, pytest)
+- [ ] Test coverage integration
+- [ ] `/test` command in PR comments
+- [ ] Generate tests for selected functions
+
+### 2.9 Business Context Integration
+
+- [ ] **Jira integration** (link PRs, acceptance criteria)
+- [ ] **Linear integration** (link issues)
+- [ ] Slack/Teams notifications
+- [ ] Custom webhooks
+
+### 2.10 Full Codebase Indexing
+
+- [ ] Codebase graph building (dependencies)
+- [ ] Vector embeddings for semantic search
+- [ ] Related file discovery
+- [ ] Cross-file impact analysis
+
+### 2.11 Usage Analytics
 
 - [ ] Implement usage tracking
 - [ ] Create analytics endpoints
 - [ ] Build analytics dashboard
-- [ ] Add cost breakdown
+- [ ] Add cost breakdown by provider
 - [ ] Create trend charts
 - [ ] Implement date filtering
 - [ ] Add export functionality
 
-### 2.7 Organization Management
+### 2.12 Organization Management
 
 - [ ] Create organization pages
 - [ ] Implement member invites
@@ -336,45 +433,101 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 - [ ] Implement SAML 2.0 support
 - [ ] Add OIDC support
 - [ ] Create SSO configuration UI
-- [ ] Test with major IdPs
+- [ ] Test with major IdPs (Okta, Azure AD, Google Workspace)
 - [ ] Document SSO setup
+- [ ] Just-in-time provisioning
 
 ### 3.2 SCIM Provisioning
 
 - [ ] Implement SCIM 2.0 endpoints
-- [ ] Add user provisioning
+- [ ] Add user provisioning (create, update, deactivate)
 - [ ] Add group sync
 - [ ] Create SCIM token management
 - [ ] Test with IdPs
+- [ ] Audit logging for SCIM operations
 
 ### 3.3 Audit Logging
 
 - [ ] Create audit log system
-- [ ] Log all security events
-- [ ] Build audit log viewer
-- [ ] Add log export
+- [ ] Log all security events (auth, config, API keys)
+- [ ] Build audit log viewer with search/filter
+- [ ] Add log export (CSV, JSON)
 - [ ] Implement retention policies
+- [ ] Log forwarding (syslog, webhook, SIEM)
 
 ### 3.4 Advanced RBAC
 
 - [ ] Implement custom roles
 - [ ] Add fine-grained permissions
+- [ ] Repository-level roles
+- [ ] Team-based access
 - [ ] Create permission inheritance
 - [ ] Build role management UI
+- [ ] Permission audit
 
 ### 3.5 Self-Hosted Enhancements
 
-- [ ] Create Kubernetes Helm charts
+- [ ] **Self-hosting at 50 seats** (key differentiator)
+- [ ] Create Kubernetes Helm charts (production-ready)
 - [ ] Document HA deployment
-- [ ] Add air-gapped support
+- [ ] Add air-gapped support with offline installation
 - [ ] Create backup automation
+- [ ] Disaster recovery guide
 
-### 3.6 Custom AI Models
+### 3.6 FedRAMP Authorization Path
 
-- [ ] Add Ollama integration
+**Note**: No AI code review tool currently holds FedRAMP authorization.
+
+- [ ] Gap analysis against FedRAMP Moderate
+- [ ] Third-party assessor (3PAO) selection
+- [ ] Continuous monitoring implementation
+- [ ] Vulnerability scanning and penetration testing
+- [ ] System Security Plan (SSP)
+- [ ] Timeline: 12-18 months, $500K-$1M
+
+### 3.7 Compliance Packages
+
+- [ ] **HIPAA compliance rules** (PHI detection, encryption)
+- [ ] **PCI-DSS rules** (cardholder data, encryption)
+- [ ] **SOX compliance rules** (audit trails)
+- [ ] **GDPR rules** (personal data handling)
+- [ ] Compliance reporting
+- [ ] Evidence collection for audits
+
+### 3.8 CodeGuru Migration
+
+- [ ] CodeGuru config import
+- [ ] Rule mapping documentation
+- [ ] One-click migration guide
+- [ ] Java/Python optimization
+- [ ] Marketing: comparison page, blog post
+
+### 3.9 Custom AI Models
+
+- [ ] Add Ollama integration (full)
 - [ ] Add vLLM integration
-- [ ] Create custom endpoint config
+- [ ] Text Generation Inference (TGI)
+- [ ] Azure OpenAI, AWS Bedrock, Vertex AI
+- [ ] Create custom endpoint config (OpenAI-compatible)
 - [ ] Build model testing tools
+- [ ] **Model fine-tuning support**
+
+### 3.10 Cross-Repository Context
+
+- [ ] Monorepo support (package dependencies)
+- [ ] Microservices context (API contracts)
+- [ ] Multi-repo semantic search
+- [ ] Breaking change detection
+
+### 3.11 Engineering Metrics Platform
+
+- [ ] Code quality trends over time
+- [ ] Review effectiveness metrics
+- [ ] False positive rate tracking
+- [ ] Developer productivity insights
+- [ ] Executive dashboards
+- [ ] ROI metrics
+- [ ] Cost optimization suggestions
 
 ---
 
@@ -405,6 +558,12 @@ _Record important architectural or design decisions:_
 | Jan 2026 | Use Strapi 5 for CMS | Modern headless CMS with good TypeScript support |
 | Jan 2026 | Use Bull for job queue | Reliable Redis-based queue with good monitoring |
 | Jan 2026 | Start with OpenAI only | Simplify MVP, add other providers in Phase 2 |
+| Jan 2026 | **BYOK from day 1** | Key differentiator - 67% cost savings for users, validated by Kodus/JetBrains |
+| Jan 2026 | **Self-hosting at 50 seats** | Fill gap - CodeRabbit requires 500, mid-market underserved |
+| Jan 2026 | **Zero-retention architecture** | Security-first - #2 user concern, CodeRabbit incident lesson |
+| Jan 2026 | **Target <30% false positives** | #1 user complaint across all tools (industry: 60-80%) |
+| Jan 2026 | **FedRAMP as Phase 3 opportunity** | No AI code review tool authorized - major market gap |
+| Jan 2026 | **CodeGuru migration marketing** | Service discontinued Nov 2025 - orphaned customers |
 
 ---
 
@@ -456,3 +615,9 @@ docker-compose -f docker-compose.prod.yml build
 | Date | Author | Changes |
 |------|--------|---------|
 | Jan 2026 | Initial | Created project foundation and documentation |
+| Jan 18, 2026 | AI Agent | Expanded roadmaps with comprehensive features from planning docs |
+| | | Added: BYOK support, zero-retention, streaming, test generation |
+| | | Added: IDE extensions, FedRAMP path, compliance packages |
+| | | Added: CodeGuru migration, cross-repo context, engineering metrics |
+| | | Added: Marketing website pages, specific UI components |
+| | | Updated key decisions log with strategic differentiators |

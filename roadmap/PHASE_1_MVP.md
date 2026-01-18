@@ -6,9 +6,25 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
 - GitHub integration only
 - OpenAI as the primary AI provider
 - Basic dashboard and configuration
+- **BYOK (Bring Your Own Key) support from day 1** (key differentiator)
+- **Zero-retention architecture** (security-first)
+- **Marketing website foundation**
 
 **Timeline**: 4-6 weeks
-**Goal**: Functional code review platform for GitHub repositories
+**Goal**: Functional code review platform for GitHub repositories with enterprise-ready security
+
+---
+
+## Key Differentiators (Built into MVP)
+
+These features differentiate us from competitors from launch:
+
+| Feature | Why It Matters | Competitor Gap |
+|---------|---------------|----------------|
+| **BYOK from day 1** | 67% cost savings for users | Most only offer at enterprise tier |
+| **Zero-retention** | Code never stored after review | Trust/security requirement |
+| **Transparent pricing** | Published enterprise pricing | Universal frustration with "contact sales" |
+| **Low false positives** | Target <30% (vs industry 60-80%) | #1 user complaint across all tools |
 
 ---
 
@@ -81,55 +97,157 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
 
 - [ ] OpenAI provider:
   - [ ] Client initialization
-  - [ ] Review generation
-  - [ ] Token counting
+  - [ ] Review generation with streaming responses
+  - [ ] Token counting and cost calculation
   - [ ] Error handling
-  - [ ] Rate limit handling
+  - [ ] Rate limit handling with exponential backoff
+- [ ] **BYOK (Bring Your Own Key) support:**
+  - [ ] Encrypted API key storage (AES-256)
+  - [ ] Key validation endpoint
+  - [ ] Multi-provider key support (OpenAI, future: Anthropic, Gemini)
+  - [ ] User-level vs organization-level keys
 - [ ] Diff processing:
-  - [ ] Parse unified diff
-  - [ ] Split into files
-  - [ ] Filter by config
-  - [ ] Chunk for context window
+  - [ ] Parse unified diff format
+  - [ ] Split into files with metadata
+  - [ ] Filter by config (.codereview.yaml)
+  - [ ] Intelligent chunking for context window
+  - [ ] Handle large PRs (100+ files) with batching
 - [ ] Review generation:
-  - [ ] System prompt
-  - [ ] Code context inclusion
-  - [ ] Comment formatting
-  - [ ] Severity classification
+  - [ ] System prompt with customization
+  - [ ] Code context inclusion (file + surrounding)
+  - [ ] Comment formatting (markdown, code blocks)
+  - [ ] Severity classification (critical, major, minor, info)
+  - [ ] Category tagging (bug, security, performance, style, suggestion, praise)
+- [ ] **Automated code review checklist:**
+  - [ ] Forbidden patterns detection (any, @ts-ignore, console.log)
+  - [ ] TypeScript quality checks (explicit return types, no implicit any)
+  - [ ] Security checks (SQL injection, XSS, secrets detection)
+  - [ ] Configurable rule severity
 - [ ] Job queue:
-  - [ ] Review job processor
-  - [ ] Retry logic
-  - [ ] Progress tracking
+  - [ ] Review job processor with Bull
+  - [ ] Retry logic with dead letter queue
+  - [ ] Progress tracking with SSE updates
+  - [ ] Job cancellation support
+- [ ] **Cost estimation:**
+  - [ ] Pre-review cost estimate endpoint
+  - [ ] Actual cost tracking per review
+  - [ ] Usage dashboard data collection
 
 ### Milestone 6: Configuration System
 **Status**: Not Started
 
-- [ ] YAML parser
-- [ ] Schema validation
-- [ ] Default values
-- [ ] Config caching
-- [ ] Fetch from repository
-- [ ] Override hierarchy
+- [ ] **YAML parser (.codereview.yaml):**
+  - [ ] Parse and validate YAML structure
+  - [ ] JSON Schema for validation
+  - [ ] Error reporting with line numbers
+- [ ] **Configuration options:**
+  - [ ] `language`: Review comment language
+  - [ ] `reviews.profile`: thorough, balanced, quick
+  - [ ] `reviews.auto_review`: enabled, drafts
+  - [ ] `reviews.summary`: Generate high-level summary
+  - [ ] `reviews.request_changes`: Request changes vs comment
+  - [ ] `ai.provider`: openai (Phase 1), anthropic, gemini (Phase 2)
+  - [ ] `ai.model`: Model selection
+  - [ ] `ai.temperature`: 0-1 for determinism
+  - [ ] `ai.max_tokens_per_file`: Token limit per file
+- [ ] **Path filtering:**
+  - [ ] `path_filters`: Include/exclude patterns
+  - [ ] Glob pattern support (**, *, !)
+  - [ ] Default exclusions (node_modules, dist, lock files)
+- [ ] **Path-specific instructions:**
+  - [ ] `path_instructions`: Per-path review focus
+  - [ ] Pattern matching (*.tsx, **/api/**, etc.)
+  - [ ] Custom instructions per path type
+- [ ] **Custom guidelines:**
+  - [ ] `guidelines`: Array of custom review rules
+  - [ ] Reference to external docs
+  - [ ] Natural language rule definition
+- [ ] **Config inheritance:**
+  - [ ] Repository config overrides org defaults
+  - [ ] PR-level config (via comments) overrides repo
+  - [ ] Environment-specific configs
+- [ ] **Config caching:**
+  - [ ] Redis cache with TTL
+  - [ ] Invalidation on push to default branch
+  - [ ] Fallback to defaults on error
+- [ ] **Config validation endpoint:**
+  - [ ] Validate config without review
+  - [ ] Preview effective configuration
 
 ### Milestone 7: Client Dashboard
 **Status**: Not Started
 
 - [ ] Next.js 14 setup with App Router
+- [ ] **UI Component Library (shadcn/ui):**
+  - [ ] Button, Input, Form components
+  - [ ] Card, Table, Dialog components
+  - [ ] Toast notifications
+  - [ ] Loading skeletons
 - [ ] Authentication pages:
-  - [ ] Login
-  - [ ] Register
-  - [ ] Forgot password
-  - [ ] OAuth callback
+  - [ ] Login page with OAuth options
+  - [ ] Register page with email verification
+  - [ ] Forgot password flow
+  - [ ] OAuth callback handler (GitHub)
+  - [ ] Auth context/provider with JWT
 - [ ] Dashboard layout:
-  - [ ] Sidebar navigation
-  - [ ] Header
-  - [ ] Responsive design
+  - [ ] Sidebar navigation with icons
+  - [ ] Header with user menu
+  - [ ] Breadcrumb navigation
+  - [ ] Responsive design (mobile-first)
+- [ ] **Key Dashboard Components:**
+  - [ ] `RepositoryList` - repository cards with status
+  - [ ] `ReviewViewer` - full review display
+  - [ ] `DiffViewer` - Monaco-based diff view with comments
+  - [ ] `CommentThread` - threaded comment display
+  - [ ] `CostTracker` - usage and cost display
+  - [ ] `AnalyticsCharts` - review trends (Recharts)
 - [ ] Core pages:
-  - [ ] Dashboard home (overview)
-  - [ ] Repositories list
-  - [ ] Repository detail
-  - [ ] Reviews list
-  - [ ] Review detail
-  - [ ] Settings
+  - [ ] Dashboard home (overview with stats)
+  - [ ] Repositories list with filters
+  - [ ] Repository detail with recent reviews
+  - [ ] Reviews list with status filters
+  - [ ] Review detail with inline comments
+  - [ ] Settings (profile, API keys, config)
+- [ ] **State Management (Redux Toolkit):**
+  - [ ] Auth slice (user, tokens)
+  - [ ] Repositories slice
+  - [ ] Reviews slice
+  - [ ] Settings slice
+
+### Milestone 7b: Marketing Website
+**Status**: Not Started
+
+- [ ] **Landing Page (/):**
+  - [ ] Hero section with demo/animation
+  - [ ] Key features (3-4 blocks)
+  - [ ] How it works (3 steps)
+  - [ ] Pricing preview
+  - [ ] CTA: "Start Free Trial"
+- [ ] **Features Page (/features):**
+  - [ ] AI-powered reviews detail
+  - [ ] Multi-platform support
+  - [ ] BYOK explanation
+  - [ ] Self-hosting option
+  - [ ] Configuration flexibility
+  - [ ] Cost transparency
+- [ ] **Pricing Page (/pricing):**
+  - [ ] Free tier details
+  - [ ] BYOK tier ($10/dev/mo)
+  - [ ] Pro tier ($15/dev/mo)
+  - [ ] Team tier ($24/dev/mo)
+  - [ ] Enterprise tier ($35+/dev/mo)
+  - [ ] Feature comparison table
+  - [ ] FAQ section
+- [ ] **Documentation (/docs):**
+  - [ ] Getting Started guide
+  - [ ] Configuration Reference (.codereview.yaml)
+  - [ ] API Documentation
+  - [ ] GitHub App Setup
+  - [ ] Self-Hosting Guide (basic)
+- [ ] **Legal Pages:**
+  - [ ] Privacy Policy (/privacy)
+  - [ ] Terms of Service (/terms)
+  - [ ] Security (/security)
 
 ### Milestone 8: Repository Management
 **Status**: Not Started
@@ -143,12 +261,38 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
 ### Milestone 9: Review Display
 **Status**: Not Started
 
-- [ ] Review list view
-- [ ] Review detail view
-- [ ] Comment display
-- [ ] Diff view with comments
-- [ ] Status indicators
-- [ ] Filter and search
+- [ ] Review list view:
+  - [ ] Paginated list with filters (status, repo, date)
+  - [ ] Review cards with summary, status, cost
+  - [ ] Sort by date, status, comment count
+- [ ] Review detail view:
+  - [ ] PR summary section
+  - [ ] Review metadata (model, tokens, cost, duration)
+  - [ ] Comment statistics (by severity, category)
+- [ ] **DiffViewer component (Monaco Editor):**
+  - [ ] Unified diff display
+  - [ ] Side-by-side diff option
+  - [ ] Inline comment markers
+  - [ ] Syntax highlighting
+  - [ ] File tree navigation
+- [ ] **CommentThread component:**
+  - [ ] Threaded comment display
+  - [ ] Severity badges (critical, major, minor, info)
+  - [ ] Category tags (bug, security, performance, style)
+  - [ ] Code snippet with line reference
+  - [ ] Suggested fix display
+- [ ] **Streaming review updates:**
+  - [ ] SSE connection for live updates
+  - [ ] Progress indicator during generation
+  - [ ] Real-time comment appearance
+- [ ] Status indicators:
+  - [ ] Pending, In Progress, Completed, Failed
+  - [ ] Webhook status on repository
+- [ ] Filter and search:
+  - [ ] Full-text search
+  - [ ] Filter by severity
+  - [ ] Filter by category
+  - [ ] Filter by file path
 
 ### Milestone 10: Settings & API Keys
 **Status**: Not Started
@@ -161,32 +305,85 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
   - [ ] Key hint display
 - [ ] Organization settings
 
-### Milestone 11: Testing
+### Milestone 11: Security Architecture
 **Status**: Not Started
 
+- [ ] **Zero-retention architecture:**
+  - [ ] Code processed in memory only
+  - [ ] No code storage after review completion
+  - [ ] Audit log without code content
+- [ ] **Sandboxed analysis:**
+  - [ ] Isolated review environments
+  - [ ] No cross-tenant data access
+  - [ ] Resource limits per review
+- [ ] **API key security:**
+  - [ ] AES-256 encryption at rest
+  - [ ] Key hint storage (last 4 chars only)
+  - [ ] Key rotation support
+- [ ] **Data handling:**
+  - [ ] TLS 1.2+ in transit
+  - [ ] No model training on customer code
+  - [ ] Data residency documentation
+- [ ] **Authentication security:**
+  - [ ] JWT with short expiry
+  - [ ] Refresh token rotation
+  - [ ] Session management
+
+### Milestone 12: Testing
+**Status**: Not Started
+
+- [ ] **Testing framework setup (Vitest):**
+  - [ ] vitest.config.ts with coverage thresholds
+  - [ ] Test utilities and custom matchers
+  - [ ] MSW for API mocking
+  - [ ] Test fixtures factory (faker.js)
 - [ ] Unit tests:
-  - [ ] Microservice services
-  - [ ] Client components
+  - [ ] Microservice services (diff parser, AI router, cost calculator)
+  - [ ] Client components (render tests)
   - [ ] Utility functions
+  - [ ] Provider implementations
 - [ ] Integration tests:
-  - [ ] API endpoints
-  - [ ] Webhook processing
-  - [ ] Review generation
-- [ ] E2E tests:
-  - [ ] User flows
-  - [ ] Repository connection
-  - [ ] Review viewing
+  - [ ] API endpoints (Supertest)
+  - [ ] Webhook processing flow
+  - [ ] Review generation pipeline
+  - [ ] Authentication flows
+- [ ] **E2E tests (Playwright):**
+  - [ ] Auth flows (login, register, OAuth)
+  - [ ] Repository connection flow
+  - [ ] Review viewing and navigation
+  - [ ] Settings management
+- [ ] **Coverage requirements:**
+  - [ ] 80% line coverage
+  - [ ] 80% branch coverage
+  - [ ] Critical paths 100% covered
 
-### Milestone 12: Documentation & Polish
+### Milestone 13: Documentation & Polish
 **Status**: Not Started
 
-- [ ] User documentation
-- [ ] API documentation finalization
-- [ ] Error messages
-- [ ] Loading states
-- [ ] Empty states
-- [ ] Responsive testing
-- [ ] Performance optimization
+- [ ] **User documentation:**
+  - [ ] Getting started tutorial
+  - [ ] GitHub App installation guide
+  - [ ] Configuration reference (.codereview.yaml)
+  - [ ] Troubleshooting guide
+- [ ] **API documentation:**
+  - [ ] OpenAPI/Swagger spec
+  - [ ] Request/response examples
+  - [ ] Error codes reference
+  - [ ] Rate limits documentation
+- [ ] **UI polish:**
+  - [ ] Error messages (user-friendly, actionable)
+  - [ ] Loading states (skeletons, spinners)
+  - [ ] Empty states (helpful guidance)
+  - [ ] Success/confirmation states
+- [ ] **Responsive testing:**
+  - [ ] Mobile viewport (320px+)
+  - [ ] Tablet viewport (768px+)
+  - [ ] Desktop viewport (1024px+)
+- [ ] **Performance optimization:**
+  - [ ] Bundle size analysis
+  - [ ] Image optimization
+  - [ ] API response caching
+  - [ ] Lighthouse score >90
 
 ---
 
