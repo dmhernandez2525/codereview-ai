@@ -18,7 +18,7 @@ FROM base AS deps
 # Copy root package files for workspace support
 COPY package.json package-lock.json ./
 COPY Server/package.json ./Server/
-RUN npm ci --workspace=Server
+RUN npm ci --workspace=Server && npm rebuild --workspace=Server
 
 # =============================================================================
 # Builder stage - build the application
