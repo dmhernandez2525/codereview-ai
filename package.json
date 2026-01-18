@@ -1,0 +1,30 @@
+{
+  "name": "codereview-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-powered code review platform",
+  "workspaces": [
+    "Client",
+    "Server",
+    "Microservice"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --ignore-pattern node_modules --ignore-pattern dist --ignore-pattern .next --ignore-pattern build",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix --ignore-pattern node_modules --ignore-pattern dist --ignore-pattern .next --ignore-pattern build",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\" --ignore-path .gitignore",
+    "type-check": "npm run type-check --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:client": "npm run dev --workspace=Client",
+    "dev:server": "npm run dev --workspace=Server",
+    "dev:microservice": "npm run dev --workspace=Microservice"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
