@@ -239,7 +239,7 @@ jobs:
       - name: Build Client image
         uses: docker/build-push-action@v5
         with:
-          context: ./Client
+          context: .
           file: ./Client/Dockerfile
           push: false
           target: production
@@ -249,7 +249,7 @@ jobs:
       - name: Build Server image
         uses: docker/build-push-action@v5
         with:
-          context: ./Server
+          context: .
           file: ./Server/Dockerfile
           push: false
           target: production
@@ -259,7 +259,7 @@ jobs:
       - name: Build Microservice image
         uses: docker/build-push-action@v5
         with:
-          context: ./Microservice
+          context: .
           file: ./Microservice/Dockerfile
           push: false
           target: production

@@ -11,16 +11,20 @@ WORKDIR /app
 # Dependencies stage - install node modules
 # =============================================================================
 FROM base AS deps
+# Copy root package files for workspace support
 COPY package.json package-lock.json ./
-RUN npm ci
+COPY Microservice/package.json ./Microservice/
+RUN npm ci --workspace=Microservice
 
 # =============================================================================
 # Builder stage - build the application
 # =============================================================================
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=deps /app/Microservice/node_modules ./Microservice/node_modules
+COPY Microservice/ ./Microservice/
 
+WORKDIR /app/Microservice
 RUN npm run build
 
 # =============================================================================
@@ -34,12 +38,13 @@ RUN adduser --system --uid 1001 express
 
 WORKDIR /app
 
-# Copy production dependencies only
+# Copy package files and install production deps only
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY Microservice/package.json ./Microservice/
+RUN npm ci --workspace=Microservice --omit=dev && npm cache clean --force
 
 # Copy built artifacts
-COPY --from=builder --chown=express:express /app/dist ./dist
+COPY --from=builder --chown=express:express /app/Microservice/dist ./dist
 
 USER express
 

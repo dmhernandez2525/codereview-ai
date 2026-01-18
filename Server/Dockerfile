@@ -11,16 +11,20 @@ WORKDIR /app
 # Dependencies stage - install node modules
 # =============================================================================
 FROM base AS deps
+# Copy root package files for workspace support
 COPY package.json package-lock.json ./
-RUN npm ci
+COPY Server/package.json ./Server/
+RUN npm ci --workspace=Server
 
 # =============================================================================
 # Builder stage - build the application
 # =============================================================================
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=deps /app/Server/node_modules ./Server/node_modules
+COPY Server/ ./Server/
 
+WORKDIR /app/Server
 ENV NODE_ENV=production
 RUN npm run build
 
@@ -36,15 +40,14 @@ RUN adduser --system --uid 1001 strapi
 WORKDIR /app
 
 # Copy built artifacts
-COPY --from=builder --chown=strapi:strapi /app/package.json ./
-COPY --from=builder --chown=strapi:strapi /app/package-lock.json ./
-COPY --from=builder --chown=strapi:strapi /app/node_modules ./node_modules
-COPY --from=builder --chown=strapi:strapi /app/dist ./dist
-COPY --from=builder --chown=strapi:strapi /app/config ./config
-COPY --from=builder --chown=strapi:strapi /app/src ./src
-COPY --from=builder --chown=strapi:strapi /app/public ./public
-COPY --from=builder --chown=strapi:strapi /app/database ./database
-COPY --from=builder --chown=strapi:strapi /app/types ./types
+COPY --from=builder --chown=strapi:strapi /app/Server/package.json ./
+COPY --from=builder --chown=strapi:strapi /app/Server/node_modules ./node_modules
+COPY --from=builder --chown=strapi:strapi /app/Server/dist ./dist
+COPY --from=builder --chown=strapi:strapi /app/Server/config ./config
+COPY --from=builder --chown=strapi:strapi /app/Server/src ./src
+COPY --from=builder --chown=strapi:strapi /app/Server/public ./public
+COPY --from=builder --chown=strapi:strapi /app/Server/database ./database
+COPY --from=builder --chown=strapi:strapi /app/Server/types ./types
 
 USER strapi
 

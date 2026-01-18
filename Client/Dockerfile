@@ -11,16 +11,20 @@ WORKDIR /app
 # Dependencies stage - install node modules
 # =============================================================================
 FROM base AS deps
+# Copy root package files for workspace support
 COPY package.json package-lock.json ./
-RUN npm ci
+COPY Client/package.json ./Client/
+RUN npm ci --workspace=Client
 
 # =============================================================================
 # Builder stage - build the application
 # =============================================================================
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=deps /app/Client/node_modules ./Client/node_modules
+COPY Client/ ./Client/
 
+WORKDIR /app/Client
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
@@ -34,15 +38,15 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/Client/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/Client/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/Client/.next/static ./.next/static
 
 USER nextjs
 
