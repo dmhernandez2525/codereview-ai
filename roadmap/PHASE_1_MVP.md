@@ -31,22 +31,22 @@ These features differentiate us from competitors from launch:
 ## Milestones
 
 ### Milestone 1: Project Initialization
-**Status**: In Progress
+**Status**: Complete
 
 - [x] Project structure created
 - [x] Documentation foundation
 - [x] Configuration files (ESLint, Prettier, TypeScript)
 - [x] Docker Compose setup
 - [x] CI/CD pipeline
-- [ ] Initialize Client (Next.js)
-- [ ] Initialize Server (Strapi)
-- [ ] Initialize Microservice (Express)
+- [x] Initialize Client (Next.js)
+- [x] Initialize Server (Strapi)
+- [x] Initialize Microservice (Express)
 
 ### Milestone 2: Server (Strapi) Setup
-**Status**: Not Started
+**Status**: In Progress
 
-- [ ] Install Strapi 5
-- [ ] Configure PostgreSQL connection
+- [x] Install Strapi 5
+- [x] Configure PostgreSQL connection
 - [ ] Create content types:
   - [ ] Organization
   - [ ] Repository
