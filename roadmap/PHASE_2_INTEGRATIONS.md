@@ -2,12 +2,14 @@
 
 ## Overview
 
-Phase 2 expands CodeReview AI with additional AI providers and Git platform integrations.
+Phase 2 expands CodeReview AI with additional AI providers and Git platform
+integrations.
 
-**Timeline**: 4-6 weeks (after Phase 1)
-**Goal**: Support all major AI providers and Git platforms
+**Timeline**: 4-6 weeks (after Phase 1) **Goal**: Support all major AI providers
+and Git platforms
 
 ### Key Additions in Phase 2
+
 - **Anthropic (Claude)** and **Google Gemini** AI providers
 - **GitLab, Bitbucket, Azure DevOps** platform integrations
 - **Streaming review responses** for better UX
@@ -30,6 +32,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 ## Milestones
 
 ### Milestone 1: Anthropic Integration
+
 **Status**: Not Started
 
 - [ ] Anthropic SDK integration
@@ -45,6 +48,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Documentation
 
 ### Milestone 2: Google Gemini Integration
+
 **Status**: Not Started
 
 - [ ] Google AI SDK integration
@@ -59,6 +63,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Documentation
 
 ### Milestone 3: Provider Abstraction Layer
+
 **Status**: Not Started
 
 - [ ] Unified provider interface
@@ -69,6 +74,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Model capability comparison
 
 ### Milestone 4: GitLab Integration
+
 **Status**: Not Started
 
 - [ ] GitLab webhook handler:
@@ -87,6 +93,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Documentation
 
 ### Milestone 5: Bitbucket Integration
+
 **Status**: Not Started
 
 - [ ] Bitbucket webhook handler:
@@ -105,6 +112,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Documentation
 
 ### Milestone 6: Azure DevOps Integration
+
 **Status**: Not Started
 
 - [ ] Azure DevOps webhook handler:
@@ -123,6 +131,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Documentation
 
 ### Milestone 7: Platform Abstraction Layer
+
 **Status**: Not Started
 
 - [ ] Unified Git platform interface
@@ -133,6 +142,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Error handling per platform
 
 ### Milestone 8: Usage Analytics Dashboard
+
 **Status**: Not Started
 
 - [ ] Usage tracking:
@@ -149,6 +159,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Date range filtering
 
 ### Milestone 9: Enhanced Configuration
+
 **Status**: Not Started
 
 - [ ] Path-specific configurations:
@@ -176,6 +187,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Share between repos
 
 ### Milestone 9b: Streaming & Real-time Features
+
 **Status**: Not Started
 
 - [ ] **Streaming review responses:**
@@ -197,6 +209,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Estimated time remaining
 
 ### Milestone 9c: IDE Extensions
+
 **Status**: Not Started
 
 - [ ] **VS Code Extension:**
@@ -212,6 +225,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Pre-commit review
 
 ### Milestone 9d: Test Generation
+
 **Status**: Not Started
 
 - [ ] **Test generation service:**
@@ -228,6 +242,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Test file creation suggestions
 
 ### Milestone 9e: Business Context Integration
+
 **Status**: Not Started
 
 - [ ] **Jira integration:**
@@ -243,6 +258,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Teams notifications
 
 ### Milestone 9f: Full Codebase Indexing
+
 **Status**: Not Started
 
 - [ ] **Codebase graph building:**
@@ -259,6 +275,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
   - [ ] Multi-hop investigation capabilities
 
 ### Milestone 10: Multi-Tenant Enhancements
+
 **Status**: Not Started
 
 - [ ] Organization management:
@@ -274,6 +291,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Cross-organization isolation
 
 ### Milestone 11: Notification System
+
 **Status**: Not Started
 
 - [ ] Email notifications:
@@ -288,6 +306,7 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 - [ ] Notification templates
 
 ### Milestone 12: Testing & Documentation
+
 **Status**: Not Started
 
 - [ ] Integration tests for all providers
@@ -304,22 +323,23 @@ Phase 2 expands CodeReview AI with additional AI providers and Git platform inte
 
 ### New Providers
 
-| Provider | Models | Max Context |
-|----------|--------|-------------|
+| Provider  | Models                                         | Max Context |
+| --------- | ---------------------------------------------- | ----------- |
 | Anthropic | claude-3-opus, claude-3-sonnet, claude-3-haiku | 200K tokens |
-| Gemini | gemini-1.5-pro, gemini-1.5-flash | 1M tokens |
+| Gemini    | gemini-1.5-pro, gemini-1.5-flash               | 1M tokens   |
 
 ### New Platforms
 
-| Platform | Auth Method | Webhook Format |
-|----------|-------------|----------------|
-| GitLab | OAuth 2.0 + Token | JSON webhook |
-| Bitbucket | OAuth 2.0 | JSON webhook |
-| Azure DevOps | OAuth 2.0 + PAT | Service hooks |
+| Platform     | Auth Method       | Webhook Format |
+| ------------ | ----------------- | -------------- |
+| GitLab       | OAuth 2.0 + Token | JSON webhook   |
+| Bitbucket    | OAuth 2.0         | JSON webhook   |
+| Azure DevOps | OAuth 2.0 + PAT   | Service hooks  |
 
 ### New API Endpoints
 
 **Microservice**:
+
 ```
 POST /api/v1/webhooks/gitlab
 POST /api/v1/webhooks/bitbucket
@@ -329,6 +349,7 @@ POST /api/v1/providers/:provider/test
 ```
 
 **Server (Strapi)**:
+
 ```
 GET  /api/usage-logs/summary
 GET  /api/organizations/:id/members
@@ -387,12 +408,12 @@ PUT  /api/organizations/:id/members/:userId
 
 ## Risk Assessment
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| API differences between platforms | High | Strong abstraction layer |
-| Provider API changes | Medium | Version pinning, monitoring |
-| Rate limits across providers | Medium | Queue management, caching |
-| Increased complexity | Medium | Thorough testing, documentation |
+| Risk                              | Impact | Mitigation                      |
+| --------------------------------- | ------ | ------------------------------- |
+| API differences between platforms | High   | Strong abstraction layer        |
+| Provider API changes              | Medium | Version pinning, monitoring     |
+| Rate limits across providers      | Medium | Queue management, caching       |
+| Increased complexity              | Medium | Thorough testing, documentation |
 
 ---
 

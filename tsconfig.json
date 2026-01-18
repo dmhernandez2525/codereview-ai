@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "references": [{ "path": "./Client" }, { "path": "./Microservice" }],
+  "include": [],
+  "exclude": ["node_modules", "Server"]
+}

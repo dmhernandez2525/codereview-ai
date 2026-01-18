@@ -3,6 +3,7 @@
 ## Overview
 
 Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
+
 - GitHub integration only
 - OpenAI as the primary AI provider
 - Basic dashboard and configuration
@@ -10,8 +11,8 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
 - **Zero-retention architecture** (security-first)
 - **Marketing website foundation**
 
-**Timeline**: 4-6 weeks
-**Goal**: Functional code review platform for GitHub repositories with enterprise-ready security
+**Timeline**: 4-6 weeks **Goal**: Functional code review platform for GitHub
+repositories with enterprise-ready security
 
 ---
 
@@ -19,18 +20,19 @@ Phase 1 focuses on delivering a Minimum Viable Product with core functionality:
 
 These features differentiate us from competitors from launch:
 
-| Feature | Why It Matters | Competitor Gap |
-|---------|---------------|----------------|
-| **BYOK from day 1** | 67% cost savings for users | Most only offer at enterprise tier |
-| **Zero-retention** | Code never stored after review | Trust/security requirement |
-| **Transparent pricing** | Published enterprise pricing | Universal frustration with "contact sales" |
-| **Low false positives** | Target <30% (vs industry 60-80%) | #1 user complaint across all tools |
+| Feature                 | Why It Matters                   | Competitor Gap                             |
+| ----------------------- | -------------------------------- | ------------------------------------------ |
+| **BYOK from day 1**     | 67% cost savings for users       | Most only offer at enterprise tier         |
+| **Zero-retention**      | Code never stored after review   | Trust/security requirement                 |
+| **Transparent pricing** | Published enterprise pricing     | Universal frustration with "contact sales" |
+| **Low false positives** | Target <30% (vs industry 60-80%) | #1 user complaint across all tools         |
 
 ---
 
 ## Milestones
 
 ### Milestone 1: Project Initialization
+
 **Status**: Complete
 
 - [x] Project structure created
@@ -43,6 +45,7 @@ These features differentiate us from competitors from launch:
 - [x] Initialize Microservice (Express)
 
 ### Milestone 2: Server (Strapi) Setup
+
 **Status**: In Progress
 
 - [x] Install Strapi 5
@@ -64,6 +67,7 @@ These features differentiate us from competitors from launch:
   - [ ] API key management
 
 ### Milestone 3: Microservice Setup
+
 **Status**: Not Started
 
 - [ ] Express app initialization
@@ -78,6 +82,7 @@ These features differentiate us from competitors from launch:
 - [ ] Redis connection (Bull queue)
 
 ### Milestone 4: GitHub Integration
+
 **Status**: Not Started
 
 - [ ] GitHub App creation guide
@@ -93,6 +98,7 @@ These features differentiate us from competitors from launch:
 - [ ] OAuth flow for user connection
 
 ### Milestone 5: AI Review Engine
+
 **Status**: Not Started
 
 - [ ] OpenAI provider:
@@ -134,6 +140,7 @@ These features differentiate us from competitors from launch:
   - [ ] Usage dashboard data collection
 
 ### Milestone 6: Configuration System
+
 **Status**: Not Started
 
 - [ ] **YAML parser (.codereview.yaml):**
@@ -152,11 +159,11 @@ These features differentiate us from competitors from launch:
   - [ ] `ai.max_tokens_per_file`: Token limit per file
 - [ ] **Path filtering:**
   - [ ] `path_filters`: Include/exclude patterns
-  - [ ] Glob pattern support (**, *, !)
+  - [ ] Glob pattern support (\*_, _, !)
   - [ ] Default exclusions (node_modules, dist, lock files)
 - [ ] **Path-specific instructions:**
   - [ ] `path_instructions`: Per-path review focus
-  - [ ] Pattern matching (*.tsx, **/api/**, etc.)
+  - [ ] Pattern matching (\*.tsx, **/api/**, etc.)
   - [ ] Custom instructions per path type
 - [ ] **Custom guidelines:**
   - [ ] `guidelines`: Array of custom review rules
@@ -175,6 +182,7 @@ These features differentiate us from competitors from launch:
   - [ ] Preview effective configuration
 
 ### Milestone 7: Client Dashboard
+
 **Status**: Not Started
 
 - [ ] Next.js 14 setup with App Router
@@ -215,6 +223,7 @@ These features differentiate us from competitors from launch:
   - [ ] Settings slice
 
 ### Milestone 7b: Marketing Website
+
 **Status**: Not Started
 
 - [ ] **Landing Page (/):**
@@ -250,6 +259,7 @@ These features differentiate us from competitors from launch:
   - [ ] Security (/security)
 
 ### Milestone 8: Repository Management
+
 **Status**: Not Started
 
 - [ ] Connect repository flow
@@ -259,6 +269,7 @@ These features differentiate us from competitors from launch:
 - [ ] Delete repository
 
 ### Milestone 9: Review Display
+
 **Status**: Not Started
 
 - [ ] Review list view:
@@ -295,6 +306,7 @@ These features differentiate us from competitors from launch:
   - [ ] Filter by file path
 
 ### Milestone 10: Settings & API Keys
+
 **Status**: Not Started
 
 - [ ] User profile settings
@@ -306,6 +318,7 @@ These features differentiate us from competitors from launch:
 - [ ] Organization settings
 
 ### Milestone 11: Security Architecture
+
 **Status**: Not Started
 
 - [ ] **Zero-retention architecture:**
@@ -330,6 +343,7 @@ These features differentiate us from competitors from launch:
   - [ ] Session management
 
 ### Milestone 12: Testing
+
 **Status**: Not Started
 
 - [ ] **Testing framework setup (Vitest):**
@@ -358,6 +372,7 @@ These features differentiate us from competitors from launch:
   - [ ] Critical paths 100% covered
 
 ### Milestone 13: Documentation & Polish
+
 **Status**: Not Started
 
 - [ ] **User documentation:**
@@ -391,21 +406,23 @@ These features differentiate us from competitors from launch:
 
 ### Technology Stack (Phase 1)
 
-| Component | Technology |
-|-----------|------------|
-| Client | Next.js 14, TypeScript, Tailwind, shadcn/ui |
-| Server | Strapi 5, PostgreSQL |
-| Microservice | Express, TypeScript, Bull |
-| AI | OpenAI GPT-4 Turbo |
-| Platform | GitHub only |
+| Component    | Technology                                  |
+| ------------ | ------------------------------------------- |
+| Client       | Next.js 14, TypeScript, Tailwind, shadcn/ui |
+| Server       | Strapi 5, PostgreSQL                        |
+| Microservice | Express, TypeScript, Bull                   |
+| AI           | OpenAI GPT-4 Turbo                          |
+| Platform     | GitHub only                                 |
 
 ### Database Schema (Phase 1)
 
-See [SOFTWARE_DESIGN_DOCUMENT.md](../docs/SOFTWARE_DESIGN_DOCUMENT.md#4-database-schema)
+See
+[SOFTWARE_DESIGN_DOCUMENT.md](../docs/SOFTWARE_DESIGN_DOCUMENT.md#4-database-schema)
 
 ### API Endpoints (Phase 1)
 
 **Server (Strapi)**:
+
 - Authentication: `/api/auth/*`
 - Organizations: `/api/organizations`
 - Repositories: `/api/repositories`
@@ -413,6 +430,7 @@ See [SOFTWARE_DESIGN_DOCUMENT.md](../docs/SOFTWARE_DESIGN_DOCUMENT.md#4-database
 - API Keys: `/api/api-keys`
 
 **Microservice**:
+
 - Health: `/api/v1/health`
 - Webhooks: `/api/v1/webhooks/github`
 - Reviews: `/api/v1/reviews`
@@ -472,12 +490,12 @@ See [SOFTWARE_DESIGN_DOCUMENT.md](../docs/SOFTWARE_DESIGN_DOCUMENT.md#4-database
 
 ## Risk Assessment
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| OpenAI rate limits | High | Implement queuing, retry logic |
-| GitHub API limits | Medium | Cache responses, optimize calls |
-| Large diffs | Medium | Chunk processing, file filtering |
-| Webhook delivery | Medium | Idempotent processing, retries |
+| Risk               | Impact | Mitigation                       |
+| ------------------ | ------ | -------------------------------- |
+| OpenAI rate limits | High   | Implement queuing, retry logic   |
+| GitHub API limits  | Medium | Cache responses, optimize calls  |
+| Large diffs        | Medium | Chunk processing, file filtering |
+| Webhook delivery   | Medium | Idempotent processing, retries   |
 
 ---
 

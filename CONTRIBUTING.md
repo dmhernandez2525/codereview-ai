@@ -1,6 +1,7 @@
 # Contributing to CodeReview AI
 
-Thank you for your interest in contributing to CodeReview AI! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to CodeReview AI! This document
+provides guidelines and instructions for contributing.
 
 ## Table of Contents
 
@@ -15,7 +16,9 @@ Thank you for your interest in contributing to CodeReview AI! This document prov
 
 ## Code of Conduct
 
-By participating in this project, you agree to maintain a respectful and inclusive environment. Be kind, constructive, and professional in all interactions.
+By participating in this project, you agree to maintain a respectful and
+inclusive environment. Be kind, constructive, and professional in all
+interactions.
 
 ## Getting Started
 
@@ -42,16 +45,19 @@ By participating in this project, you agree to maintain a respectful and inclusi
 ### Setup Steps
 
 1. **Copy environment variables**:
+
    ```bash
    cp .env.example .env
    ```
 
 2. **Start development environment**:
+
    ```bash
    docker-compose up -d
    ```
 
 3. **Install dependencies** (for IDE support):
+
    ```bash
    # Root
    npm install
@@ -73,23 +79,26 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 Use descriptive branch names:
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Feature | `feature/description` | `feature/add-gitlab-support` |
-| Bug Fix | `fix/description` | `fix/webhook-signature` |
-| Documentation | `docs/description` | `docs/update-api-spec` |
-| Refactor | `refactor/description` | `refactor/provider-interface` |
+| Type          | Pattern                | Example                       |
+| ------------- | ---------------------- | ----------------------------- |
+| Feature       | `feature/description`  | `feature/add-gitlab-support`  |
+| Bug Fix       | `fix/description`      | `fix/webhook-signature`       |
+| Documentation | `docs/description`     | `docs/update-api-spec`        |
+| Refactor      | `refactor/description` | `refactor/provider-interface` |
 
 ### Workflow
 
 1. **Create a branch**:
+
    ```bash
    git checkout -b feature/your-feature
    ```
 
-2. **Make your changes** following our [Coding Standards](docs/CODING_STANDARDS.md)
+2. **Make your changes** following our
+   [Coding Standards](docs/CODING_STANDARDS.md)
 
 3. **Test your changes**:
+
    ```bash
    npm run test
    npm run lint
@@ -97,11 +106,13 @@ Use descriptive branch names:
    ```
 
 4. **Commit your changes**:
+
    ```bash
    git commit -m "feat(scope): description of change"
    ```
 
 5. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature
    ```
@@ -123,16 +134,20 @@ Use descriptive branch names:
 
 ```markdown
 ## Summary
+
 Brief description of changes
 
 ## Changes Made
+
 - Change 1
 - Change 2
 
 ## Testing
+
 How were these changes tested?
 
 ## Related Issues
+
 Fixes #123
 ```
 
@@ -144,7 +159,8 @@ Fixes #123
 
 ## Coding Standards
 
-Please follow our [Coding Standards](docs/CODING_STANDARDS.md) document. Key points:
+Please follow our [Coding Standards](docs/CODING_STANDARDS.md) document. Key
+points:
 
 - **TypeScript**: Use strict typing, avoid `any`
 - **Formatting**: Use Prettier (runs automatically)
@@ -165,6 +181,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 **Examples**:
+
 ```
 feat(review): add GitLab merge request support
 fix(webhook): handle missing signature header
@@ -218,18 +235,20 @@ describe('ServiceName', () => {
 
 ### Documentation Files
 
-| File | Purpose |
-|------|---------|
-| `README.md` | Project overview |
-| `docs/SOFTWARE_DESIGN_DOCUMENT.md` | Architecture |
-| `docs/API_SPECIFICATION.md` | API reference |
-| `docs/DEPLOYMENT_GUIDE.md` | Deployment |
-| `docs/CONFIGURATION_GUIDE.md` | Configuration |
-| `docs/CODING_STANDARDS.md` | Coding conventions |
+| File                               | Purpose            |
+| ---------------------------------- | ------------------ |
+| `README.md`                        | Project overview   |
+| `docs/SOFTWARE_DESIGN_DOCUMENT.md` | Architecture       |
+| `docs/API_SPECIFICATION.md`        | API reference      |
+| `docs/DEPLOYMENT_GUIDE.md`         | Deployment         |
+| `docs/CONFIGURATION_GUIDE.md`      | Configuration      |
+| `docs/CODING_STANDARDS.md`         | Coding conventions |
 
 ## Questions?
 
-- Open a [Discussion](https://github.com/OWNER/codereview-ai/discussions) for questions
-- Open an [Issue](https://github.com/OWNER/codereview-ai/issues) for bugs or feature requests
+- Open a [Discussion](https://github.com/OWNER/codereview-ai/discussions) for
+  questions
+- Open an [Issue](https://github.com/OWNER/codereview-ai/issues) for bugs or
+  feature requests
 
 Thank you for contributing!

@@ -25,14 +25,14 @@ This guide covers all deployment options for CodeReview AI.
 
 ### 1.1 System Requirements
 
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| CPU | 2 cores | 4+ cores |
-| RAM | 4 GB | 8+ GB |
-| Storage | 20 GB | 50+ GB SSD |
-| Node.js | 20.x | 20.x LTS |
-| PostgreSQL | 15.x | 15.x |
-| Redis | 7.x | 7.x |
+| Component  | Minimum | Recommended |
+| ---------- | ------- | ----------- |
+| CPU        | 2 cores | 4+ cores    |
+| RAM        | 4 GB    | 8+ GB       |
+| Storage    | 20 GB   | 50+ GB SSD  |
+| Node.js    | 20.x    | 20.x LTS    |
+| PostgreSQL | 15.x    | 15.x        |
+| Redis      | 7.x     | 7.x         |
 
 ### 1.2 Required Accounts
 
@@ -83,11 +83,11 @@ docker-compose down
 
 ### 2.4 Access Services
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| Client | http://localhost:3000 | Frontend application |
-| Server (Strapi) | http://localhost:1337 | CMS admin panel |
-| Microservice | http://localhost:4000 | API endpoints |
+| Service         | URL                   | Description          |
+| --------------- | --------------------- | -------------------- |
+| Client          | http://localhost:3000 | Frontend application |
+| Server (Strapi) | http://localhost:1337 | CMS admin panel      |
+| Microservice    | http://localhost:4000 | API endpoints        |
 
 ### 2.5 Initial Strapi Setup
 
@@ -281,9 +281,11 @@ docker-compose -f docker-compose.prod.yml up -d
 After deployment, configure these in Render Dashboard:
 
 **codereview-server:**
+
 - `STRAPI_API_TOKEN` - Generate in Strapi admin
 
 **codereview-microservice:**
+
 - `STRAPI_API_TOKEN` - Same as above
 - `OPENAI_API_KEY` - Your OpenAI key
 - `ANTHROPIC_API_KEY` - Your Anthropic key
@@ -501,6 +503,7 @@ add_header X-XSS-Protection "1; mode=block";
 ### 8.1 Horizontal Scaling
 
 #### Client (Next.js)
+
 ```yaml
 # docker-compose.prod.yml
 client:
@@ -509,6 +512,7 @@ client:
 ```
 
 #### Microservice
+
 ```yaml
 microservice:
   deploy:
@@ -533,7 +537,9 @@ For high availability:
 ```yaml
 redis:
   image: redis:7-alpine
-  command: redis-server --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+  command:
+    redis-server --cluster-enabled yes --cluster-config-file nodes.conf
+    --cluster-node-timeout 5000
 ```
 
 ### 8.4 Database Read Replicas
@@ -674,23 +680,23 @@ redis-cli INFO memory
 
 ## Appendix A: Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `POSTGRES_USER` | Yes | Database username |
-| `POSTGRES_PASSWORD` | Yes | Database password |
-| `POSTGRES_DB` | Yes | Database name |
-| `REDIS_PASSWORD` | Production | Redis password |
-| `APP_KEYS` | Yes | Strapi app keys (comma-separated) |
-| `API_TOKEN_SALT` | Yes | Strapi API token salt |
-| `ADMIN_JWT_SECRET` | Yes | Strapi admin JWT secret |
-| `JWT_SECRET` | Yes | JWT signing secret |
-| `OPENAI_API_KEY` | One required | OpenAI API key |
-| `ANTHROPIC_API_KEY` | One required | Anthropic API key |
-| `GOOGLE_AI_API_KEY` | One required | Google AI API key |
-| `GITHUB_APP_ID` | For GitHub | GitHub App ID |
-| `GITHUB_APP_PRIVATE_KEY` | For GitHub | GitHub App private key |
-| `GITHUB_WEBHOOK_SECRET` | For GitHub | Webhook signature secret |
-| `ENCRYPTION_KEY` | Yes | Key for encrypting stored API keys |
+| Variable                 | Required     | Description                        |
+| ------------------------ | ------------ | ---------------------------------- |
+| `POSTGRES_USER`          | Yes          | Database username                  |
+| `POSTGRES_PASSWORD`      | Yes          | Database password                  |
+| `POSTGRES_DB`            | Yes          | Database name                      |
+| `REDIS_PASSWORD`         | Production   | Redis password                     |
+| `APP_KEYS`               | Yes          | Strapi app keys (comma-separated)  |
+| `API_TOKEN_SALT`         | Yes          | Strapi API token salt              |
+| `ADMIN_JWT_SECRET`       | Yes          | Strapi admin JWT secret            |
+| `JWT_SECRET`             | Yes          | JWT signing secret                 |
+| `OPENAI_API_KEY`         | One required | OpenAI API key                     |
+| `ANTHROPIC_API_KEY`      | One required | Anthropic API key                  |
+| `GOOGLE_AI_API_KEY`      | One required | Google AI API key                  |
+| `GITHUB_APP_ID`          | For GitHub   | GitHub App ID                      |
+| `GITHUB_APP_PRIVATE_KEY` | For GitHub   | GitHub App private key             |
+| `GITHUB_WEBHOOK_SECRET`  | For GitHub   | Webhook signature secret           |
+| `ENCRYPTION_KEY`         | Yes          | Key for encrypting stored API keys |
 
 ## Appendix B: Docker Commands Reference
 

@@ -21,64 +21,65 @@ This guide covers all configuration options for CodeReview AI.
 
 ### 1.1 Overview
 
-Configure CodeReview AI at the repository level using a `.codereview.yaml` file in your repository root.
+Configure CodeReview AI at the repository level using a `.codereview.yaml` file
+in your repository root.
 
 ### 1.2 Basic Configuration
 
 ```yaml
 # .codereview.yaml
-version: "1.0"
+version: '1.0'
 
 # AI Provider Settings
 ai:
-  provider: openai          # openai, anthropic, gemini
-  model: gpt-4-turbo        # Provider-specific model
-  temperature: 0.3          # 0.0-1.0, lower = more focused
-  maxTokens: 4096           # Maximum response tokens
+  provider: openai # openai, anthropic, gemini
+  model: gpt-4-turbo # Provider-specific model
+  temperature: 0.3 # 0.0-1.0, lower = more focused
+  maxTokens: 4096 # Maximum response tokens
 
 # Review Behavior
 review:
-  autoReview: true          # Automatically review new PRs
-  reviewOn:                 # Trigger events
+  autoReview: true # Automatically review new PRs
+  reviewOn: # Trigger events
     - pull_request
-  skipDraft: true           # Skip draft PRs
-  skipWIP: true             # Skip WIP PRs (title contains WIP)
+  skipDraft: true # Skip draft PRs
+  skipWIP: true # Skip WIP PRs (title contains WIP)
 
 # File Filters
 filters:
   paths:
     include:
-      - "src/**"
-      - "lib/**"
+      - 'src/**'
+      - 'lib/**'
     exclude:
-      - "**/*.test.ts"
-      - "**/*.spec.ts"
-      - "**/node_modules/**"
-      - "**/dist/**"
-      - "**/*.lock"
+      - '**/*.test.ts'
+      - '**/*.spec.ts'
+      - '**/node_modules/**'
+      - '**/dist/**'
+      - '**/*.lock'
 ```
 
 ### 1.3 Complete Configuration Reference
 
 ```yaml
-version: "1.0"
+version: '1.0'
 
 # ============================================================================
 # AI Configuration
 # ============================================================================
 ai:
   # Provider selection (required)
-  provider: openai    # openai | anthropic | gemini
+  provider: openai # openai | anthropic | gemini
 
   # Model selection (required)
   model: gpt-4-turbo
 
   # Temperature for response creativity (optional)
   # Lower = more focused/deterministic, Higher = more creative
-  temperature: 0.3    # 0.0 - 1.0, default: 0.3
+  temperature: 0.3 # 0.0 - 1.0, default: 0.3
 
   # Maximum tokens in response (optional)
-  maxTokens: 4096     # default: 4096
+  maxTokens: 4096 # default: 4096
 
   # System prompt additions (optional)
   systemPrompt: |
@@ -90,27 +91,28 @@ ai:
 # ============================================================================
 review:
   # Automatically review new PRs (optional)
-  autoReview: true    # default: true
+  autoReview: true # default: true
 
   # Events that trigger reviews (optional)
   reviewOn:
-    - pull_request    # On PR open/update
+    - pull_request # On PR open/update
     # - push          # On push to branch (future)
 
   # Skip conditions (optional)
-  skipDraft: true     # Skip draft PRs, default: true
-  skipWIP: true       # Skip PRs with WIP in title, default: true
+  skipDraft: true # Skip draft PRs, default: true
+  skipWIP: true # Skip PRs with WIP in title, default: true
 
   # Comment behavior (optional)
-  commentStyle: inline    # inline | summary | both, default: inline
-  maxComments: 50         # Maximum comments per review, default: 50
-  minSeverity: suggestion # Only post comments >= this severity
-                          # info | suggestion | warning | error
+  commentStyle: inline # inline | summary | both, default: inline
+  maxComments: 50 # Maximum comments per review, default: 50
+  minSeverity:
+    suggestion # Only post comments >= this severity
+    # info | suggestion | warning | error
 
   # Summary options (optional)
   summary:
-    enabled: true         # Generate summary comment, default: true
-    position: top         # top | bottom, default: top
+    enabled: true # Generate summary comment, default: true
+    position: top # top | bottom, default: top
 
 # ============================================================================
 # File Filters
@@ -121,34 +123,34 @@ filters:
     # Files/directories to include (optional)
     # If not specified, all files are included
     include:
-      - "src/**"
-      - "lib/**"
-      - "app/**"
+      - 'src/**'
+      - 'lib/**'
+      - 'app/**'
 
     # Files/directories to exclude (optional)
     exclude:
-      - "**/*.test.ts"
-      - "**/*.test.tsx"
-      - "**/*.spec.ts"
-      - "**/*.spec.tsx"
-      - "**/__tests__/**"
-      - "**/__mocks__/**"
-      - "**/node_modules/**"
-      - "**/dist/**"
-      - "**/build/**"
-      - "**/.next/**"
-      - "**/coverage/**"
-      - "**/*.lock"
-      - "**/package-lock.json"
-      - "**/yarn.lock"
-      - "**/pnpm-lock.yaml"
-      - "**/*.min.js"
-      - "**/*.min.css"
-      - "**/*.map"
+      - '**/*.test.ts'
+      - '**/*.test.tsx'
+      - '**/*.spec.ts'
+      - '**/*.spec.tsx'
+      - '**/__tests__/**'
+      - '**/__mocks__/**'
+      - '**/node_modules/**'
+      - '**/dist/**'
+      - '**/build/**'
+      - '**/.next/**'
+      - '**/coverage/**'
+      - '**/*.lock'
+      - '**/package-lock.json'
+      - '**/yarn.lock'
+      - '**/pnpm-lock.yaml'
+      - '**/*.min.js'
+      - '**/*.min.css'
+      - '**/*.map'
 
   # File size limits (optional)
-  maxFileSize: 100000     # Skip files larger than 100KB
-  maxDiffSize: 500000     # Skip diffs larger than 500KB
+  maxFileSize: 100000 # Skip files larger than 100KB
+  maxDiffSize: 500000 # Skip diffs larger than 500KB
 
   # File types (optional, uses extension)
   fileTypes:
@@ -173,43 +175,43 @@ guidelines:
   # Custom review guidelines (optional)
   # These are included in the AI prompt
   custom:
-    - "Follow TypeScript best practices"
-    - "Ensure proper error handling with try/catch"
-    - "Use meaningful variable names"
-    - "Add JSDoc comments for public functions"
-    - "Avoid any type, use proper typing"
+    - 'Follow TypeScript best practices'
+    - 'Ensure proper error handling with try/catch'
+    - 'Use meaningful variable names'
+    - 'Add JSDoc comments for public functions'
+    - 'Avoid any type, use proper typing'
 
   # Enable/disable built-in guideline categories (optional)
   categories:
-    security: true        # Security vulnerabilities
-    performance: true     # Performance issues
-    bestPractices: true   # Language best practices
-    codeStyle: false      # Style issues (use linter instead)
-    documentation: true   # Documentation/comments
-    testing: false        # Test coverage suggestions
+    security: true # Security vulnerabilities
+    performance: true # Performance issues
+    bestPractices: true # Language best practices
+    codeStyle: false # Style issues (use linter instead)
+    documentation: true # Documentation/comments
+    testing: false # Test coverage suggestions
 
 # ============================================================================
 # Path-Specific Configuration
 # ============================================================================
 paths:
   # Override settings for specific paths
-  "src/api/**":
+  'src/api/**':
     guidelines:
       custom:
-        - "Validate all input parameters"
-        - "Return appropriate HTTP status codes"
-        - "Log all errors with context"
+        - 'Validate all input parameters'
+        - 'Return appropriate HTTP status codes'
+        - 'Log all errors with context'
     ai:
-      temperature: 0.2    # More conservative for API code
+      temperature: 0.2 # More conservative for API code
 
-  "src/components/**":
+  'src/components/**':
     guidelines:
       custom:
-        - "Ensure accessibility (a11y) compliance"
-        - "Use semantic HTML elements"
-        - "Avoid inline styles, use CSS classes"
+        - 'Ensure accessibility (a11y) compliance'
+        - 'Use semantic HTML elements'
+        - 'Avoid inline styles, use CSS classes'
 
-  "**/*.test.ts":
+  '**/*.test.ts':
     # Skip review for test files (already excluded, but explicit)
     skip: true
 
@@ -220,8 +222,8 @@ notifications:
   # Slack integration
   slack:
     enabled: false
-    webhook: "${SLACK_WEBHOOK_URL}"
-    channel: "#code-reviews"
+    webhook: '${SLACK_WEBHOOK_URL}'
+    channel: '#code-reviews'
     onComplete: true
     onError: true
 
@@ -229,7 +231,7 @@ notifications:
   email:
     enabled: false
     recipients:
-      - "team@example.com"
+      - 'team@example.com'
     onError: true
 
 # ============================================================================
@@ -239,13 +241,13 @@ labels:
   # Add labels based on review results
   enabled: true
   # Add label when no issues found
-  approved: "ai-approved"
+  approved: 'ai-approved'
   # Add label when issues found
-  needsWork: "ai-needs-work"
+  needsWork: 'ai-needs-work'
   # Severity thresholds for labels
   thresholds:
-    approved: 0           # Max issues for approved label
-    needsWork: 3          # Min issues for needs-work label
+    approved: 0 # Max issues for approved label
+    needsWork: 3 # Min issues for needs-work label
 ```
 
 ### 1.4 Minimal Configuration
@@ -253,7 +255,7 @@ labels:
 For quick setup, use minimal configuration:
 
 ```yaml
-version: "1.0"
+version: '1.0'
 ai:
   provider: openai
   model: gpt-4-turbo
@@ -366,53 +368,53 @@ ENABLE_AZURE_DEVOPS_INTEGRATION=false
 ```yaml
 ai:
   provider: openai
-  model: gpt-4-turbo    # or gpt-4o, gpt-3.5-turbo
+  model: gpt-4-turbo # or gpt-4o, gpt-3.5-turbo
   temperature: 0.3
   maxTokens: 4096
 ```
 
 **Available Models:**
 
-| Model | Context Window | Best For |
-|-------|----------------|----------|
-| `gpt-4-turbo` | 128K | Complex reviews, large diffs |
-| `gpt-4o` | 128K | Balanced cost/quality |
-| `gpt-3.5-turbo` | 16K | Budget-conscious, simple reviews |
+| Model           | Context Window | Best For                         |
+| --------------- | -------------- | -------------------------------- |
+| `gpt-4-turbo`   | 128K           | Complex reviews, large diffs     |
+| `gpt-4o`        | 128K           | Balanced cost/quality            |
+| `gpt-3.5-turbo` | 16K            | Budget-conscious, simple reviews |
 
 ### 3.2 Anthropic (Claude)
 
 ```yaml
 ai:
   provider: anthropic
-  model: claude-3-sonnet    # or claude-3-opus, claude-3-haiku
+  model: claude-3-sonnet # or claude-3-opus, claude-3-haiku
   temperature: 0.3
   maxTokens: 4096
 ```
 
 **Available Models:**
 
-| Model | Context Window | Best For |
-|-------|----------------|----------|
-| `claude-3-opus` | 200K | Highest quality, complex code |
-| `claude-3-sonnet` | 200K | Balanced quality/speed |
-| `claude-3-haiku` | 200K | Fast, cost-effective |
+| Model             | Context Window | Best For                      |
+| ----------------- | -------------- | ----------------------------- |
+| `claude-3-opus`   | 200K           | Highest quality, complex code |
+| `claude-3-sonnet` | 200K           | Balanced quality/speed        |
+| `claude-3-haiku`  | 200K           | Fast, cost-effective          |
 
 ### 3.3 Google Gemini
 
 ```yaml
 ai:
   provider: gemini
-  model: gemini-1.5-pro    # or gemini-1.5-flash
+  model: gemini-1.5-pro # or gemini-1.5-flash
   temperature: 0.3
   maxTokens: 4096
 ```
 
 **Available Models:**
 
-| Model | Context Window | Best For |
-|-------|----------------|----------|
-| `gemini-1.5-pro` | 1M | Very large codebases |
-| `gemini-1.5-flash` | 1M | Fast, cost-effective |
+| Model              | Context Window | Best For             |
+| ------------------ | -------------- | -------------------- |
+| `gemini-1.5-pro`   | 1M             | Very large codebases |
+| `gemini-1.5-flash` | 1M             | Fast, cost-effective |
 
 ---
 
@@ -443,6 +445,7 @@ ai:
    - **Trigger**: Merge request events
 
 For OAuth (user authentication):
+
 1. Go to GitLab → Settings → Applications
 2. Create application with `read_user`, `read_api` scopes
 
@@ -454,6 +457,7 @@ For OAuth (user authentication):
    - **Triggers**: Pull Request Created, Updated
 
 For OAuth:
+
 1. Go to Bitbucket Settings → OAuth consumers
 2. Create consumer with appropriate permissions
 
@@ -474,7 +478,7 @@ For OAuth:
 For critical codebases:
 
 ```yaml
-version: "1.0"
+version: '1.0'
 ai:
   provider: anthropic
   model: claude-3-opus
@@ -499,7 +503,7 @@ guidelines:
 For general development:
 
 ```yaml
-version: "1.0"
+version: '1.0'
 ai:
   provider: openai
   model: gpt-4-turbo
@@ -524,7 +528,7 @@ guidelines:
 For less critical code:
 
 ```yaml
-version: "1.0"
+version: '1.0'
 ai:
   provider: openai
   model: gpt-3.5-turbo
@@ -552,26 +556,26 @@ guidelines:
 
 ```yaml
 paths:
-  "**/*.py":
+  '**/*.py':
     guidelines:
       custom:
-        - "Follow PEP 8 style guide"
-        - "Use type hints"
-        - "Document functions with docstrings"
+        - 'Follow PEP 8 style guide'
+        - 'Use type hints'
+        - 'Document functions with docstrings'
 
-  "**/*.go":
+  '**/*.go':
     guidelines:
       custom:
-        - "Follow Go conventions (gofmt)"
-        - "Handle errors explicitly"
-        - "Use meaningful package names"
+        - 'Follow Go conventions (gofmt)'
+        - 'Handle errors explicitly'
+        - 'Use meaningful package names'
 
-  "**/*.rs":
+  '**/*.rs':
     guidelines:
       custom:
-        - "Follow Rust idioms"
-        - "Use Result/Option appropriately"
-        - "Avoid unwrap in production code"
+        - 'Follow Rust idioms'
+        - 'Use Result/Option appropriately'
+        - 'Avoid unwrap in production code'
 ```
 
 ### 6.2 Team-Specific Configuration
@@ -580,21 +584,21 @@ Use path-based overrides for different teams:
 
 ```yaml
 paths:
-  "services/payments/**":
+  'services/payments/**':
     ai:
-      temperature: 0.1    # Very conservative
+      temperature: 0.1 # Very conservative
     guidelines:
       custom:
-        - "Security is paramount - flag any potential vulnerabilities"
-        - "All changes must have corresponding tests"
-        - "Use prepared statements for all DB queries"
+        - 'Security is paramount - flag any potential vulnerabilities'
+        - 'All changes must have corresponding tests'
+        - 'Use prepared statements for all DB queries'
 
-  "services/frontend/**":
+  'services/frontend/**':
     guidelines:
       custom:
-        - "Ensure responsive design"
-        - "Check for accessibility issues"
-        - "Avoid prop drilling - use context or state management"
+        - 'Ensure responsive design'
+        - 'Check for accessibility issues'
+        - 'Avoid prop drilling - use context or state management'
 ```
 
 ### 6.3 Monorepo Configuration
@@ -602,7 +606,7 @@ paths:
 For monorepos, use root config with path overrides:
 
 ```yaml
-version: "1.0"
+version: '1.0'
 
 # Global settings
 ai:
@@ -611,25 +615,25 @@ ai:
 
 # Package-specific settings
 paths:
-  "packages/api/**":
+  'packages/api/**':
     ai:
-      model: claude-3-opus    # More thorough for backend
+      model: claude-3-opus # More thorough for backend
     guidelines:
       custom:
-        - "Validate all inputs"
-        - "Return appropriate status codes"
+        - 'Validate all inputs'
+        - 'Return appropriate status codes'
 
-  "packages/web/**":
+  'packages/web/**':
     guidelines:
       custom:
-        - "Use semantic HTML"
-        - "Ensure a11y compliance"
+        - 'Use semantic HTML'
+        - 'Ensure a11y compliance'
 
-  "packages/shared/**":
+  'packages/shared/**':
     guidelines:
       custom:
-        - "Maintain backward compatibility"
-        - "Document all exports"
+        - 'Maintain backward compatibility'
+        - 'Document all exports'
 ```
 
 ### 6.4 Custom System Prompts
@@ -672,16 +676,16 @@ review:
   skipPatterns:
     - "^\\[skip ci\\]"
     - "^\\[no review\\]"
-    - "^chore:"
+    - '^chore:'
 
   # Only review specific branches
   branches:
     include:
       - main
       - develop
-      - "feature/*"
+      - 'feature/*'
     exclude:
-      - "dependabot/*"
+      - 'dependabot/*'
 ```
 
 ---
@@ -752,16 +756,16 @@ Complete JSON Schema for validation:
 
 ## Appendix B: Default Values
 
-| Setting | Default |
-|---------|---------|
-| `ai.temperature` | 0.3 |
-| `ai.maxTokens` | 4096 |
-| `review.autoReview` | true |
-| `review.skipDraft` | true |
-| `review.skipWIP` | true |
-| `review.commentStyle` | inline |
-| `review.maxComments` | 50 |
-| `review.minSeverity` | suggestion |
-| `review.summary.enabled` | true |
-| `filters.maxFileSize` | 100000 |
-| `filters.maxDiffSize` | 500000 |
+| Setting                  | Default    |
+| ------------------------ | ---------- |
+| `ai.temperature`         | 0.3        |
+| `ai.maxTokens`           | 4096       |
+| `review.autoReview`      | true       |
+| `review.skipDraft`       | true       |
+| `review.skipWIP`         | true       |
+| `review.commentStyle`    | inline     |
+| `review.maxComments`     | 50         |
+| `review.minSeverity`     | suggestion |
+| `review.summary.enabled` | true       |
+| `filters.maxFileSize`    | 100000     |
+| `filters.maxDiffSize`    | 500000     |

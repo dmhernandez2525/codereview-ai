@@ -2,8 +2,8 @@
 
 ## CodeReview AI - Complete API Reference
 
-**Version:** 1.0.0
-**Base URLs:**
+**Version:** 1.0.0 **Base URLs:**
+
 - Server (Strapi): `https://api.yourdomain.com/api`
 - Microservice: `https://engine.yourdomain.com/api/v1`
 
@@ -43,6 +43,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "jwt": "eyJhbGciOiJIUzI1NiIs...",
@@ -72,6 +73,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "jwt": "eyJhbGciOiJIUzI1NiIs...",
@@ -89,7 +91,8 @@ Content-Type: application/json
 GET /api/connect/github
 ```
 
-Redirects to GitHub for OAuth authorization. After successful authorization, redirects to:
+Redirects to GitHub for OAuth authorization. After successful authorization,
+redirects to:
 
 ```
 /api/connect/github/callback?access_token=<token>
@@ -107,6 +110,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "ok": true
@@ -134,6 +138,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -162,6 +167,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -223,17 +229,15 @@ GET /api/repositories
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filters[platform][$eq]` | string | Filter by platform |
-| `filters[isActive][$eq]` | boolean | Filter by active status |
-| `populate` | string | Include relations (e.g., `organization,reviews`) |
-| `pagination[page]` | number | Page number |
-| `pagination[pageSize]` | number | Items per page |
-| `sort` | string | Sort field (e.g., `createdAt:desc`) |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `filters[platform][$eq]` | string | Filter
+by platform | | `filters[isActive][$eq]` | boolean | Filter by active status | |
+`populate` | string | Include relations (e.g., `organization,reviews`) | |
+`pagination[page]` | number | Page number | | `pagination[pageSize]` | number |
+Items per page | | `sort` | string | Sort field (e.g., `createdAt:desc`) |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -283,6 +287,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "data": {
@@ -306,10 +311,8 @@ GET /api/repositories/:id
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `populate` | string | Include relations |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `populate` | string | Include relations |
 
 #### Update Repository
 
@@ -336,6 +339,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "data": {
@@ -358,15 +362,13 @@ GET /api/reviews
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filters[repository][id][$eq]` | number | Filter by repository |
-| `filters[status][$eq]` | string | Filter by status |
-| `populate` | string | Include relations |
-| `sort` | string | Sort field |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `filters[repository][id][$eq]` | number |
+Filter by repository | | `filters[status][$eq]` | string | Filter by status | |
+`populate` | string | Include relations | | `sort` | string | Sort field |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -407,12 +409,12 @@ GET /api/reviews/:id
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `populate` | string | Include `comments`, `repository` |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `populate` | string | Include `comments`,
+`repository` |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": {
@@ -452,13 +454,12 @@ GET /api/review-comments
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filters[review][id][$eq]` | number | Filter by review ID |
-| `filters[severity][$eq]` | string | Filter by severity |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `filters[review][id][$eq]` | number |
+Filter by review ID | | `filters[severity][$eq]` | string | Filter by severity |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -492,6 +493,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -525,6 +527,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "data": {
@@ -553,6 +556,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "valid": true,
@@ -572,12 +576,12 @@ GET /api/configurations
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filters[repository][id][$eq]` | number | Filter by repository |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `filters[repository][id][$eq]` | number |
+Filter by repository |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -626,30 +630,29 @@ GET /api/usage-logs/summary
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `startDate` | string | Start date (ISO 8601) |
-| `endDate` | string | End date (ISO 8601) |
-| `groupBy` | string | `day`, `week`, `month` |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `startDate` | string | Start date
+(ISO 8601) | | `endDate` | string | End date (ISO 8601) | | `groupBy` | string |
+`day`, `week`, `month` |
 
 **Response (200 OK):**
+
 ```json
 {
   "data": {
     "totalReviews": 150,
     "totalTokens": 450000,
-    "estimatedCost": 12.50,
+    "estimatedCost": 12.5,
     "byProvider": {
       "openai": {
         "reviews": 100,
         "tokens": 300000,
-        "cost": 9.00
+        "cost": 9.0
       },
       "anthropic": {
         "reviews": 50,
         "tokens": 150000,
-        "cost": 3.50
+        "cost": 3.5
       }
     },
     "timeline": [
@@ -670,12 +673,10 @@ GET /api/usage-logs
 Authorization: Bearer <jwt>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filters[createdAt][$gte]` | string | From date |
-| `filters[createdAt][$lte]` | string | To date |
-| `filters[provider][$eq]` | string | Filter by provider |
+**Query Parameters:** | Parameter | Type | Description |
+|-----------|------|-------------| | `filters[createdAt][$gte]` | string | From
+date | | `filters[createdAt][$lte]` | string | To date | |
+`filters[provider][$eq]` | string | Filter by provider |
 
 ---
 
@@ -690,6 +691,7 @@ GET /api/v1/health
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "status": "healthy",
@@ -706,6 +708,7 @@ Authorization: Bearer <api_token>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "status": "healthy",
@@ -752,6 +755,7 @@ Content-Type: application/json
 ```
 
 **Response (202 Accepted):**
+
 ```json
 {
   "reviewId": "review_abc123",
@@ -769,6 +773,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "reviewId": "review_abc123",
@@ -791,6 +796,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "reviewId": "review_abc123",
@@ -838,6 +844,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "received": true,
@@ -920,6 +927,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "valid": true,
@@ -934,6 +942,7 @@ Content-Type: application/json
 ```
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "valid": false,
@@ -958,6 +967,7 @@ Authorization: Bearer <jwt>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "providers": [
@@ -1011,6 +1021,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -1027,35 +1038,35 @@ Content-Type: application/json
 
 #### GitHub
 
-| Event | Action | Triggers Review |
-|-------|--------|-----------------|
-| `pull_request` | `opened` | Yes |
-| `pull_request` | `synchronize` | Yes |
-| `pull_request` | `reopened` | Yes |
-| `pull_request` | `ready_for_review` | Yes |
-| `pull_request_review_comment` | `created` | No (logged) |
+| Event                         | Action             | Triggers Review |
+| ----------------------------- | ------------------ | --------------- |
+| `pull_request`                | `opened`           | Yes             |
+| `pull_request`                | `synchronize`      | Yes             |
+| `pull_request`                | `reopened`         | Yes             |
+| `pull_request`                | `ready_for_review` | Yes             |
+| `pull_request_review_comment` | `created`          | No (logged)     |
 
 #### GitLab
 
-| Event | Action | Triggers Review |
-|-------|--------|-----------------|
-| `Merge Request Hook` | `open` | Yes |
-| `Merge Request Hook` | `update` | Yes |
-| `Merge Request Hook` | `reopen` | Yes |
+| Event                | Action   | Triggers Review |
+| -------------------- | -------- | --------------- |
+| `Merge Request Hook` | `open`   | Yes             |
+| `Merge Request Hook` | `update` | Yes             |
+| `Merge Request Hook` | `reopen` | Yes             |
 
 #### Bitbucket
 
-| Event | Triggers Review |
-|-------|-----------------|
-| `pullrequest:created` | Yes |
-| `pullrequest:updated` | Yes |
+| Event                 | Triggers Review |
+| --------------------- | --------------- |
+| `pullrequest:created` | Yes             |
+| `pullrequest:updated` | Yes             |
 
 #### Azure DevOps
 
-| Event | Triggers Review |
-|-------|-----------------|
-| `git.pullrequest.created` | Yes |
-| `git.pullrequest.updated` | Yes |
+| Event                     | Triggers Review |
+| ------------------------- | --------------- |
+| `git.pullrequest.created` | Yes             |
+| `git.pullrequest.updated` | Yes             |
 
 ### 4.2 Webhook Security
 
@@ -1086,16 +1097,16 @@ All errors follow a consistent format:
 
 ### 5.2 Common Error Codes
 
-| Code | HTTP Status | Description |
-|------|-------------|-------------|
-| `UNAUTHORIZED` | 401 | Missing or invalid authentication |
-| `FORBIDDEN` | 403 | Insufficient permissions |
-| `NOT_FOUND` | 404 | Resource not found |
-| `VALIDATION_ERROR` | 400 | Invalid request data |
-| `RATE_LIMIT_EXCEEDED` | 429 | Too many requests |
-| `INTERNAL_ERROR` | 500 | Server error |
-| `AI_PROVIDER_ERROR` | 502 | AI provider unavailable |
-| `WEBHOOK_INVALID` | 400 | Invalid webhook signature |
+| Code                  | HTTP Status | Description                       |
+| --------------------- | ----------- | --------------------------------- |
+| `UNAUTHORIZED`        | 401         | Missing or invalid authentication |
+| `FORBIDDEN`           | 403         | Insufficient permissions          |
+| `NOT_FOUND`           | 404         | Resource not found                |
+| `VALIDATION_ERROR`    | 400         | Invalid request data              |
+| `RATE_LIMIT_EXCEEDED` | 429         | Too many requests                 |
+| `INTERNAL_ERROR`      | 500         | Server error                      |
+| `AI_PROVIDER_ERROR`   | 502         | AI provider unavailable           |
+| `WEBHOOK_INVALID`     | 400         | Invalid webhook signature         |
 
 ### 5.3 Validation Errors
 
@@ -1126,12 +1137,12 @@ All errors follow a consistent format:
 
 ### 6.1 Limits
 
-| Endpoint Type | Limit | Window |
-|---------------|-------|--------|
-| Authentication | 10 requests | 1 minute |
-| API (authenticated) | 100 requests | 1 minute |
-| Webhooks | 1000 requests | 1 minute |
-| Review generation | 10 requests | 1 minute |
+| Endpoint Type       | Limit         | Window   |
+| ------------------- | ------------- | -------- |
+| Authentication      | 10 requests   | 1 minute |
+| API (authenticated) | 100 requests  | 1 minute |
+| Webhooks            | 1000 requests | 1 minute |
+| Review generation   | 10 requests   | 1 minute |
 
 ### 6.2 Rate Limit Headers
 

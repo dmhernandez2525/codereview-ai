@@ -4,7 +4,8 @@
 
 **READ THIS FIRST before starting any work on this project.**
 
-This document tracks the implementation progress of CodeReview AI. It serves as the source of truth for what has been completed and what remains.
+This document tracks the implementation progress of CodeReview AI. It serves as
+the source of truth for what has been completed and what remains.
 
 ### How to Use This Document
 
@@ -33,24 +34,24 @@ This document tracks the implementation progress of CodeReview AI. It serves as 
 
 ## Last Session
 
-| Field | Value |
-|-------|-------|
-| **Date** | January 18, 2026 |
-| **Work Done** | Initialized all three npm projects - Next.js 14 (Client), Strapi 5 (Server), Express (Microservice) |
-| **Key Decisions** | Used `src/` directory for Client (standard Next.js pattern), configured shadcn/ui with essential components |
-| **Blockers** | None |
-| **Next Priority** | Continue Client initialization (Dockerfile, layout, React Query, API client) |
-| **Notes** | Client: Next.js 14 + Tailwind + shadcn/ui + Redux Toolkit + React Query + Recharts + Monaco. Server: Strapi 5 with PostgreSQL. Microservice: Express + TypeScript + OpenAI/Anthropic/Gemini SDKs + BullMQ. All projects type-check and build successfully. |
+| Field             | Value                                                                                                                                                                                                                                                      |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Date**          | January 18, 2026                                                                                                                                                                                                                                           |
+| **Work Done**     | Initialized all three npm projects - Next.js 14 (Client), Strapi 5 (Server), Express (Microservice)                                                                                                                                                        |
+| **Key Decisions** | Used `src/` directory for Client (standard Next.js pattern), configured shadcn/ui with essential components                                                                                                                                                |
+| **Blockers**      | None                                                                                                                                                                                                                                                       |
+| **Next Priority** | Continue Client initialization (Dockerfile, layout, React Query, API client)                                                                                                                                                                               |
+| **Notes**         | Client: Next.js 14 + Tailwind + shadcn/ui + Redux Toolkit + React Query + Recharts + Monaco. Server: Strapi 5 with PostgreSQL. Microservice: Express + TypeScript + OpenAI/Anthropic/Gemini SDKs + BullMQ. All projects type-check and build successfully. |
 
 ---
 
 ## Project Status
 
-| Phase | Status | Progress |
-|-------|--------|----------|
-| Phase 1: MVP | In Progress | 20% |
-| Phase 2: Integrations | Not Started | 0% |
-| Phase 3: Enterprise | Not Started | 0% |
+| Phase                 | Status      | Progress |
+| --------------------- | ----------- | -------- |
+| Phase 1: MVP          | In Progress | 20%      |
+| Phase 2: Integrations | Not Started | 0%       |
+| Phase 3: Enterprise   | Not Started | 0%       |
 
 ---
 
@@ -543,9 +544,9 @@ _Add any new tasks discovered during implementation here:_
 
 _Document any blockers or issues that need resolution:_
 
-| Blocker | Impact | Status | Resolution |
-|---------|--------|--------|------------|
-| _None currently_ | - | - | - |
+| Blocker          | Impact | Status | Resolution |
+| ---------------- | ------ | ------ | ---------- |
+| _None currently_ | -      | -      | -          |
 
 ---
 
@@ -553,17 +554,17 @@ _Document any blockers or issues that need resolution:_
 
 _Record important architectural or design decisions:_
 
-| Date | Decision | Rationale |
-|------|----------|-----------|
-| Jan 2026 | Use Strapi 5 for CMS | Modern headless CMS with good TypeScript support |
-| Jan 2026 | Use Bull for job queue | Reliable Redis-based queue with good monitoring |
-| Jan 2026 | Start with OpenAI only | Simplify MVP, add other providers in Phase 2 |
-| Jan 2026 | **BYOK from day 1** | Key differentiator - 67% cost savings for users, validated by Kodus/JetBrains |
-| Jan 2026 | **Self-hosting at 50 seats** | Fill gap - CodeRabbit requires 500, mid-market underserved |
-| Jan 2026 | **Zero-retention architecture** | Security-first - #2 user concern, CodeRabbit incident lesson |
-| Jan 2026 | **Target <30% false positives** | #1 user complaint across all tools (industry: 60-80%) |
-| Jan 2026 | **FedRAMP as Phase 3 opportunity** | No AI code review tool authorized - major market gap |
-| Jan 2026 | **CodeGuru migration marketing** | Service discontinued Nov 2025 - orphaned customers |
+| Date     | Decision                           | Rationale                                                                     |
+| -------- | ---------------------------------- | ----------------------------------------------------------------------------- |
+| Jan 2026 | Use Strapi 5 for CMS               | Modern headless CMS with good TypeScript support                              |
+| Jan 2026 | Use Bull for job queue             | Reliable Redis-based queue with good monitoring                               |
+| Jan 2026 | Start with OpenAI only             | Simplify MVP, add other providers in Phase 2                                  |
+| Jan 2026 | **BYOK from day 1**                | Key differentiator - 67% cost savings for users, validated by Kodus/JetBrains |
+| Jan 2026 | **Self-hosting at 50 seats**       | Fill gap - CodeRabbit requires 500, mid-market underserved                    |
+| Jan 2026 | **Zero-retention architecture**    | Security-first - #2 user concern, CodeRabbit incident lesson                  |
+| Jan 2026 | **Target <30% false positives**    | #1 user complaint across all tools (industry: 60-80%)                         |
+| Jan 2026 | **FedRAMP as Phase 3 opportunity** | No AI code review tool authorized - major market gap                          |
+| Jan 2026 | **CodeGuru migration marketing**   | Service discontinued Nov 2025 - orphaned customers                            |
 
 ---
 
@@ -571,16 +572,16 @@ _Record important architectural or design decisions:_
 
 ### Key Files
 
-| Purpose | Path |
-|---------|------|
-| Architecture | `/docs/SOFTWARE_DESIGN_DOCUMENT.md` |
-| API Reference | `/docs/API_SPECIFICATION.md` |
-| Deployment | `/docs/DEPLOYMENT_GUIDE.md` |
-| Configuration | `/docs/CONFIGURATION_GUIDE.md` |
-| Coding Standards | `/docs/CODING_STANDARDS.md` |
-| Phase 1 Details | `/roadmap/PHASE_1_MVP.md` |
-| Phase 2 Details | `/roadmap/PHASE_2_INTEGRATIONS.md` |
-| Phase 3 Details | `/roadmap/PHASE_3_ENTERPRISE.md` |
+| Purpose          | Path                                |
+| ---------------- | ----------------------------------- |
+| Architecture     | `/docs/SOFTWARE_DESIGN_DOCUMENT.md` |
+| API Reference    | `/docs/API_SPECIFICATION.md`        |
+| Deployment       | `/docs/DEPLOYMENT_GUIDE.md`         |
+| Configuration    | `/docs/CONFIGURATION_GUIDE.md`      |
+| Coding Standards | `/docs/CODING_STANDARDS.md`         |
+| Phase 1 Details  | `/roadmap/PHASE_1_MVP.md`           |
+| Phase 2 Details  | `/roadmap/PHASE_2_INTEGRATIONS.md`  |
+| Phase 3 Details  | `/roadmap/PHASE_3_ENTERPRISE.md`    |
 
 ### Commands
 
@@ -612,17 +613,17 @@ docker-compose -f docker-compose.prod.yml build
 
 ## Changelog
 
-| Date | Author | Changes |
-|------|--------|---------|
-| Jan 2026 | Initial | Created project foundation and documentation |
-| Jan 18, 2026 | AI Agent | Expanded roadmaps with comprehensive features from planning docs |
-| | | Added: BYOK support, zero-retention, streaming, test generation |
-| | | Added: IDE extensions, FedRAMP path, compliance packages |
-| | | Added: CodeGuru migration, cross-repo context, engineering metrics |
-| | | Added: Marketing website pages, specific UI components |
-| | | Updated key decisions log with strategic differentiators |
-| Jan 18, 2026 | AI Agent | Initialized all npm projects |
-| | | Client: Next.js 14 + TypeScript + Tailwind + shadcn/ui + React Query |
-| | | Server: Strapi 5 with PostgreSQL configuration |
-| | | Microservice: Express + TypeScript + OpenAI/Anthropic/Gemini SDKs |
-| | | All projects build and type-check successfully |
+| Date         | Author   | Changes                                                              |
+| ------------ | -------- | -------------------------------------------------------------------- |
+| Jan 2026     | Initial  | Created project foundation and documentation                         |
+| Jan 18, 2026 | AI Agent | Expanded roadmaps with comprehensive features from planning docs     |
+|              |          | Added: BYOK support, zero-retention, streaming, test generation      |
+|              |          | Added: IDE extensions, FedRAMP path, compliance packages             |
+|              |          | Added: CodeGuru migration, cross-repo context, engineering metrics   |
+|              |          | Added: Marketing website pages, specific UI components               |
+|              |          | Updated key decisions log with strategic differentiators             |
+| Jan 18, 2026 | AI Agent | Initialized all npm projects                                         |
+|              |          | Client: Next.js 14 + TypeScript + Tailwind + shadcn/ui + React Query |
+|              |          | Server: Strapi 5 with PostgreSQL configuration                       |
+|              |          | Microservice: Express + TypeScript + OpenAI/Anthropic/Gemini SDKs    |
+|              |          | All projects build and type-check successfully                       |

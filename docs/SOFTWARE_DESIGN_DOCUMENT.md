@@ -2,9 +2,7 @@
 
 ## CodeReview AI - AI-Powered Code Review Platform
 
-**Version:** 1.0.0
-**Last Updated:** January 2026
-**Status:** Draft
+**Version:** 1.0.0 **Last Updated:** January 2026 **Status:** Draft
 
 ---
 
@@ -27,11 +25,15 @@
 
 ### 1.1 Purpose
 
-CodeReview AI is a self-hostable, open-source platform that provides AI-powered code reviews for pull requests. It integrates with major Git platforms and leverages multiple AI providers to deliver intelligent, context-aware code review feedback.
+CodeReview AI is a self-hostable, open-source platform that provides AI-powered
+code reviews for pull requests. It integrates with major Git platforms and
+leverages multiple AI providers to deliver intelligent, context-aware code
+review feedback.
 
 ### 1.2 Goals
 
-- **Automate Code Reviews**: Reduce manual review burden with AI-generated insights
+- **Automate Code Reviews**: Reduce manual review burden with AI-generated
+  insights
 - **Multi-Platform Support**: GitHub, GitLab, Bitbucket, Azure DevOps
 - **Provider Flexibility**: Support OpenAI, Anthropic, and Google AI
 - **Self-Hostable**: Full control over data and infrastructure
@@ -39,13 +41,13 @@ CodeReview AI is a self-hostable, open-source platform that provides AI-powered 
 
 ### 1.3 Scope
 
-| In Scope | Out of Scope |
-|----------|--------------|
-| PR webhook processing | IDE plugins |
-| AI review generation | Real-time collaboration |
-| Multi-platform Git integration | Git hosting |
-| Usage tracking & analytics | Billing/payments (v1) |
-| Repository configuration | Mobile applications |
+| In Scope                       | Out of Scope            |
+| ------------------------------ | ----------------------- |
+| PR webhook processing          | IDE plugins             |
+| AI review generation           | Real-time collaboration |
+| Multi-platform Git integration | Git hosting             |
+| Usage tracking & analytics     | Billing/payments (v1)   |
+| Repository configuration       | Mobile applications     |
 
 ### 1.4 Key Stakeholders
 
@@ -114,13 +116,13 @@ CodeReview AI is a self-hostable, open-source platform that provides AI-powered 
 
 ### 2.2 Component Overview
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| **Client** | Next.js 14 | User interface, dashboard, marketing |
-| **Server** | Strapi 5 | Data management, authentication, REST API |
-| **Microservice** | Express.js | Webhook processing, AI orchestration |
-| **Database** | PostgreSQL | Persistent data storage |
-| **Cache** | Redis | Caching, job queues, rate limiting |
+| Component        | Technology | Purpose                                   |
+| ---------------- | ---------- | ----------------------------------------- |
+| **Client**       | Next.js 14 | User interface, dashboard, marketing      |
+| **Server**       | Strapi 5   | Data management, authentication, REST API |
+| **Microservice** | Express.js | Webhook processing, AI orchestration      |
+| **Database**     | PostgreSQL | Persistent data storage                   |
+| **Cache**        | Redis      | Caching, job queues, rate limiting        |
 
 ### 2.3 Data Flow
 
@@ -645,10 +647,10 @@ CREATE INDEX idx_usage_logs_org_created ON usage_logs(organization_id, created_a
 
 ### 5.1 API Overview
 
-| Service | Base URL | Purpose |
-|---------|----------|---------|
-| Server (Strapi) | `/api` | Data management, auth |
-| Microservice | `/api/v1` | Webhooks, review processing |
+| Service         | Base URL  | Purpose                     |
+| --------------- | --------- | --------------------------- |
+| Server (Strapi) | `/api`    | Data management, auth       |
+| Microservice    | `/api/v1` | Webhooks, review processing |
 
 ### 5.2 Authentication
 
@@ -677,7 +679,8 @@ CREATE INDEX idx_usage_logs_org_created ON usage_logs(organization_id, created_a
 
 ### 5.3 Key Endpoints
 
-See [API_SPECIFICATION.md](API_SPECIFICATION.md) for complete endpoint documentation.
+See [API_SPECIFICATION.md](API_SPECIFICATION.md) for complete endpoint
+documentation.
 
 ---
 
@@ -723,7 +726,10 @@ const KEY = Buffer.from(process.env.ENCRYPTION_KEY, 'base64');
 function encrypt(plaintext: string): string {
   const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv);
-  const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
+  const encrypted = Buffer.concat([
+    cipher.update(plaintext, 'utf8'),
+    cipher.final(),
+  ]);
   const authTag = cipher.getAuthTag();
   return Buffer.concat([iv, authTag, encrypted]).toString('base64');
 }
@@ -743,8 +749,13 @@ function decrypt(ciphertext: string): string {
 
 ```typescript
 // GitHub webhook signature verification
-function verifyGitHubWebhook(payload: string, signature: string, secret: string): boolean {
-  const expectedSignature = 'sha256=' +
+function verifyGitHubWebhook(
+  payload: string,
+  signature: string,
+  secret: string
+): boolean {
+  const expectedSignature =
+    'sha256=' +
     crypto.createHmac('sha256', secret).update(payload).digest('hex');
   return crypto.timingSafeEqual(
     Buffer.from(signature),
@@ -755,12 +766,12 @@ function verifyGitHubWebhook(payload: string, signature: string, secret: string)
 
 ### 6.4 RBAC Roles
 
-| Role | Permissions |
-|------|-------------|
-| **viewer** | View reviews, view repositories |
-| **member** | + Create reviews, manage own API keys |
-| **admin** | + Manage repositories, manage org settings |
-| **owner** | + Manage users, delete organization |
+| Role       | Permissions                                |
+| ---------- | ------------------------------------------ |
+| **viewer** | View reviews, view repositories            |
+| **member** | + Create reviews, manage own API keys      |
+| **admin**  | + Manage repositories, manage org settings |
+| **owner**  | + Manage users, delete organization        |
 
 ---
 
@@ -932,13 +943,13 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### 8.3 Scaling Considerations
 
-| Component | Scaling Strategy |
-|-----------|------------------|
-| **Client** | Horizontal (replicas), CDN caching |
-| **Server** | Horizontal with load balancer |
+| Component        | Scaling Strategy                   |
+| ---------------- | ---------------------------------- |
+| **Client**       | Horizontal (replicas), CDN caching |
+| **Server**       | Horizontal with load balancer      |
 | **Microservice** | Horizontal with shared Redis queue |
-| **PostgreSQL** | Vertical, read replicas |
-| **Redis** | Cluster mode for high availability |
+| **PostgreSQL**   | Vertical, read replicas            |
+| **Redis**        | Cluster mode for high availability |
 
 ---
 
@@ -946,49 +957,49 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### 9.1 Frontend (Client)
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| Framework | Next.js | 14.x | React framework with App Router |
-| Language | TypeScript | 5.x | Type safety |
-| Styling | Tailwind CSS | 3.x | Utility-first CSS |
-| Components | shadcn/ui | Latest | UI component library |
-| State | React Query | 5.x | Server state management |
-| State | Zustand | 4.x | Client state management |
-| Forms | React Hook Form | 7.x | Form handling |
-| Validation | Zod | 3.x | Schema validation |
-| Charts | Recharts | 2.x | Data visualization |
+| Category   | Technology      | Version | Purpose                         |
+| ---------- | --------------- | ------- | ------------------------------- |
+| Framework  | Next.js         | 14.x    | React framework with App Router |
+| Language   | TypeScript      | 5.x     | Type safety                     |
+| Styling    | Tailwind CSS    | 3.x     | Utility-first CSS               |
+| Components | shadcn/ui       | Latest  | UI component library            |
+| State      | React Query     | 5.x     | Server state management         |
+| State      | Zustand         | 4.x     | Client state management         |
+| Forms      | React Hook Form | 7.x     | Form handling                   |
+| Validation | Zod             | 3.x     | Schema validation               |
+| Charts     | Recharts        | 2.x     | Data visualization              |
 
 ### 9.2 Backend (Server)
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| CMS | Strapi | 5.x | Headless CMS |
-| Database | PostgreSQL | 15.x | Primary database |
-| Cache | Redis | 7.x | Caching, sessions |
-| Language | TypeScript | 5.x | Type safety |
+| Category | Technology | Version | Purpose           |
+| -------- | ---------- | ------- | ----------------- |
+| CMS      | Strapi     | 5.x     | Headless CMS      |
+| Database | PostgreSQL | 15.x    | Primary database  |
+| Cache    | Redis      | 7.x     | Caching, sessions |
+| Language | TypeScript | 5.x     | Type safety       |
 
 ### 9.3 Backend (Microservice)
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| Runtime | Node.js | 20.x | JavaScript runtime |
-| Framework | Express | 4.x | HTTP server |
-| Language | TypeScript | 5.x | Type safety |
-| Queue | Bull | 4.x | Job queue |
-| Validation | Zod | 3.x | Request validation |
-| OpenAI SDK | openai | 4.x | OpenAI integration |
-| Anthropic SDK | @anthropic-ai/sdk | Latest | Claude integration |
-| Google AI SDK | @google/generative-ai | Latest | Gemini integration |
+| Category      | Technology            | Version | Purpose            |
+| ------------- | --------------------- | ------- | ------------------ |
+| Runtime       | Node.js               | 20.x    | JavaScript runtime |
+| Framework     | Express               | 4.x     | HTTP server        |
+| Language      | TypeScript            | 5.x     | Type safety        |
+| Queue         | Bull                  | 4.x     | Job queue          |
+| Validation    | Zod                   | 3.x     | Request validation |
+| OpenAI SDK    | openai                | 4.x     | OpenAI integration |
+| Anthropic SDK | @anthropic-ai/sdk     | Latest  | Claude integration |
+| Google AI SDK | @google/generative-ai | Latest  | Gemini integration |
 
 ### 9.4 Infrastructure
 
-| Category | Technology | Purpose |
-|----------|------------|---------|
-| Containers | Docker | Containerization |
-| Orchestration | Docker Compose | Local development |
-| CI/CD | GitHub Actions | Automated testing/deployment |
-| Cloud | Render | Managed hosting |
-| SSL | Let's Encrypt | TLS certificates |
+| Category      | Technology     | Purpose                      |
+| ------------- | -------------- | ---------------------------- |
+| Containers    | Docker         | Containerization             |
+| Orchestration | Docker Compose | Local development            |
+| CI/CD         | GitHub Actions | Automated testing/deployment |
+| Cloud         | Render         | Managed hosting              |
+| SSL           | Let's Encrypt  | TLS certificates             |
 
 ---
 
@@ -996,12 +1007,12 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### 10.1 Performance
 
-| Metric | Target | Notes |
-|--------|--------|-------|
-| API Response Time | < 200ms | P95 for simple queries |
-| Review Generation | < 60s | For typical PR (< 500 lines) |
-| Page Load Time | < 3s | LCP for dashboard |
-| Webhook Processing | < 5s | Time to acknowledge |
+| Metric             | Target  | Notes                        |
+| ------------------ | ------- | ---------------------------- |
+| API Response Time  | < 200ms | P95 for simple queries       |
+| Review Generation  | < 60s   | For typical PR (< 500 lines) |
+| Page Load Time     | < 3s    | LCP for dashboard            |
+| Webhook Processing | < 5s    | Time to acknowledge          |
 
 ### 10.2 Scalability
 
@@ -1024,12 +1035,12 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### 10.5 Monitoring
 
-| Aspect | Tool | Metrics |
-|--------|------|---------|
-| Application | Built-in + external | Response times, error rates |
-| Infrastructure | Docker stats / Render | CPU, memory, disk |
-| Logging | JSON structured logs | All requests, errors |
-| Alerting | External integration | Error spikes, downtime |
+| Aspect         | Tool                  | Metrics                     |
+| -------------- | --------------------- | --------------------------- |
+| Application    | Built-in + external   | Response times, error rates |
+| Infrastructure | Docker stats / Render | CPU, memory, disk           |
+| Logging        | JSON structured logs  | All requests, errors        |
+| Alerting       | External integration  | Error spikes, downtime      |
 
 ---
 
@@ -1037,13 +1048,13 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### A. Glossary
 
-| Term | Definition |
-|------|------------|
-| **PR** | Pull Request (or Merge Request) |
-| **Diff** | The changes between two versions of code |
-| **Webhook** | HTTP callback triggered by an event |
-| **JWT** | JSON Web Token for authentication |
-| **RBAC** | Role-Based Access Control |
+| Term        | Definition                               |
+| ----------- | ---------------------------------------- |
+| **PR**      | Pull Request (or Merge Request)          |
+| **Diff**    | The changes between two versions of code |
+| **Webhook** | HTTP callback triggered by an event      |
+| **JWT**     | JSON Web Token for authentication        |
+| **RBAC**    | Role-Based Access Control                |
 
 ### B. References
 
@@ -1055,6 +1066,6 @@ Response format: JSON array of comments with file path, line numbers, content, a
 
 ### C. Document History
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0.0 | Jan 2026 | Initial | Initial draft |
+| Version | Date     | Author  | Changes       |
+| ------- | -------- | ------- | ------------- |
+| 1.0.0   | Jan 2026 | Initial | Initial draft |

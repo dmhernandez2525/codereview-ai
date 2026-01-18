@@ -33,13 +33,5 @@
     "skipLibCheck": true,
     "incremental": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    ".next",
-    "coverage",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["node_modules", "dist", "build", ".next", "coverage", "**/*.test.ts", "**/*.spec.ts"]
 }
