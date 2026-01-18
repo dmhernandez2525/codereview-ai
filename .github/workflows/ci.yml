@@ -236,7 +236,6 @@ jobs:
 
       - name: Build Server image
         uses: docker/build-push-action@v5
-        continue-on-error: true  # Strapi build may fail due to native module issues on Alpine
         with:
           context: .
           file: ./Server/Dockerfile
@@ -308,10 +307,10 @@ jobs:
     steps:
       - name: Check all jobs
         run: |
-          # Note: docker is excluded as Server Docker build may fail due to native module issues
           if [[ "${{ needs.lint.result }}" == "failure" ]] || \
              [[ "${{ needs.client.result }}" == "failure" ]] || \
-             [[ "${{ needs.microservice.result }}" == "failure" ]]; then
+             [[ "${{ needs.microservice.result }}" == "failure" ]] || \
+             [[ "${{ needs.docker.result }}" == "failure" ]]; then
             echo "One or more jobs failed"
             exit 1
           fi

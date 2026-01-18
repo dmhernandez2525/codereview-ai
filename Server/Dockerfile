@@ -1,10 +1,14 @@
 # syntax=docker/dockerfile:1
 
 # =============================================================================
-# Base stage - shared dependencies
+# Base stage - shared dependencies (using slim for native module compatibility)
 # =============================================================================
-FROM node:20-alpine AS base
-RUN apk add --no-cache libc6-compat python3 make g++
+FROM node:20-slim AS base
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 # =============================================================================
@@ -31,11 +35,11 @@ RUN npm run build
 # =============================================================================
 # Production stage - minimal production image
 # =============================================================================
-FROM base AS production
+FROM node:20-slim AS production
 ENV NODE_ENV=production
 
-RUN addgroup --system --gid 1001 strapi
-RUN adduser --system --uid 1001 strapi
+RUN groupadd --system --gid 1001 strapi && \
+    useradd --system --uid 1001 --gid strapi strapi
 
 WORKDIR /app
 
