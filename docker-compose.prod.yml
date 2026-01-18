@@ -1,0 +1,162 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: codereview-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: codereview-redis
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  # Strapi CMS (Server)
+  server:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+      target: production
+    container_name: codereview-server
+    restart: always
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 1337
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_SSL: "false"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+      - server_uploads:/app/public/uploads
+    expose:
+      - "1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - internal
+      - web
+
+  # Express Microservice (AI Engine)
+  microservice:
+    build:
+      context: ./Microservice
+      dockerfile: Dockerfile
+      target: production
+    container_name: codereview-microservice
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      STRAPI_URL: http://server:1337
+      STRAPI_API_TOKEN: ${STRAPI_API_TOKEN}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY}
+      GITHUB_APP_ID: ${GITHUB_APP_ID}
+      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY}
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET}
+      GITLAB_WEBHOOK_SECRET: ${GITLAB_WEBHOOK_SECRET}
+      BITBUCKET_WEBHOOK_SECRET: ${BITBUCKET_WEBHOOK_SECRET}
+      AZURE_DEVOPS_WEBHOOK_SECRET: ${AZURE_DEVOPS_WEBHOOK_SECRET}
+    expose:
+      - "4000"
+    depends_on:
+      - server
+      - redis
+    networks:
+      - internal
+      - web
+
+  # Next.js Client
+  client:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      target: production
+    container_name: codereview-client
+    restart: always
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_STRAPI_URL: ${PUBLIC_STRAPI_URL}
+      NEXT_PUBLIC_MICROSERVICE_URL: ${PUBLIC_MICROSERVICE_URL}
+      STRAPI_URL: http://server:1337
+      MICROSERVICE_URL: http://microservice:4000
+    expose:
+      - "3000"
+    depends_on:
+      - server
+    networks:
+      - internal
+      - web
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: codereview-nginx
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - client
+      - server
+      - microservice
+    networks:
+      - web
+
+volumes:
+  postgres_data:
+  redis_data:
+  server_uploads:
+
+networks:
+  internal:
+    driver: bridge
+  web:
+    driver: bridge

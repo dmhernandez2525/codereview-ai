@@ -1,0 +1,140 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: codereview-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-codereview}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-codereview_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-codereview}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-codereview}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: codereview-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Strapi CMS (Server)
+  server:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+      target: development
+    container_name: codereview-server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 1337
+      APP_KEYS: ${APP_KEYS:-toBeGenerated1,toBeGenerated2,toBeGenerated3,toBeGenerated4}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:-toBeGenerated}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-toBeGenerated}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-toBeGenerated}
+      JWT_SECRET: ${JWT_SECRET:-toBeGenerated}
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-codereview}
+      DATABASE_USERNAME: ${POSTGRES_USER:-codereview}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-codereview_dev}
+      DATABASE_SSL: "false"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    volumes:
+      - ./Server:/app
+      - /app/node_modules
+      - server_uploads:/app/public/uploads
+    ports:
+      - "1337:1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Express Microservice (AI Engine)
+  microservice:
+    build:
+      context: ./Microservice
+      dockerfile: Dockerfile
+      target: development
+    container_name: codereview-microservice
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      STRAPI_URL: http://server:1337
+      STRAPI_API_TOKEN: ${STRAPI_API_TOKEN:-}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+      GITHUB_APP_ID: ${GITHUB_APP_ID:-}
+      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
+      GITLAB_WEBHOOK_SECRET: ${GITLAB_WEBHOOK_SECRET:-}
+      BITBUCKET_WEBHOOK_SECRET: ${BITBUCKET_WEBHOOK_SECRET:-}
+      AZURE_DEVOPS_WEBHOOK_SECRET: ${AZURE_DEVOPS_WEBHOOK_SECRET:-}
+    volumes:
+      - ./Microservice:/app
+      - /app/node_modules
+    ports:
+      - "4000:4000"
+    depends_on:
+      - server
+      - redis
+
+  # Next.js Client
+  client:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      target: development
+    container_name: codereview-client
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_STRAPI_URL: http://localhost:1337
+      NEXT_PUBLIC_MICROSERVICE_URL: http://localhost:4000
+      STRAPI_URL: http://server:1337
+      MICROSERVICE_URL: http://microservice:4000
+    volumes:
+      - ./Client:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:
+  redis_data:
+  server_uploads:
+
+networks:
+  default:
+    name: codereview-network
