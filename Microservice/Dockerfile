@@ -22,6 +22,7 @@ RUN npm ci --workspace=Microservice
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/Microservice/node_modules ./Microservice/node_modules
+COPY tsconfig.base.json ./
 COPY Microservice/ ./Microservice/
 
 WORKDIR /app/Microservice
