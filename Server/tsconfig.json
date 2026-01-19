@@ -23,9 +23,7 @@
     // Include all js files
     "./**/*.js",
     // Force the JSON files in the src folder to be included
-    "src/**/*.json",
-    // Include vitest config
-    "vitest.config.ts"
+    "src/**/*.json"
   ],
 
   "exclude": [
@@ -38,6 +36,10 @@
     // Do not include admin files in the server compilation
     "src/admin/",
     // Do not include plugins in the server compilation
-    "src/plugins/**"
+    "src/plugins/**",
+    // Exclude test configuration
+    "vitest.config.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }
