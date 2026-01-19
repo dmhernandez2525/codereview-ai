@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "configurations",
+  "info": {
+    "singularName": "configuration",
+    "pluralName": "configurations",
+    "displayName": "Configuration",
+    "description": "Repository-level review configuration (parsed from .codereview.yaml)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "yamlContent": {
+      "type": "text",
+      "required": true
+    },
+    "parsed": {
+      "type": "json",
+      "required": true
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0",
+      "maxLength": 20
+    },
+    "sha": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "isValid": {
+      "type": "boolean",
+      "default": true
+    },
+    "validationErrors": {
+      "type": "json"
+    },
+    "repository": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::repository.repository",
+      "inversedBy": "configurations"
+    }
+  }
+}

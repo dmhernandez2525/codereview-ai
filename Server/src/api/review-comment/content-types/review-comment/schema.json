@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "review_comments",
+  "info": {
+    "singularName": "review-comment",
+    "pluralName": "review-comments",
+    "displayName": "Review Comment",
+    "description": "Individual comments from AI code reviews"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "filePath": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1024
+    },
+    "lineStart": {
+      "type": "integer"
+    },
+    "lineEnd": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "severity": {
+      "type": "enumeration",
+      "enum": ["info", "suggestion", "warning", "error"]
+    },
+    "category": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "externalId": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "isPosted": {
+      "type": "boolean",
+      "default": false
+    },
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::review.review",
+      "inversedBy": "comments"
+    }
+  }
+}
