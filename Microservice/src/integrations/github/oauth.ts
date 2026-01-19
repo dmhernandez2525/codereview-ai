@@ -63,7 +63,12 @@ export class GitHubOAuth {
       const { data } = await this.appOctokit.apps.listInstallations();
 
       return data.map((installation) => {
-        const account = installation.account as { login?: string; name?: string; type?: string; avatar_url?: string } | null;
+        const account = installation.account as {
+          login?: string;
+          name?: string;
+          type?: string;
+          avatar_url?: string;
+        } | null;
         const accountLogin = account?.login ?? account?.name ?? 'unknown';
 
         return {
@@ -97,7 +102,12 @@ export class GitHubOAuth {
       });
 
       // Account can be User or Organization - handle both types
-      const account = data.account as { login?: string; name?: string; type?: string; avatar_url?: string } | null;
+      const account = data.account as {
+        login?: string;
+        name?: string;
+        type?: string;
+        avatar_url?: string;
+      } | null;
       const accountLogin = account?.login ?? account?.name ?? 'unknown';
 
       return {
@@ -243,7 +253,12 @@ export class GitHubOAuth {
       const { data } = await octokit.apps.listInstallationsForAuthenticatedUser();
 
       return data.installations.map((installation) => {
-        const account = installation.account as { login?: string; name?: string; type?: string; avatar_url?: string } | null;
+        const account = installation.account as {
+          login?: string;
+          name?: string;
+          type?: string;
+          avatar_url?: string;
+        } | null;
         const accountLogin = account?.login ?? account?.name ?? 'unknown';
 
         return {
