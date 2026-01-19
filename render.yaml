@@ -1,25 +1,9 @@
 # Render Infrastructure as Code
 # https://render.com/docs/infrastructure-as-code
+# Cost: ~$7/month (basic database) + Redis starter (~$10/month)
+# Note: Web services use starter plan
 
 services:
-  # PostgreSQL Database
-  - type: pserv
-    name: codereview-db
-    env: docker
-    plan: starter
-    dockerfilePath: ./Dockerfile.postgres
-    envVars:
-      - key: POSTGRES_USER
-        sync: false
-      - key: POSTGRES_PASSWORD
-        generateValue: true
-      - key: POSTGRES_DB
-        value: codereview
-    disk:
-      name: postgres-data
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 10
-
   # Redis Cache
   - type: redis
     name: codereview-redis
