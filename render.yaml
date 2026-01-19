@@ -1,8 +1,8 @@
-# Build fix: Testing Render builds
 # Render Infrastructure as Code
 # https://render.com/docs/infrastructure-as-code
 # Cost: ~$7/month (basic database) + Redis starter (~$10/month)
 # Note: Web services use starter plan
+# Fix: Use npm install (not npm ci) to get correct platform-specific @swc/core bindings
 
 services:
   # Redis Cache
@@ -16,10 +16,12 @@ services:
     name: codereview-server
     env: node
     plan: starter
-    buildCommand: cd Server && npm ci && npm run build
+    buildCommand: cd Server && rm -rf node_modules && npm install && npm run build
     startCommand: cd Server && npm run start
     healthCheckPath: /_health
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
       - key: HOST
@@ -54,10 +56,12 @@ services:
     name: codereview-microservice
     env: node
     plan: starter
-    buildCommand: cd Microservice && npm ci && npm run build
+    buildCommand: cd Microservice && rm -rf node_modules && npm install && npm run build
     startCommand: cd Microservice && npm run start
     healthCheckPath: /health
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
       - key: PORT
@@ -95,10 +99,12 @@ services:
     name: codereview-client
     env: node
     plan: starter
-    buildCommand: cd Client && npm ci && npm run build
+    buildCommand: cd Client && rm -rf node_modules && npm install && npm run build
     startCommand: cd Client && npm run start
     healthCheckPath: /api/health
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_STRAPI_URL
@@ -128,9 +134,11 @@ services:
     name: codereview-worker
     env: node
     plan: starter
-    buildCommand: cd Microservice && npm ci && npm run build
+    buildCommand: cd Microservice && rm -rf node_modules && npm install && npm run build
     startCommand: cd Microservice && npm run start:worker
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
       - key: STRAPI_URL
