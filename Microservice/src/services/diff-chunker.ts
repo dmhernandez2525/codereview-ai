@@ -4,7 +4,11 @@
  */
 
 import { reconstructFileDiff } from './diff-parser.js';
-import { calculateFilePriority, getFileExtension, getLanguageFromExtension } from './file-filter.js';
+import {
+  calculateFilePriority,
+  getFileExtension,
+  getLanguageFromExtension,
+} from './file-filter.js';
 
 import type { DiffFile, ParsedDiff } from './diff-parser.js';
 
@@ -72,7 +76,9 @@ export function chunkDiff(diff: ParsedDiff, options: ChunkOptions = {}): Chunked
   const { maxTokensPerChunk = 50000, maxFilesPerChunk = 20 } = options;
 
   // Sort files by priority
-  const sortedFiles = [...diff.files].sort((a, b) => calculateFilePriority(b) - calculateFilePriority(a));
+  const sortedFiles = [...diff.files].sort(
+    (a, b) => calculateFilePriority(b) - calculateFilePriority(a)
+  );
 
   // Quick check: if entire diff fits in one chunk
   const fullDiffContent = sortedFiles.map((f) => reconstructFileDiff(f)).join('\n');
@@ -119,11 +125,7 @@ export function chunkDiff(diff: ParsedDiff, options: ChunkOptions = {}): Chunked
 /**
  * Chunks files by their programming language.
  */
-function chunkByLanguage(
-  files: DiffFile[],
-  maxTokens: number,
-  maxFiles: number
-): DiffChunk[] {
+function chunkByLanguage(files: DiffFile[], maxTokens: number, maxFiles: number): DiffChunk[] {
   // Group by language
   const byLanguage = new Map<string, DiffFile[]>();
 
@@ -151,11 +153,7 @@ function chunkByLanguage(
 /**
  * Chunks files into batches.
  */
-function chunkByBatch(
-  files: DiffFile[],
-  maxTokens: number,
-  maxFiles: number
-): DiffChunk[] {
+function chunkByBatch(files: DiffFile[], maxTokens: number, maxFiles: number): DiffChunk[] {
   return createChunksFromFiles(files, maxTokens, maxFiles, 1);
 }
 
@@ -193,10 +191,7 @@ function createChunksFromFiles(
     }
 
     // Check if adding this file exceeds limits
-    if (
-      currentTokens + fileTokens > maxTokens ||
-      currentChunk.length >= maxFiles
-    ) {
+    if (currentTokens + fileTokens > maxTokens || currentChunk.length >= maxFiles) {
       // Save current chunk and start new one
       if (currentChunk.length > 0) {
         chunks.push(createChunk(currentChunk, chunkId++, language));

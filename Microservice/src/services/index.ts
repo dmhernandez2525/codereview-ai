@@ -34,4 +34,8 @@ export { ReviewService, getReviewService } from './review.service.js';
 export type { ReviewOptions, ReviewProgress, ReviewServiceResult } from './review.service.js';
 
 // Review processor
-export { createReviewProcessor, validateJobData, createJobDataFromWebhook } from './review-processor.js';
+export {
+  createReviewProcessor,
+  validateJobData,
+  createJobDataFromWebhook,
+} from './review-processor.js';

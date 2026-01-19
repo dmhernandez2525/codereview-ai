@@ -11,7 +11,6 @@ import { strapiClient } from '../lib/strapi.js';
 import { OpenAIProvider } from '../providers/openai/provider.js';
 import { logger } from '../utils/logger.js';
 
-
 import type { DiffChunk } from './diff-chunker.js';
 import type { OpenAIReviewResult } from '../providers/openai/provider.js';
 import type {
@@ -183,7 +182,8 @@ export class ReviewService {
 
     // Filter files based on config
     const includePatterns = config?.pathFilters?.filter((p) => !p.startsWith('!')) ?? [];
-    const excludePatterns = config?.pathFilters?.filter((p) => p.startsWith('!')).map((p) => p.substring(1)) ?? [];
+    const excludePatterns =
+      config?.pathFilters?.filter((p) => p.startsWith('!')).map((p) => p.substring(1)) ?? [];
 
     const filterConfig: { include?: string[]; exclude?: string[] } = {};
     if (includePatterns.length > 0) {
@@ -246,7 +246,12 @@ export class ReviewService {
       config?.aiModel ?? 'gpt-4o'
     );
 
-    const result: { comments: LocalReviewComment[]; summary?: string; tokensUsed: number; cost: number } = {
+    const result: {
+      comments: LocalReviewComment[];
+      summary?: string;
+      tokensUsed: number;
+      cost: number;
+    } = {
       comments: allComments,
       tokensUsed: totalTokensUsed,
       cost,
@@ -260,10 +265,7 @@ export class ReviewService {
   /**
    * Reviews a single chunk of diff.
    */
-  private async reviewChunk(
-    chunk: DiffChunk,
-    config?: ReviewConfig
-  ): Promise<OpenAIReviewResult> {
+  private async reviewChunk(chunk: DiffChunk, config?: ReviewConfig): Promise<OpenAIReviewResult> {
     logger.debug(
       {
         chunkId: chunk.id,
@@ -273,7 +275,13 @@ export class ReviewService {
       'Reviewing chunk'
     );
 
-    const reviewRequest: { repositoryId: string; pullRequestId: string; provider: 'github'; diff: string; config?: ReviewConfig } = {
+    const reviewRequest: {
+      repositoryId: string;
+      pullRequestId: string;
+      provider: 'github';
+      diff: string;
+      config?: ReviewConfig;
+    } = {
       repositoryId: '', // Not needed for generation
       pullRequestId: '',
       provider: 'github',

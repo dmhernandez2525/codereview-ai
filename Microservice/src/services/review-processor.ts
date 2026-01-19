@@ -3,11 +3,9 @@
  * Processes review jobs from the Bull queue
  */
 
-
 import { ReviewService } from './review.service.js';
 import { config } from '../config/index.js';
 import { logger } from '../utils/logger.js';
-
 
 import type { ReviewJobData, ReviewJobResult } from '../types/index.js';
 import type { Job } from 'bullmq';

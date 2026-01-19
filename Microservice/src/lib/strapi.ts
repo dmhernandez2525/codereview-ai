@@ -151,7 +151,9 @@ class StrapiClient {
   // Review Comment endpoints
   // =========================================================================
 
-  async createReviewComment(data: Partial<StrapiReviewComment>): Promise<StrapiResponse<StrapiReviewComment>> {
+  async createReviewComment(
+    data: Partial<StrapiReviewComment>
+  ): Promise<StrapiResponse<StrapiReviewComment>> {
     return this.request('/review-comments', {
       method: 'POST',
       body: JSON.stringify({ data }),
