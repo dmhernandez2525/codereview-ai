@@ -34,14 +34,14 @@ the source of truth for what has been completed and what remains.
 
 ## Last Session
 
-| Field             | Value                                                                                                                                     |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Date**          | January 18, 2026                                                                                                                          |
-| **Work Done**     | Created all 7 Strapi content types: Organization, Repository, Review, ReviewComment, ApiKey, Configuration, UsageLog                     |
-| **Key Decisions** | Content types follow SDD schema with proper relations; used kebab-case for multi-word content type names (review-comment, usage-log)     |
-| **Blockers**      | None                                                                                                                                      |
-| **Next Priority** | Configure user permissions, JWT authentication, create Dockerfile for Server                                                              |
-| **Notes**         | All content types created with proper relations matching the database schema. Strapi build passes successfully. Ready for auth config.   |
+| Field             | Value                                                                                                                                  |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Date**          | January 18, 2026                                                                                                                       |
+| **Work Done**     | Created all 7 Strapi content types: Organization, Repository, Review, ReviewComment, ApiKey, Configuration, UsageLog                   |
+| **Key Decisions** | Content types follow SDD schema with proper relations; used kebab-case for multi-word content type names (review-comment, usage-log)   |
+| **Blockers**      | None                                                                                                                                   |
+| **Next Priority** | Configure user permissions, JWT authentication, create Dockerfile for Server                                                           |
+| **Notes**         | All content types created with proper relations matching the database schema. Strapi build passes successfully. Ready for auth config. |
 
 ---
 
