@@ -100,7 +100,13 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    // Set up default permissions for content types
-    await setupDefaultPermissions(strapi);
+    try {
+      // Set up default permissions for content types
+      await setupDefaultPermissions(strapi);
+    } catch (error) {
+      // Log the error but don't fail startup - permissions can be set manually
+      strapi.log.error('Bootstrap error during permissions setup:', error);
+      strapi.log.warn('Continuing startup without automatic permissions setup. Set permissions manually in admin panel.');
+    }
   },
 };
