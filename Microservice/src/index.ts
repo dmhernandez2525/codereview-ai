@@ -5,9 +5,10 @@ import helmet from 'helmet';
 
 import { config } from './config/index.js';
 import { webhookSignatureMiddleware, handleWebhook } from './integrations/github/index.js';
-import { getReviewQueue, getQueueStats, closeQueues } from './lib/queue.js';
+import { getReviewQueue, getQueueStats, closeQueues, startReviewWorker } from './lib/queue.js';
 import { getRedisClient, isRedisConnected, closeRedisConnection } from './lib/redis.js';
 import { strapiClient } from './lib/strapi.js';
+import { createReviewProcessor } from './services/review-processor.js';
 import { logger } from './utils/logger.js';
 
 import type { HealthResponse } from './types/index.js';
@@ -24,6 +25,10 @@ async function initializeConnections(): Promise<void> {
 
   // Initialize the review queue (will connect to Redis)
   getReviewQueue();
+
+  // Start the review worker
+  const reviewProcessor = createReviewProcessor();
+  startReviewWorker(reviewProcessor);
 
   // Test Strapi connection
   await strapiClient.testConnection();

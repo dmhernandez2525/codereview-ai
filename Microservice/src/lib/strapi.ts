@@ -7,7 +7,7 @@ import type {
   Organization,
   Repository,
   Review,
-  ReviewComment,
+  StrapiReviewComment,
   Configuration,
   UsageLog,
 } from '../types/index.js';
@@ -151,7 +151,7 @@ class StrapiClient {
   // Review Comment endpoints
   // =========================================================================
 
-  async createReviewComment(data: Partial<ReviewComment>): Promise<StrapiResponse<ReviewComment>> {
+  async createReviewComment(data: Partial<StrapiReviewComment>): Promise<StrapiResponse<StrapiReviewComment>> {
     return this.request('/review-comments', {
       method: 'POST',
       body: JSON.stringify({ data }),
@@ -159,16 +159,16 @@ class StrapiClient {
   }
 
   async createReviewComments(
-    comments: Partial<ReviewComment>[]
-  ): Promise<StrapiResponse<ReviewComment>[]> {
+    comments: Partial<StrapiReviewComment>[]
+  ): Promise<StrapiResponse<StrapiReviewComment>[]> {
     // Strapi doesn't have bulk create, so we batch the requests
     return Promise.all(comments.map((comment) => this.createReviewComment(comment)));
   }
 
   async updateReviewComment(
     id: number,
-    data: Partial<ReviewComment>
-  ): Promise<StrapiResponse<ReviewComment>> {
+    data: Partial<StrapiReviewComment>
+  ): Promise<StrapiResponse<StrapiReviewComment>> {
     return this.request(`/review-comments/${id}`, {
       method: 'PUT',
       body: JSON.stringify({ data }),
