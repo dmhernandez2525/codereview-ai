@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 
-import type { DiffFile, ParsedDiff } from './diff-parser.js';
 import {
   calculateFilePriority,
   DEFAULT_EXCLUSIONS,
@@ -10,6 +9,8 @@ import {
   groupFilesByType,
   matchesPatterns,
 } from './file-filter.js';
+
+import type { DiffFile, ParsedDiff } from './diff-parser.js';
 
 const createDiffFile = (path: string, overrides: Partial<DiffFile> = {}): DiffFile => ({
   oldPath: path,
