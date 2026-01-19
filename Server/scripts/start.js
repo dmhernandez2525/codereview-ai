@@ -4,6 +4,9 @@
  * This script helps diagnose startup issues on cloud platforms like Render.
  */
 
+const { execSync } = require('child_process');
+const path = require('path');
+
 // Log startup configuration
 console.log('=== Strapi Startup Configuration ===');
 console.log('NODE_ENV:', process.env.NODE_ENV || 'development');
@@ -40,31 +43,21 @@ if (process.env.DATABASE_CLIENT === 'postgres' && !process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-console.log('Starting Strapi via direct import...');
+console.log('Starting Strapi...');
+console.log('Working directory:', path.resolve(__dirname, '..'));
 
-// Use async IIFE to properly handle async/await and catch errors
-(async () => {
-  try {
-    // Import Strapi dynamically
-    const { createStrapi } = await import('@strapi/strapi');
-
-    console.log('Strapi module imported successfully');
-
-    // Create and start Strapi
-    const strapi = await createStrapi().load();
-    console.log('Strapi loaded successfully');
-
-    await strapi.start();
-    console.log('Strapi started successfully');
-  } catch (error) {
-    console.error('=== STRAPI STARTUP ERROR ===');
-    console.error('Error name:', error.name);
-    console.error('Error message:', error.message);
-    console.error('Error stack:', error.stack);
-    if (error.cause) {
-      console.error('Error cause:', error.cause);
-    }
-    console.error('============================');
-    process.exit(1);
+// Use execSync with inherit to properly pass through all output
+try {
+  execSync('npx strapi start', {
+    stdio: 'inherit',
+    cwd: path.resolve(__dirname, '..'),
+  });
+} catch (error) {
+  console.error('=== STRAPI STARTUP ERROR ===');
+  console.error('Exit status:', error.status);
+  if (error.stderr) {
+    console.error('stderr:', error.stderr.toString());
   }
-})();
+  console.error('============================');
+  process.exit(error.status || 1);
+}
