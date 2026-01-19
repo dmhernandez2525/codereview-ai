@@ -173,7 +173,7 @@ export const DEFAULT_EXCLUSIONS = [
  */
 export function parseConfig(yamlContent: string): ConfigParseResult {
   try {
-    const parsed = parseYaml(yamlContent);
+    const parsed: unknown = parseYaml(yamlContent);
 
     if (!parsed || typeof parsed !== 'object') {
       return {

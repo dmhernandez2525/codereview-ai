@@ -192,10 +192,11 @@ export class GitHubOAuth {
         }),
       });
 
-      const data = (await response.json()) as OAuthTokenResponse | { error: string };
+      const data: unknown = await response.json();
+      const errorData = data as { error?: string };
 
-      if ('error' in data) {
-        throw new Error(`OAuth error: ${data.error}`);
+      if (errorData.error) {
+        throw new Error(`OAuth error: ${errorData.error}`);
       }
 
       logger.debug('Exchanged OAuth code for token');
