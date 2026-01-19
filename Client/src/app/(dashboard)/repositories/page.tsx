@@ -119,8 +119,9 @@ export default function RepositoriesPage() {
     });
   };
 
-  const handleToggle = (_id: number) => {
+  const handleToggle = (id: number) => {
     // TODO: Implement toggle functionality with API
+    void id;
   };
 
   if (isLoading) {
