@@ -120,8 +120,8 @@ export default function RepositoriesPage() {
   };
 
   const handleToggle = (id: number) => {
-    console.debug('Toggle repository:', id);
     // TODO: Implement toggle functionality with API
+    void id;
   };
 
   if (isLoading) {
