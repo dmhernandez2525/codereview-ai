@@ -4,13 +4,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-
 import type { ReviewFull, ReviewComment } from '@/lib/api';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-
 
 // Mock data for demonstration
 const mockReview: ReviewFull = {

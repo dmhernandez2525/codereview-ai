@@ -132,7 +132,9 @@ function FeatureSection({
   reversed?: boolean;
 }) {
   return (
-    <div className={`flex flex-col gap-12 lg:flex-row lg:items-center ${reversed ? 'lg:flex-row-reverse' : ''}`}>
+    <div
+      className={`flex flex-col gap-12 lg:flex-row lg:items-center ${reversed ? 'lg:flex-row-reverse' : ''}`}
+    >
       <div className="flex-1">
         <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
           {badge}
@@ -150,9 +152,7 @@ function FeatureSection({
       </div>
       <div className="flex-1">
         <div className="aspect-video rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
-          <div className="flex h-full items-center justify-center text-gray-400">
-            {imageAlt}
-          </div>
+          <div className="flex h-full items-center justify-center text-gray-400">{imageAlt}</div>
         </div>
       </div>
     </div>

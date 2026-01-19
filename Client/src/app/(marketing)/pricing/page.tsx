@@ -142,7 +142,8 @@ export default function PricingPage() {
             <div>
               <h3 className="text-xl font-semibold">Enterprise</h3>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Custom solutions for large organizations with specific security and compliance needs.
+                Custom solutions for large organizations with specific security and compliance
+                needs.
               </p>
             </div>
             <Link

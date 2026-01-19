@@ -9,8 +9,9 @@ export default function PrivacyPage() {
       <p className="lead">Last updated: January 2024</p>
 
       <p>
-        CodeReview AI (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy.
-        This Privacy Policy explains how we collect, use, and safeguard your information when you use our service.
+        CodeReview AI (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to
+        protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard
+        your information when you use our service.
       </p>
 
       <h2>1. Information We Collect</h2>
@@ -62,18 +63,34 @@ export default function PrivacyPage() {
       <h2>4. Third-Party Services</h2>
       <p>We use the following third-party services:</p>
       <ul>
-        <li><strong>AI Providers</strong> (OpenAI, Anthropic, Google): To process code reviews. When you use BYOK, your code goes directly to these providers.</li>
-        <li><strong>Git Platforms</strong> (GitHub, GitLab, etc.): To access repository data and post review comments.</li>
-        <li><strong>Infrastructure</strong>: Cloud hosting providers for running our service.</li>
+        <li>
+          <strong>AI Providers</strong> (OpenAI, Anthropic, Google): To process code reviews. When
+          you use BYOK, your code goes directly to these providers.
+        </li>
+        <li>
+          <strong>Git Platforms</strong> (GitHub, GitLab, etc.): To access repository data and post
+          review comments.
+        </li>
+        <li>
+          <strong>Infrastructure</strong>: Cloud hosting providers for running our service.
+        </li>
       </ul>
 
       <h2>5. Data Retention</h2>
       <p>We retain data as follows:</p>
       <ul>
-        <li><strong>Code:</strong> Never stored (zero-retention)</li>
-        <li><strong>Review metadata:</strong> 90 days, then anonymized</li>
-        <li><strong>Account data:</strong> Until account deletion</li>
-        <li><strong>Audit logs:</strong> 1 year</li>
+        <li>
+          <strong>Code:</strong> Never stored (zero-retention)
+        </li>
+        <li>
+          <strong>Review metadata:</strong> 90 days, then anonymized
+        </li>
+        <li>
+          <strong>Account data:</strong> Until account deletion
+        </li>
+        <li>
+          <strong>Audit logs:</strong> 1 year
+        </li>
       </ul>
 
       <h2>6. Your Rights</h2>
@@ -88,8 +105,8 @@ export default function PrivacyPage() {
 
       <h2>7. GDPR Compliance</h2>
       <p>
-        For users in the European Economic Area, we comply with GDPR requirements.
-        Our legal basis for processing is contract performance and legitimate interest.
+        For users in the European Economic Area, we comply with GDPR requirements. Our legal basis
+        for processing is contract performance and legitimate interest.
       </p>
 
       <h2>8. Contact Us</h2>
@@ -100,8 +117,8 @@ export default function PrivacyPage() {
 
       <h2>9. Changes to This Policy</h2>
       <p>
-        We may update this policy periodically. We will notify you of significant changes
-        via email or through the service.
+        We may update this policy periodically. We will notify you of significant changes via email
+        or through the service.
       </p>
     </article>
   );

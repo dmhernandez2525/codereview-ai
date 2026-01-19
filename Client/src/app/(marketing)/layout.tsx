@@ -12,13 +12,22 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
-            <Link href="/features" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            <Link
+              href="/features"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
               Features
             </Link>
-            <Link href="/pricing" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            <Link
+              href="/pricing"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
               Pricing
             </Link>
-            <Link href="/docs" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            <Link
+              href="/docs"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
               Docs
             </Link>
           </div>
@@ -60,27 +69,63 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <div>
               <h3 className="font-semibold">Product</h3>
               <ul className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="/features" className="hover:text-primary">Features</Link></li>
-                <li><Link href="/pricing" className="hover:text-primary">Pricing</Link></li>
-                <li><Link href="/docs" className="hover:text-primary">Documentation</Link></li>
+                <li>
+                  <Link href="/features" className="hover:text-primary">
+                    Features
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="hover:text-primary">
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/docs" className="hover:text-primary">
+                    Documentation
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="font-semibold">Company</h3>
               <ul className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="/about" className="hover:text-primary">About</Link></li>
-                <li><Link href="/blog" className="hover:text-primary">Blog</Link></li>
-                <li><Link href="/contact" className="hover:text-primary">Contact</Link></li>
+                <li>
+                  <Link href="/about" className="hover:text-primary">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog" className="hover:text-primary">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:text-primary">
+                    Contact
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="font-semibold">Legal</h3>
               <ul className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="/privacy" className="hover:text-primary">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-primary">Terms of Service</Link></li>
-                <li><Link href="/security" className="hover:text-primary">Security</Link></li>
+                <li>
+                  <Link href="/privacy" className="hover:text-primary">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-primary">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/security" className="hover:text-primary">
+                    Security
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-
 import type { Review } from '@/lib/api';
 
 import { Button } from '@/components/ui/button';
@@ -18,7 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
 
 // Mock data for demonstration
 const mockReviews: Review[] = [
