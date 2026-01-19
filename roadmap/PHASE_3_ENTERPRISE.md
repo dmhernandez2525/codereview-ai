@@ -2,12 +2,14 @@
 
 ## Overview
 
-Phase 3 adds enterprise-grade features for larger organizations and self-hosted deployments.
+Phase 3 adds enterprise-grade features for larger organizations and self-hosted
+deployments.
 
-**Timeline**: 6-8 weeks (after Phase 2)
-**Goal**: Enterprise-ready platform with advanced security and scalability
+**Timeline**: 6-8 weeks (after Phase 2) **Goal**: Enterprise-ready platform with
+advanced security and scalability
 
 ### Key Enterprise Differentiators
+
 - **Self-hosting at 50 seats** (vs CodeRabbit's 500-seat minimum)
 - **FedRAMP authorization path** (no competitor has this)
 - **Air-gapped deployment** for defense/government
@@ -28,6 +30,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 ## Milestones
 
 ### Milestone 1: SSO/SAML Integration
+
 **Status**: Not Started
 
 - [ ] SAML 2.0 support:
@@ -50,6 +53,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] OneLogin
 
 ### Milestone 2: SCIM User Provisioning
+
 **Status**: Not Started
 
 - [ ] SCIM 2.0 endpoint implementation:
@@ -66,6 +70,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 - [ ] Testing with major IdPs
 
 ### Milestone 3: Audit Logging
+
 **Status**: Not Started
 
 - [ ] Comprehensive audit log:
@@ -86,6 +91,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] SIEM integration
 
 ### Milestone 4: Advanced RBAC
+
 **Status**: Not Started
 
 - [ ] Custom roles:
@@ -101,6 +107,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 - [ ] Permission audit
 
 ### Milestone 5: IP Allowlisting
+
 **Status**: Not Started
 
 - [ ] IP allowlist configuration:
@@ -115,6 +122,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 - [ ] Violation logging
 
 ### Milestone 6: Self-Hosted Enhancements
+
 **Status**: Not Started
 
 - [ ] **Self-hosting at 50 seats** (key differentiator):
@@ -146,9 +154,11 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] RTO/RPO documentation
 
 ### Milestone 6b: FedRAMP Authorization Path
+
 **Status**: Not Started
 
-**Note**: No AI code review tool currently holds FedRAMP authorization. This is a major market opportunity.
+**Note**: No AI code review tool currently holds FedRAMP authorization. This is
+a major market opportunity.
 
 - [ ] **FedRAMP assessment preparation:**
   - [ ] Gap analysis against FedRAMP Moderate baseline
@@ -169,6 +179,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Dedicated compliance FTE
 
 ### Milestone 6c: Compliance Packages
+
 **Status**: Not Started
 
 - [ ] **Pre-built rule packages:**
@@ -196,9 +207,11 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Government template
 
 ### Milestone 6d: CodeGuru Migration
+
 **Status**: Not Started
 
-**Note**: Amazon CodeGuru was discontinued November 2025. Target these orphaned customers.
+**Note**: Amazon CodeGuru was discontinued November 2025. Target these orphaned
+customers.
 
 - [ ] **Migration tools:**
   - [ ] CodeGuru config import
@@ -214,6 +227,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Case study template
 
 ### Milestone 7: Custom AI Models
+
 **Status**: Not Started
 
 - [ ] **Self-hosted model support:**
@@ -241,6 +255,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Feedback loop integration
 
 ### Milestone 7b: Cross-Repository Context
+
 **Status**: Not Started
 
 - [ ] **Monorepo support:**
@@ -257,6 +272,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Shared pattern identification
 
 ### Milestone 7c: Engineering Metrics Platform
+
 **Status**: Not Started
 
 - [ ] **Code quality trends:**
@@ -278,6 +294,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Cost optimization suggestions
 
 ### Milestone 8: Advanced Analytics
+
 **Status**: Not Started
 
 - [ ] Executive dashboard:
@@ -299,6 +316,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] API for BI tools
 
 ### Milestone 9: Compliance Features
+
 **Status**: Not Started
 
 - [ ] Data retention policies:
@@ -319,6 +337,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] HSM support
 
 ### Milestone 10: API Enhancements
+
 **Status**: Not Started
 
 - [ ] GraphQL API:
@@ -339,6 +358,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
   - [ ] Migration guides
 
 ### Milestone 11: White-Labeling
+
 **Status**: Not Started
 
 - [ ] Branding customization:
@@ -351,6 +371,7 @@ Phase 3 adds enterprise-grade features for larger organizations and self-hosted 
 - [ ] Documentation branding
 
 ### Milestone 12: Performance & Scale
+
 **Status**: Not Started
 
 - [ ] Performance optimization:
@@ -387,6 +408,7 @@ IdP → SCIM API → User/Group Sync → Audit Log
 ### New API Endpoints
 
 **Authentication**:
+
 ```
 GET  /api/auth/saml/metadata
 POST /api/auth/saml/callback
@@ -394,6 +416,7 @@ GET  /api/auth/oidc/.well-known
 ```
 
 **SCIM**:
+
 ```
 GET    /scim/v2/Users
 POST   /scim/v2/Users
@@ -405,12 +428,14 @@ POST   /scim/v2/Groups
 ```
 
 **Audit**:
+
 ```
 GET  /api/audit-logs
 POST /api/audit-logs/export
 ```
 
 **Admin**:
+
 ```
 GET  /api/admin/settings
 PUT  /api/admin/settings
@@ -419,14 +444,14 @@ GET  /api/admin/compliance-report
 
 ### Infrastructure Requirements
 
-| Requirement | Minimum | Recommended |
-|-------------|---------|-------------|
-| Nodes | 3 | 5+ |
-| CPU per node | 4 cores | 8 cores |
-| RAM per node | 16 GB | 32 GB |
-| Storage | 100 GB SSD | 500 GB SSD |
-| Database | PostgreSQL 15 | PostgreSQL 15 HA |
-| Redis | Redis 7 | Redis Cluster |
+| Requirement  | Minimum       | Recommended      |
+| ------------ | ------------- | ---------------- |
+| Nodes        | 3             | 5+               |
+| CPU per node | 4 cores       | 8 cores          |
+| RAM per node | 16 GB         | 32 GB            |
+| Storage      | 100 GB SSD    | 500 GB SSD       |
+| Database     | PostgreSQL 15 | PostgreSQL 15 HA |
+| Redis        | Redis 7       | Redis Cluster    |
 
 ---
 
@@ -468,13 +493,13 @@ GET  /api/admin/compliance-report
 
 ## Risk Assessment
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| SSO complexity | High | Thorough testing, partner with IdPs |
-| Compliance requirements | High | Legal review, third-party audit |
-| Performance at scale | High | Load testing, optimization |
-| Custom model quality | Medium | Benchmarking, user feedback |
-| HA complexity | Medium | Staged rollout, monitoring |
+| Risk                    | Impact | Mitigation                          |
+| ----------------------- | ------ | ----------------------------------- |
+| SSO complexity          | High   | Thorough testing, partner with IdPs |
+| Compliance requirements | High   | Legal review, third-party audit     |
+| Performance at scale    | High   | Load testing, optimization          |
+| Custom model quality    | Medium | Benchmarking, user feedback         |
+| HA complexity           | Medium | Staged rollout, monitoring          |
 
 ---
 

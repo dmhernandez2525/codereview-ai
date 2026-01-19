@@ -1,6 +1,7 @@
 # Coding Standards
 
-This document outlines the coding conventions and best practices for the CodeReview AI project.
+This document outlines the coding conventions and best practices for the
+CodeReview AI project.
 
 ## Table of Contents
 
@@ -24,8 +25,10 @@ This document outlines the coding conventions and best practices for the CodeRev
 
 1. **Readability over cleverness** - Write code that others can understand
 2. **Single Responsibility** - Each function/module should do one thing well
-3. **DRY (Don't Repeat Yourself)** - Extract common logic into reusable functions
-4. **YAGNI (You Aren't Gonna Need It)** - Don't add functionality until it's needed
+3. **DRY (Don't Repeat Yourself)** - Extract common logic into reusable
+   functions
+4. **YAGNI (You Aren't Gonna Need It)** - Don't add functionality until it's
+   needed
 5. **Fail fast** - Validate early and throw errors immediately
 
 ### Formatting
@@ -51,7 +54,10 @@ function calculateTotal(items: CartItem[]): number {
 
 // Bad: Any type
 function calculateTotal(items: any): any {
-  return items.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0);
+  return items.reduce(
+    (sum: any, item: any) => sum + item.price * item.quantity,
+    0
+  );
 }
 ```
 
@@ -261,7 +267,11 @@ export class ReviewController {
     private aiService: AIService
   ) {}
 
-  async createReview(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async createReview(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       const { repositoryId, pullRequestNumber } = req.body;
 
@@ -388,10 +398,13 @@ export default factories.createCoreController(
     async findByRepository(ctx) {
       const { repositoryId } = ctx.params;
 
-      const reviews = await strapi.entityService.findMany('api::review.review', {
-        filters: { repository: repositoryId },
-        populate: ['comments', 'repository'],
-      });
+      const reviews = await strapi.entityService.findMany(
+        'api::review.review',
+        {
+          filters: { repository: repositoryId },
+          populate: ['comments', 'repository'],
+        }
+      );
 
       return { data: reviews };
     },
@@ -403,19 +416,26 @@ export default factories.createCoreController(
 
 ```typescript
 // Good: Custom service logic
-export default factories.createCoreService('api::review.review', ({ strapi }) => ({
-  async processReview(reviewId: number) {
-    const review = await strapi.entityService.findOne('api::review.review', reviewId, {
-      populate: ['repository', 'repository.organization'],
-    });
+export default factories.createCoreService(
+  'api::review.review',
+  ({ strapi }) => ({
+    async processReview(reviewId: number) {
+      const review = await strapi.entityService.findOne(
+        'api::review.review',
+        reviewId,
+        {
+          populate: ['repository', 'repository.organization'],
+        }
+      );
 
-    if (!review) {
-      throw new NotFoundError('Review');
-    }
+      if (!review) {
+        throw new NotFoundError('Review');
+      }
 
-    // Process...
-  },
-}));
+      // Process...
+    },
+  })
+);
 ```
 
 ---
@@ -438,14 +458,14 @@ src/
 
 ### File Naming
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Components | PascalCase | `ReviewCard.tsx` |
-| Hooks | camelCase with `use` prefix | `useReviews.ts` |
-| Utilities | camelCase | `formatDate.ts` |
-| Types | PascalCase | `Review.ts` |
-| Constants | SCREAMING_SNAKE_CASE | `API_ENDPOINTS.ts` |
-| Tests | Same as source + `.test` | `ReviewCard.test.tsx` |
+| Type       | Convention                  | Example               |
+| ---------- | --------------------------- | --------------------- |
+| Components | PascalCase                  | `ReviewCard.tsx`      |
+| Hooks      | camelCase with `use` prefix | `useReviews.ts`       |
+| Utilities  | camelCase                   | `formatDate.ts`       |
+| Types      | PascalCase                  | `Review.ts`           |
+| Constants  | SCREAMING_SNAKE_CASE        | `API_ENDPOINTS.ts`    |
+| Tests      | Same as source + `.test`    | `ReviewCard.test.tsx` |
 
 ---
 
@@ -458,8 +478,8 @@ src/
 const activeReviews = reviews.filter((r) => r.status === 'active');
 const totalTokensUsed = calculateTokenUsage(reviews);
 
-function formatReviewComment(comment: Comment): string { }
-async function fetchRepositoryReviews(repoId: string): Promise<Review[]> { }
+function formatReviewComment(comment: Comment): string {}
+async function fetchRepositoryReviews(repoId: string): Promise<Review[]> {}
 
 // Bad: Abbreviated or unclear names
 const revs = reviews.filter((r) => r.s === 'a');
@@ -597,12 +617,12 @@ __tests__/
 
 ### Branch Naming
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Feature | `feature/description` | `feature/add-gitlab-integration` |
-| Bug Fix | `fix/description` | `fix/review-status-update` |
-| Hotfix | `hotfix/description` | `hotfix/auth-token-expiry` |
-| Refactor | `refactor/description` | `refactor/review-service` |
+| Type     | Pattern                | Example                          |
+| -------- | ---------------------- | -------------------------------- |
+| Feature  | `feature/description`  | `feature/add-gitlab-integration` |
+| Bug Fix  | `fix/description`      | `fix/review-status-update`       |
+| Hotfix   | `hotfix/description`   | `hotfix/auth-token-expiry`       |
+| Refactor | `refactor/description` | `refactor/review-service`        |
 
 ### Commit Messages
 
@@ -619,6 +639,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 Examples:
+
 ```
 feat(review): add support for GitLab webhooks
 fix(auth): resolve token refresh race condition
@@ -687,6 +708,7 @@ async function generateReview(
 ### README Files
 
 Each service should have its own README with:
+
 - Purpose and overview
 - Setup instructions
 - Available scripts
