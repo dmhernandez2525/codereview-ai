@@ -57,7 +57,10 @@ export function decryptApiKey(encryptedData: string): string {
   // Extract components
   const salt = combined.subarray(0, SALT_LENGTH);
   const iv = combined.subarray(SALT_LENGTH, SALT_LENGTH + IV_LENGTH);
-  const authTag = combined.subarray(SALT_LENGTH + IV_LENGTH, SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH);
+  const authTag = combined.subarray(
+    SALT_LENGTH + IV_LENGTH,
+    SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH
+  );
   const encrypted = combined.subarray(SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH);
 
   // salt is included for future key derivation enhancements
@@ -84,7 +87,10 @@ export function createKeyHint(apiKey: string): string {
 /**
  * Validates API key format for different providers
  */
-export function validateKeyFormat(provider: string, apiKey: string): { valid: boolean; error?: string } {
+export function validateKeyFormat(
+  provider: string,
+  apiKey: string
+): { valid: boolean; error?: string } {
   switch (provider) {
     case 'openai':
       // OpenAI keys start with 'sk-' and are 51+ characters
@@ -123,7 +129,10 @@ export function validateKeyFormat(provider: string, apiKey: string): { valid: bo
 /**
  * Tests an API key by making a minimal API call to the provider
  */
-export async function testApiKey(provider: string, apiKey: string): Promise<{ valid: boolean; error?: string }> {
+export async function testApiKey(
+  provider: string,
+  apiKey: string
+): Promise<{ valid: boolean; error?: string }> {
   try {
     switch (provider) {
       case 'openai': {
