@@ -1,6 +1,4 @@
 export default ({ env }) => [
-  // Health check endpoint for Render and other platforms (must be first)
-  'global::health-check',
   'strapi::logger',
   'strapi::errors',
   {
