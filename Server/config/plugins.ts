@@ -1,6 +1,5 @@
 export default ({ env }) => {
   const isProduction = env('NODE_ENV') === 'production';
-  const isStrapiCloud = env.bool('STRAPI_CLOUD', false);
 
   // Build email config only if email provider is configured
   const emailProvider = env('EMAIL_PROVIDER');
@@ -26,14 +25,6 @@ export default ({ env }) => {
       },
     },
   };
-
-  // Disable cloud plugin for self-hosted deployments (Render, etc.)
-  // The cloud plugin is only needed for Strapi Cloud deployments
-  if (!isStrapiCloud) {
-    plugins.cloud = {
-      enabled: false,
-    };
-  }
 
   // Only configure email plugin if email settings are provided
   // This prevents startup failures when email is not configured

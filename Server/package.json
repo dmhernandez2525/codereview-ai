@@ -21,7 +21,6 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.33.3",
     "@strapi/plugin-users-permissions": "5.33.3",
     "@strapi/strapi": "5.33.3",
     "ajv": "^8.17.1",
