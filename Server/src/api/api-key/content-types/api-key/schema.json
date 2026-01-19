@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_keys",
+  "info": {
+    "singularName": "api-key",
+    "pluralName": "api-keys",
+    "displayName": "API Key",
+    "description": "Encrypted API keys for AI providers (BYOK)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "enum": ["openai", "anthropic", "gemini"],
+      "required": true
+    },
+    "encryptedKey": {
+      "type": "text",
+      "required": true,
+      "private": true
+    },
+    "keyHint": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "isValid": {
+      "type": "boolean",
+      "default": true
+    },
+    "lastUsedAt": {
+      "type": "datetime"
+    },
+    "lastError": {
+      "type": "text",
+      "private": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usage_logs",
+  "info": {
+    "singularName": "usage-log",
+    "pluralName": "usage-logs",
+    "displayName": "Usage Log",
+    "description": "API usage tracking for analytics and cost estimation"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "model": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "tokensInput": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "tokensOutput": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "costEstimate": {
+      "type": "decimal"
+    },
+    "requestType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization",
+      "inversedBy": "usageLogs"
+    },
+    "repository": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::repository.repository"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::review.review",
+      "inversedBy": "usageLogs"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

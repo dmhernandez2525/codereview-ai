@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organizations",
+  "info": {
+    "singularName": "organization",
+    "pluralName": "organizations",
+    "displayName": "Organization",
+    "description": "Organizations that own repositories and manage team members"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "settings": {
+      "type": "json",
+      "default": {}
+    },
+    "repositories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::repository.repository",
+      "mappedBy": "organization"
+    },
+    "usageLogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::usage-log.usage-log",
+      "mappedBy": "organization"
+    }
+  }
+}

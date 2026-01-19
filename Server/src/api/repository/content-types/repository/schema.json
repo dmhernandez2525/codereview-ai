@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "repositories",
+  "info": {
+    "singularName": "repository",
+    "pluralName": "repositories",
+    "displayName": "Repository",
+    "description": "Git repositories connected for code review"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 512
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": ["github", "gitlab", "bitbucket", "azure"],
+      "required": true
+    },
+    "externalId": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "defaultBranch": {
+      "type": "string",
+      "default": "main",
+      "maxLength": 255
+    },
+    "webhookId": {
+      "type": "string",
+      "private": true,
+      "maxLength": 255
+    },
+    "webhookSecret": {
+      "type": "string",
+      "private": true,
+      "maxLength": 255
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "settings": {
+      "type": "json",
+      "default": {}
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization",
+      "inversedBy": "repositories"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "repository"
+    },
+    "configurations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::configuration.configuration",
+      "mappedBy": "repository"
+    }
+  }
+}
