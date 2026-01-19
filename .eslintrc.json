@@ -109,6 +109,7 @@
     "coverage/",
     "*.config.js",
     "*.config.mjs",
+    "*.config.ts",
     "Server/"
   ]
 }
