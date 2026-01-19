@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { config } from './config/index.js';
+import { webhookSignatureMiddleware, handleWebhook } from './integrations/github/index.js';
 import { getReviewQueue, getQueueStats, closeQueues } from './lib/queue.js';
 import { getRedisClient, isRedisConnected, closeRedisConnection } from './lib/redis.js';
 import { strapiClient } from './lib/strapi.js';
@@ -75,6 +76,23 @@ app.get('/api/v1/health', async (_req, res) => {
 // Ready check endpoint
 app.get('/api/v1/ready', (_req, res) => {
   res.json({ ready: true });
+});
+
+// GitHub webhook endpoint
+app.post('/api/v1/webhooks/github', webhookSignatureMiddleware, (req, res) => {
+  const event = req.headers['x-github-event'] as string;
+
+  handleWebhook(event, req.body)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      logger.error(
+        { error: error instanceof Error ? error.message : 'Unknown error' },
+        'Webhook processing failed'
+      );
+      res.status(500).json({ error: 'Webhook processing failed' });
+    });
 });
 
 // 404 handler

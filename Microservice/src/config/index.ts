@@ -45,6 +45,11 @@ export const config = {
   azure: {
     webhookSecret: env['AZURE_DEVOPS_WEBHOOK_SECRET'] ?? '',
   },
+
+  encryption: {
+    // Secret key for encrypting/decrypting BYOK API keys
+    secretKey: env['ENCRYPTION_SECRET_KEY'] ?? 'default-dev-key-change-in-production',
+  },
 } as const;
 
 export type Config = typeof config;
