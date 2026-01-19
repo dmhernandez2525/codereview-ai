@@ -4,7 +4,11 @@
 
 import { factories } from '@strapi/strapi';
 
-import { validateYamlConfig, validateJsonConfig, getDefaultConfig } from '../services/config-validator';
+import {
+  validateYamlConfig,
+  validateJsonConfig,
+  getDefaultConfig,
+} from '../services/config-validator';
 
 export default factories.createCoreController('api::configuration.configuration', ({ strapi }) => ({
   /**

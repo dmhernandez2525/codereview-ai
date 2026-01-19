@@ -191,7 +191,9 @@ export function getDefaultConfig(): CodeReviewConfig {
  * Merges multiple configurations with inheritance.
  * Order: organization defaults → repository config → PR overrides
  */
-export function mergeConfigs(...configs: Array<CodeReviewConfig | null | undefined>): CodeReviewConfig {
+export function mergeConfigs(
+  ...configs: Array<CodeReviewConfig | null | undefined>
+): CodeReviewConfig {
   let result = { ...defaultConfig };
 
   for (const config of configs) {
