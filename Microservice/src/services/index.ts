@@ -39,3 +39,14 @@ export {
   validateJobData,
   createJobDataFromWebhook,
 } from './review-processor.js';
+
+// Configuration parser
+export {
+  parseConfig,
+  getDefaultConfig,
+  mergeWithDefaults,
+  validateConfig,
+  toReviewConfig,
+  DEFAULT_EXCLUSIONS as CONFIG_DEFAULT_EXCLUSIONS,
+} from './config-parser.js';
+export type { ReviewConfigYaml, ConfigParseResult } from './config-parser.js';

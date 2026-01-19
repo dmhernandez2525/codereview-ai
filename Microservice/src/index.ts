@@ -4,10 +4,15 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { config } from './config/index.js';
-import { webhookSignatureMiddleware, handleWebhook } from './integrations/github/index.js';
+import {
+  webhookSignatureMiddleware,
+  handleWebhook,
+  getGitHubOAuth,
+} from './integrations/github/index.js';
 import { getReviewQueue, getQueueStats, closeQueues, startReviewWorker } from './lib/queue.js';
 import { getRedisClient, isRedisConnected, closeRedisConnection } from './lib/redis.js';
 import { strapiClient } from './lib/strapi.js';
+import { parseConfig, getDefaultConfig, validateConfig } from './services/config-parser.js';
 import { createReviewProcessor } from './services/review-processor.js';
 import { logger } from './utils/logger.js';
 
@@ -98,6 +103,93 @@ app.post('/api/v1/webhooks/github', webhookSignatureMiddleware, (req, res) => {
       );
       res.status(500).json({ error: 'Webhook processing failed' });
     });
+});
+
+// =========================================================================
+// GitHub OAuth Endpoints
+// =========================================================================
+
+// List all GitHub App installations
+app.get('/api/v1/github/installations', async (_req, res) => {
+  try {
+    const oauth = getGitHubOAuth();
+    const installations = await oauth.listInstallations();
+    res.json({ data: installations });
+  } catch (error) {
+    logger.error({ error }, 'Failed to list installations');
+    res.status(500).json({ error: 'Failed to list installations' });
+  }
+});
+
+// Get repositories for an installation
+app.get('/api/v1/github/installations/:installationId/repositories', async (req, res) => {
+  try {
+    const installationId = parseInt(req.params.installationId, 10);
+    if (isNaN(installationId)) {
+      res.status(400).json({ error: 'Invalid installation ID' });
+      return;
+    }
+
+    const oauth = getGitHubOAuth();
+    const repositories = await oauth.listInstallationRepositories(installationId);
+    res.json({ data: repositories });
+  } catch (error) {
+    logger.error({ error }, 'Failed to list installation repositories');
+    res.status(500).json({ error: 'Failed to list repositories' });
+  }
+});
+
+// Get installation details
+app.get('/api/v1/github/installations/:installationId', async (req, res) => {
+  try {
+    const installationId = parseInt(req.params.installationId, 10);
+    if (isNaN(installationId)) {
+      res.status(400).json({ error: 'Invalid installation ID' });
+      return;
+    }
+
+    const oauth = getGitHubOAuth();
+    const installation = await oauth.getInstallation(installationId);
+    res.json({ data: installation });
+  } catch (error) {
+    logger.error({ error }, 'Failed to get installation');
+    res.status(500).json({ error: 'Failed to get installation' });
+  }
+});
+
+// =========================================================================
+// Configuration Endpoints
+// =========================================================================
+
+// Parse and validate a .codereview.yaml config
+app.post('/api/v1/config/validate', (req, res) => {
+  const { yaml: yamlContent } = req.body as { yaml?: string };
+
+  if (!yamlContent || typeof yamlContent !== 'string') {
+    res.status(400).json({ error: 'Missing or invalid yaml content' });
+    return;
+  }
+
+  const result = parseConfig(yamlContent);
+  res.json(result);
+});
+
+// Get default configuration
+app.get('/api/v1/config/defaults', (_req, res) => {
+  res.json({ config: getDefaultConfig() });
+});
+
+// Validate a config object (already parsed JSON)
+app.post('/api/v1/config/validate-object', (req, res) => {
+  const { config: configObject } = req.body as { config?: unknown };
+
+  if (!configObject || typeof configObject !== 'object') {
+    res.status(400).json({ error: 'Missing or invalid config object' });
+    return;
+  }
+
+  const result = validateConfig(configObject);
+  res.json(result);
 });
 
 // 404 handler

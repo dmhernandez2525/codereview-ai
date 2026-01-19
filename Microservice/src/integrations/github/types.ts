@@ -99,3 +99,53 @@ export interface InstallationWebhookPayload extends WebhookPayload {
     full_name: string;
   }>;
 }
+
+// =========================================================================
+// OAuth & Installation Types
+// =========================================================================
+
+export interface InstallationToken {
+  token: string;
+  expiresAt: string;
+  permissions: Record<string, string>;
+  repositorySelection: string | undefined;
+}
+
+export interface GitHubAppInstallation {
+  id: number;
+  account: {
+    login: string;
+    type: string;
+    avatarUrl: string | undefined;
+  };
+  repositorySelection: string;
+  permissions: Record<string, string>;
+  events: string[];
+  createdAt: string;
+  updatedAt: string;
+  suspendedAt: string | undefined;
+}
+
+export interface InstallationRepository {
+  id: number;
+  name: string;
+  fullName: string;
+  private: boolean;
+  defaultBranch: string;
+  language: string | undefined;
+  description: string | undefined;
+  htmlUrl: string;
+  owner: {
+    login: string;
+    type: string;
+  };
+}
+
+export interface OAuthTokenResponse {
+  access_token: string;
+  token_type: string;
+  scope: string;
+  refresh_token?: string;
+  expires_in?: number;
+  refresh_token_expires_in?: number;
+}
