@@ -120,12 +120,12 @@ services:
         fromService:
           type: web
           name: codereview-server
-          property: hostURL
+          property: host
       - key: NEXT_PUBLIC_MICROSERVICE_URL
         fromService:
           type: web
           name: codereview-microservice
-          property: hostURL
+          property: host
       - key: STRAPI_URL
         fromService:
           type: web
@@ -175,7 +175,7 @@ services:
 
 databases:
   - name: codereview-db
-    plan: starter
+    plan: basic
     databaseName: codereview
     user: codereview
 
