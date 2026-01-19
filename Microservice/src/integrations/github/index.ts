@@ -1,4 +1,5 @@
 export { GitHubClient } from './client.js';
+export { GitHubOAuth, getGitHubOAuth } from './oauth.js';
 export {
   verifyWebhookSignature,
   webhookSignatureMiddleware,
@@ -13,4 +14,8 @@ export type {
   WebhookPayload,
   PullRequestWebhookPayload,
   InstallationWebhookPayload,
+  InstallationToken,
+  GitHubAppInstallation,
+  InstallationRepository,
+  OAuthTokenResponse,
 } from './types.js';
