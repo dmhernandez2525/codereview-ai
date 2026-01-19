@@ -4,9 +4,6 @@
  * This script helps diagnose startup issues on cloud platforms like Render.
  */
 
-const { spawn } = require('child_process');
-const path = require('path');
-
 // Log startup configuration
 console.log('=== Strapi Startup Configuration ===');
 console.log('NODE_ENV:', process.env.NODE_ENV || 'development');
@@ -43,23 +40,31 @@ if (process.env.DATABASE_CLIENT === 'postgres' && !process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-console.log('Starting Strapi...');
+console.log('Starting Strapi via direct import...');
 
-// Run strapi start
-const strapi = spawn('npx', ['strapi', 'start'], {
-  stdio: 'inherit',
-  cwd: path.resolve(__dirname, '..'),
-  env: process.env,
-});
+// Use async IIFE to properly handle async/await and catch errors
+(async () => {
+  try {
+    // Import Strapi dynamically
+    const { createStrapi } = await import('@strapi/strapi');
 
-strapi.on('error', (err) => {
-  console.error('Failed to start Strapi:', err);
-  process.exit(1);
-});
+    console.log('Strapi module imported successfully');
 
-strapi.on('exit', (code, signal) => {
-  if (code !== 0) {
-    console.error(`Strapi exited with code ${code}, signal ${signal}`);
-    process.exit(code || 1);
+    // Create and start Strapi
+    const strapi = await createStrapi().load();
+    console.log('Strapi loaded successfully');
+
+    await strapi.start();
+    console.log('Strapi started successfully');
+  } catch (error) {
+    console.error('=== STRAPI STARTUP ERROR ===');
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    if (error.cause) {
+      console.error('Error cause:', error.cause);
+    }
+    console.error('============================');
+    process.exit(1);
   }
-});
+})();
