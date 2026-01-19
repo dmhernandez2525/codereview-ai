@@ -25,7 +25,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-
 // Mock data for demonstration (will be replaced with real API calls)
 const mockRepositories: RepositoryWithStats[] = [
   {
@@ -221,7 +220,10 @@ export default function RepositoriesPage() {
             <div className="text-2xl font-bold">
               {Math.round(
                 (repositories.reduce((sum, r) => sum + r.stats.completedReviews, 0) /
-                  Math.max(1, repositories.reduce((sum, r) => sum + r.stats.totalReviews, 0))) *
+                  Math.max(
+                    1,
+                    repositories.reduce((sum, r) => sum + r.stats.totalReviews, 0)
+                  )) *
                   100
               )}
               %

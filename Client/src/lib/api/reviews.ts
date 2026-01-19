@@ -4,13 +4,7 @@
 
 import { strapiApi, withAuth } from './client';
 
-import type {
-  StrapiResponse,
-  Review,
-  ReviewFull,
-  ReviewAnalytics,
-  ReviewTimeline,
-} from './types';
+import type { StrapiResponse, Review, ReviewFull, ReviewAnalytics, ReviewTimeline } from './types';
 
 /**
  * Get recent reviews
@@ -56,10 +50,7 @@ export async function getReviewsByRepository(
 /**
  * Get a single review by ID
  */
-export async function getReview(
-  token: string,
-  id: number
-): Promise<StrapiResponse<Review>> {
+export async function getReview(token: string, id: number): Promise<StrapiResponse<Review>> {
   const api = withAuth(strapiApi, token);
   return api.get<StrapiResponse<Review>>(`/reviews/${id}?populate=*`);
 }
@@ -87,15 +78,12 @@ export async function getReviewAnalytics(
   }
 ): Promise<StrapiResponse<ReviewAnalytics>> {
   const api = withAuth(strapiApi, token);
-  return api.get<StrapiResponse<ReviewAnalytics>>(
-    `/reviews/analytics/${repositoryId}`,
-    {
-      params: {
-        startDate: options?.startDate,
-        endDate: options?.endDate,
-      },
-    }
-  );
+  return api.get<StrapiResponse<ReviewAnalytics>>(`/reviews/analytics/${repositoryId}`, {
+    params: {
+      startDate: options?.startDate,
+      endDate: options?.endDate,
+    },
+  });
 }
 
 /**
@@ -110,13 +98,10 @@ export async function getReviewTimeline(
   }
 ): Promise<StrapiResponse<ReviewTimeline>> {
   const api = withAuth(strapiApi, token);
-  return api.get<StrapiResponse<ReviewTimeline>>(
-    `/reviews/timeline/${repositoryId}`,
-    {
-      params: {
-        days: options?.days,
-        groupBy: options?.groupBy,
-      },
-    }
-  );
+  return api.get<StrapiResponse<ReviewTimeline>>(`/reviews/timeline/${repositoryId}`, {
+    params: {
+      days: options?.days,
+      groupBy: options?.groupBy,
+    },
+  });
 }
