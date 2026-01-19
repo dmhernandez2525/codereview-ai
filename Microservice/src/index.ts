@@ -4,8 +4,8 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { config } from './config/index.js';
-import { getRedisClient, isRedisConnected, closeRedisConnection } from './lib/redis.js';
 import { getReviewQueue, getQueueStats, closeQueues } from './lib/queue.js';
+import { getRedisClient, isRedisConnected, closeRedisConnection } from './lib/redis.js';
 import { strapiClient } from './lib/strapi.js';
 import { logger } from './utils/logger.js';
 
@@ -91,50 +91,61 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 });
 
 // Start server
-const server = app.listen(config.port, async () => {
+const server = app.listen(config.port, () => {
   logger.info({ port: config.port, env: config.env }, 'Microservice started');
 
   // Initialize connections after server starts
-  try {
-    await initializeConnections();
-  } catch (error) {
+  initializeConnections().catch((error) => {
     logger.error(
       { error: error instanceof Error ? error.message : 'Unknown error' },
       'Failed to initialize connections'
     );
     // Don't exit - the service can still accept requests, connections will retry
-  }
+  });
 });
 
 // Graceful shutdown
-const shutdown = async () => {
+const shutdown = () => {
   logger.info('Shutting down gracefully...');
 
-  // Close queues first (stops accepting new jobs)
-  try {
-    await closeQueues();
-  } catch (error) {
-    logger.error(
-      { error: error instanceof Error ? error.message : 'Unknown error' },
-      'Error closing queues'
-    );
-  }
+  // Async cleanup wrapped in Promise
+  const cleanup = async () => {
+    // Close queues first (stops accepting new jobs)
+    try {
+      await closeQueues();
+    } catch (error) {
+      logger.error(
+        { error: error instanceof Error ? error.message : 'Unknown error' },
+        'Error closing queues'
+      );
+    }
 
-  // Close Redis connection
-  try {
-    await closeRedisConnection();
-  } catch (error) {
-    logger.error(
-      { error: error instanceof Error ? error.message : 'Unknown error' },
-      'Error closing Redis'
-    );
-  }
+    // Close Redis connection
+    try {
+      await closeRedisConnection();
+    } catch (error) {
+      logger.error(
+        { error: error instanceof Error ? error.message : 'Unknown error' },
+        'Error closing Redis'
+      );
+    }
+  };
 
-  // Close HTTP server
-  server.close(() => {
-    logger.info('Server closed');
-    process.exit(0);
-  });
+  cleanup()
+    .then(() => {
+      // Close HTTP server
+      server.close(() => {
+        logger.info('Server closed');
+        process.exit(0);
+      });
+    })
+    .catch((error) => {
+      logger.error(
+        { error: error instanceof Error ? error.message : 'Unknown error' },
+        'Error during cleanup'
+      );
+      process.exit(1);
+    });
 
   setTimeout(() => {
     logger.error('Forced shutdown after timeout');
