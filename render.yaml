@@ -28,7 +28,7 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: PORT
-        value: 1337
+        value: 10000
       - key: APP_KEYS
         generateValue: true
       - key: API_TOKEN_SALT
