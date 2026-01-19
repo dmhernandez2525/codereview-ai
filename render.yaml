@@ -2,7 +2,8 @@
 # https://render.com/docs/infrastructure-as-code
 # Cost: ~$7/month (basic database) + Redis starter (~$10/month)
 # Note: Web services use starter plan
-# Fix: Use npm install (not npm ci) to get correct platform-specific @swc/core bindings
+# Fix: Delete package-lock.json and use npm install to regenerate correct platform-specific
+#       @swc/core bindings for Linux (the lock file contains macOS-specific bindings)
 
 services:
   # Redis Cache
@@ -16,7 +17,7 @@ services:
     name: codereview-server
     env: node
     plan: starter
-    buildCommand: cd Server && rm -rf node_modules && npm install && npm run build
+    buildCommand: cd Server && rm -rf node_modules package-lock.json && npm install && npm run build
     startCommand: cd Server && npm run start
     healthCheckPath: /_health
     envVars:
@@ -56,7 +57,7 @@ services:
     name: codereview-microservice
     env: node
     plan: starter
-    buildCommand: cd Microservice && rm -rf node_modules && npm install && npm run build
+    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && npm install && npm run build
     startCommand: cd Microservice && npm run start
     healthCheckPath: /health
     envVars:
@@ -99,7 +100,7 @@ services:
     name: codereview-client
     env: node
     plan: starter
-    buildCommand: cd Client && rm -rf node_modules && npm install && npm run build
+    buildCommand: cd Client && rm -rf node_modules package-lock.json && npm install && npm run build
     startCommand: cd Client && npm run start
     healthCheckPath: /api/health
     envVars:
@@ -134,7 +135,7 @@ services:
     name: codereview-worker
     env: node
     plan: starter
-    buildCommand: cd Microservice && rm -rf node_modules && npm install && npm run build
+    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && npm install && npm run build
     startCommand: cd Microservice && npm run start:worker
     envVars:
       - key: NODE_VERSION
