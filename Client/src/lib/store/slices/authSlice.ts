@@ -102,21 +102,22 @@ export const login = createAsyncThunk<AuthResponse, LoginCredentials, { rejectVa
   }
 );
 
-export const register = createAsyncThunk<AuthResponse, RegisterCredentials, { rejectValue: string }>(
-  'auth/register',
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const response = await strapiApi.post<AuthResponse>('/api/auth/local/register', credentials);
-      setStoredAuth(response.jwt, response.user);
-      return response;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        return rejectWithValue(error.message);
-      }
-      return rejectWithValue('An unexpected error occurred');
+export const register = createAsyncThunk<
+  AuthResponse,
+  RegisterCredentials,
+  { rejectValue: string }
+>('auth/register', async (credentials, { rejectWithValue }) => {
+  try {
+    const response = await strapiApi.post<AuthResponse>('/api/auth/local/register', credentials);
+    setStoredAuth(response.jwt, response.user);
+    return response;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      return rejectWithValue(error.message);
     }
+    return rejectWithValue('An unexpected error occurred');
   }
-);
+});
 
 export const fetchCurrentUser = createAsyncThunk<User, void, { rejectValue: string }>(
   'auth/fetchCurrentUser',

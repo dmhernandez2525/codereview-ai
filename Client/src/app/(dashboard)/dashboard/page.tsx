@@ -191,7 +191,12 @@ function StatusBadge({ status }: { status: string }) {
 function TrendUpIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+      />
     </svg>
   );
 }
@@ -199,7 +204,12 @@ function TrendUpIcon({ className }: { className?: string }) {
 function TrendDownIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+      />
     </svg>
   );
 }
@@ -237,4 +247,3 @@ function DocumentIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
