@@ -164,7 +164,7 @@ ai:
       const partial = {
         language: 'de',
         reviews: { profile: 'quick' as const },
-      };
+      } as Parameters<typeof mergeWithDefaults>[0];
       const merged = mergeWithDefaults(partial);
       expect(merged.language).toBe('de');
       expect(merged.reviews.profile).toBe('quick');
@@ -177,7 +177,7 @@ ai:
         path_filters: {
           exclude: ['custom/**'],
         },
-      };
+      } as Parameters<typeof mergeWithDefaults>[0];
       const merged = mergeWithDefaults(partial);
       expect(merged.path_filters.exclude).toContain('custom/**');
       expect(merged.path_filters.exclude).toContain('**/node_modules/**');
