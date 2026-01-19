@@ -148,9 +148,7 @@ export default factories.createCoreController('api::review.review', ({ strapi })
           total: reviews.length,
           ...statusCounts,
           successRate:
-            reviews.length > 0
-              ? Math.round((statusCounts.completed / reviews.length) * 100)
-              : 0,
+            reviews.length > 0 ? Math.round((statusCounts.completed / reviews.length) * 100) : 0,
         },
         performance: {
           totalTokens,

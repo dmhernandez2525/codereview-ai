@@ -117,9 +117,7 @@ export default factories.createCoreController('api::repository.repository', ({ s
 
     if (configurations.length === 0) {
       // Return default config if none exists
-      const { getDefaultConfig } = await import(
-        '../../configuration/services/config-validator'
-      );
+      const { getDefaultConfig } = await import('../../configuration/services/config-validator');
       return {
         data: {
           isDefault: true,

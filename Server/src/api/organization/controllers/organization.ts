@@ -105,9 +105,7 @@ export default factories.createCoreController('api::organization.organization', 
           prTitle: r.prTitle,
           status: r.status,
           createdAt: r.createdAt,
-          repository: r.repository
-            ? { id: r.repository.id, name: r.repository.name }
-            : null,
+          repository: r.repository ? { id: r.repository.id, name: r.repository.name } : null,
         })),
       },
     };
