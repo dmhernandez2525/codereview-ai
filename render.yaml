@@ -19,7 +19,7 @@ services:
     plan: starter
     buildCommand: cd Server && rm -rf node_modules package-lock.json && npm install && npm run build
     startCommand: cd Server && npm run start
-    healthCheckPath: /_health
+    healthCheckPath: /
     envVars:
       - key: NODE_VERSION
         value: "20"
