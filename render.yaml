@@ -14,7 +14,7 @@ services:
 
   # Strapi CMS (Server)
   - type: web
-    name: codereview-server
+    name: codereview-cms
     env: node
     plan: starter
     buildCommand: cd Server && rm -rf node_modules package-lock.json .npmrc && npm install --include=optional --force && npm run build
@@ -70,7 +70,7 @@ services:
       - key: STRAPI_URL
         fromService:
           type: web
-          name: codereview-server
+          name: codereview-cms
           property: host
       - key: STRAPI_API_TOKEN
         sync: false
@@ -111,7 +111,7 @@ services:
       - key: NEXT_PUBLIC_STRAPI_URL
         fromService:
           type: web
-          name: codereview-server
+          name: codereview-cms
           property: host
       - key: NEXT_PUBLIC_MICROSERVICE_URL
         fromService:
@@ -121,7 +121,7 @@ services:
       - key: STRAPI_URL
         fromService:
           type: web
-          name: codereview-server
+          name: codereview-cms
           property: host
       - key: MICROSERVICE_URL
         fromService:
@@ -145,7 +145,7 @@ services:
       - key: STRAPI_URL
         fromService:
           type: web
-          name: codereview-server
+          name: codereview-cms
           property: host
       - key: STRAPI_API_TOKEN
         sync: false
