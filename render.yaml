@@ -17,7 +17,7 @@ services:
     name: codereview-server
     env: node
     plan: starter
-    buildCommand: cd Server && rm -rf node_modules package-lock.json && npm install && npm rebuild sharp && npm run build
+    buildCommand: cd Server && rm -rf node_modules package-lock.json .npmrc && npm install --include=optional --force && npm run build
     startCommand: cd Server && npm run start
     healthCheckPath: /
     envVars:
