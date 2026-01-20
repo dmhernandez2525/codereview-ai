@@ -17,8 +17,8 @@ services:
     name: codereview-cms
     env: node
     plan: starter
-    buildCommand: cd Server && rm -rf node_modules package-lock.json .npmrc && npm install --include=optional --force && npm run build
-    startCommand: cd Server && mkdir -p public/uploads && npm run start
+    buildCommand: cd Server && rm -rf node_modules package-lock.json .npmrc && NODE_ENV=development npm install --include=optional --force && npm run build
+    startCommand: cd Server && mkdir -p public/uploads && NODE_ENV=production npm run start
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
@@ -57,8 +57,8 @@ services:
     name: codereview-microservice
     env: node
     plan: starter
-    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && npm install && npm run build
-    startCommand: cd Microservice && npm run start
+    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && NODE_ENV=development npm install && npm run build
+    startCommand: cd Microservice && NODE_ENV=production npm run start
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
@@ -100,8 +100,8 @@ services:
     name: codereview-client
     env: node
     plan: starter
-    buildCommand: cd Client && rm -rf node_modules package-lock.json && npm install && npm run build
-    startCommand: cd Client && npm run start
+    buildCommand: cd Client && rm -rf node_modules package-lock.json && NODE_ENV=development npm install && npm run build
+    startCommand: cd Client && NODE_ENV=production npm run start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
@@ -135,8 +135,8 @@ services:
     name: codereview-worker
     env: node
     plan: starter
-    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && npm install && npm run build
-    startCommand: cd Microservice && npm run start:worker
+    buildCommand: cd Microservice && rm -rf node_modules package-lock.json && NODE_ENV=development npm install && npm run build
+    startCommand: cd Microservice && NODE_ENV=production npm run start:worker
     envVars:
       - key: NODE_VERSION
         value: "20"
