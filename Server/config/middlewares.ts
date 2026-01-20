@@ -1,4 +1,6 @@
 export default ({ env }) => [
+  // Health check must be first to respond before any other middleware
+  'global::health-check',
   'strapi::logger',
   'strapi::errors',
   {
