@@ -38,6 +38,20 @@ export default ({ env }) => {
     };
   };
 
+  // Pool configuration optimized for cloud databases with connection limits
+  // Uses conservative settings to avoid exhausting connection pools
+  const cloudPoolConfig = {
+    min: env.int('DATABASE_POOL_MIN', 0),
+    max: env.int('DATABASE_POOL_MAX', 3), // Reduced from 5 - be more conservative
+    acquireTimeoutMillis: env.int('DATABASE_POOL_ACQUIRE_TIMEOUT', 60000), // 60s timeout
+    createTimeoutMillis: env.int('DATABASE_POOL_CREATE_TIMEOUT', 30000),
+    destroyTimeoutMillis: env.int('DATABASE_POOL_DESTROY_TIMEOUT', 5000),
+    idleTimeoutMillis: env.int('DATABASE_POOL_IDLE_TIMEOUT', 30000),
+    reapIntervalMillis: env.int('DATABASE_POOL_REAP_INTERVAL', 1000),
+    createRetryIntervalMillis: env.int('DATABASE_POOL_CREATE_RETRY_INTERVAL', 200),
+    propagateCreateError: false, // Don't propagate create errors - retry instead
+  };
+
   const connections = {
     mysql: {
       connection: {
@@ -48,7 +62,7 @@ export default ({ env }) => {
         password: env('DATABASE_PASSWORD', 'strapi'),
         ssl: buildSSLConfig(),
       },
-      pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
+      pool: isProduction ? cloudPoolConfig : { min: 2, max: 10 },
     },
     postgres: {
       connection: env('DATABASE_URL')
@@ -68,14 +82,9 @@ export default ({ env }) => {
             ssl: buildSSLConfig(),
             schema: env('DATABASE_SCHEMA', 'public'),
           },
-      // Reduce pool for cloud databases with connection limits
-      pool: {
-        min: env.int('DATABASE_POOL_MIN', 0),
-        max: env.int('DATABASE_POOL_MAX', 5),
-        acquireTimeoutMillis: env.int('DATABASE_POOL_ACQUIRE_TIMEOUT', 30000),
-        createTimeoutMillis: env.int('DATABASE_POOL_CREATE_TIMEOUT', 30000),
-        idleTimeoutMillis: env.int('DATABASE_POOL_IDLE_TIMEOUT', 30000),
-      },
+      pool: isProduction ? cloudPoolConfig : { min: 2, max: 10 },
+      // Debug mode for troubleshooting connection issues
+      debug: env.bool('DATABASE_DEBUG', false),
     },
     sqlite: {
       connection: {
