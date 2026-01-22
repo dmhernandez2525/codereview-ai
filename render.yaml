@@ -101,7 +101,7 @@ services:
     env: node
     plan: starter
     buildCommand: cd Client && rm -rf node_modules package-lock.json && NODE_ENV=development npm install && npm run build
-    startCommand: cd Client && NODE_ENV=production npm run start
+    startCommand: cd Client && npm run start -- -H 0.0.0.0 -p 10000
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
