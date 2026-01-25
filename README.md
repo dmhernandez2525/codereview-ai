@@ -128,6 +128,48 @@ configuration reference.
 | [Phase 1](roadmap/PHASE_1_MVP.md)          | MVP - Core functionality    | In Progress |
 | [Phase 2](roadmap/PHASE_2_INTEGRATIONS.md) | Multi-platform integrations | Planned     |
 | [Phase 3](roadmap/PHASE_3_ENTERPRISE.md)   | Enterprise features         | Planned     |
+| Phase 4 (Coming Soon)                      | Voice Code Review           | Planned     |
+
+---
+
+## Coming Soon: Voice Code Review
+
+**Powered by PersonaPlex Full Duplex AI**
+
+Transform how you interact with code reviews through natural voice conversation. Discuss review feedback, ask questions about suggestions, and navigate PRs hands-free.
+
+### Current Experience
+```
+Open PR → Read AI comments → Type responses → Click resolve → Repeat
+```
+
+### With PersonaPlex
+```
+You: "What are the main issues in this PR?"
+PersonaPlex: "I found 3 issues. First, there's a potential null pointer on line 42..."
+You: "Is that actually a problem? We validate upstream"
+PersonaPlex: "Good point. I'll dismiss that. The second issue is about error handling..."
+You: "Show me the code around that"
+PersonaPlex: "Lines 78-92. The catch block is empty, which swallows errors silently"
+You: "Mark that as valid. What's the third?"
+```
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **Voice Discussion** | Discuss review feedback conversationally |
+| **Code Navigation** | Ask to see specific sections by voice |
+| **Contextual Q&A** | Ask "why" questions about suggestions |
+| **Voice Resolution** | Accept, dismiss, or respond to comments |
+| **Hands-Free Review** | Perfect for reviewing while referencing docs |
+
+### Technical Requirements
+
+- 24GB+ VRAM (Mac M2 Pro or higher)
+- 32GB RAM recommended
+- Runs 100% locally - no cloud required
+- <500ms response time
 
 ## Project Structure
 

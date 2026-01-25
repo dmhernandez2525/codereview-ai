@@ -531,6 +531,23 @@ Phase 3 is complete when:
 
 After Phase 3, potential features include:
 
+### Phase 4: Voice Code Review (Coming Soon)
+
+**Powered by PersonaPlex Full Duplex AI**
+
+Transform code review interaction with natural voice conversation:
+
+- **Voice Discussion** - Discuss review feedback conversationally
+- **Code Navigation** - Ask to see specific sections by voice
+- **Contextual Q&A** - Ask "why" questions about AI suggestions
+- **Voice Resolution** - Accept, dismiss, or respond to comments hands-free
+- **Full Duplex** - Natural interruption with <500ms response time
+- **100% Local** - Runs entirely on your machine, no cloud required
+
+Technical requirements: 24GB+ VRAM (Mac M2 Pro or higher), 32GB RAM
+
+---
+
 - **AI Improvements**
   - Code understanding context
   - Learning from feedback
