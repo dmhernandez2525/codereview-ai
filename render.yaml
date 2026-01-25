@@ -97,7 +97,7 @@ services:
 
   # Next.js Client
   - type: web
-    name: codereview-client
+    name: codereview-site
     env: node
     plan: starter
     buildCommand: cd Client && rm -rf node_modules package-lock.json && NODE_ENV=development npm install && npm run build
