@@ -1,3 +1,5 @@
+name: codereview-ai
+
 version: "3.8"
 
 services:
