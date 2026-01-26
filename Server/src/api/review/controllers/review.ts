@@ -194,24 +194,26 @@ export default factories.createCoreController('api::review.review', ({ strapi })
       orderBy: { createdAt: 'asc' },
     });
 
+    // Date grouping strategies - lookup table pattern
+    const getGroupKey: Record<string, (date: Date) => string> = {
+      week: (date) => {
+        const d = new Date(date);
+        const dayOfWeek = d.getDay();
+        d.setDate(d.getDate() - dayOfWeek);
+        return d.toISOString().split('T')[0];
+      },
+      month: (date) =>
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`,
+      day: (date) => date.toISOString().split('T')[0],
+    };
+
     // Group reviews by time period
     const grouped = new Map<string, { count: number; tokens: number; completed: number }>();
+    const keyGetter = getGroupKey[groupBy as string] || getGroupKey.day;
 
     for (const review of reviews) {
       const date = new Date(review.createdAt);
-      let key: string;
-
-      if (groupBy === 'week') {
-        // Get start of week
-        const dayOfWeek = date.getDay();
-        const diff = date.getDate() - dayOfWeek;
-        const weekStart = new Date(date.setDate(diff));
-        key = weekStart.toISOString().split('T')[0];
-      } else if (groupBy === 'month') {
-        key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      } else {
-        key = date.toISOString().split('T')[0];
-      }
+      const key = keyGetter(date);
 
       const current = grouped.get(key) || { count: 0, tokens: 0, completed: 0 };
       current.count++;
