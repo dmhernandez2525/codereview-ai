@@ -84,6 +84,29 @@ export function createKeyHint(apiKey: string): string {
   return `****${apiKey.slice(-4)}`;
 }
 
+// Provider validation rules - lookup table instead of switch
+const PROVIDER_VALIDATION_RULES: Record<
+  string,
+  { prefix?: string; minLength: number; prefixError?: string; lengthError: string }
+> = {
+  openai: {
+    prefix: 'sk-',
+    minLength: 40,
+    prefixError: 'OpenAI API keys must start with "sk-"',
+    lengthError: 'OpenAI API key appears to be too short',
+  },
+  anthropic: {
+    prefix: 'sk-ant-',
+    minLength: 50,
+    prefixError: 'Anthropic API keys must start with "sk-ant-"',
+    lengthError: 'Anthropic API key appears to be too short',
+  },
+  gemini: {
+    minLength: 30,
+    lengthError: 'Google AI API key appears to be too short',
+  },
+};
+
 /**
  * Validates API key format for different providers
  */
@@ -91,40 +114,78 @@ export function validateKeyFormat(
   provider: string,
   apiKey: string
 ): { valid: boolean; error?: string } {
-  switch (provider) {
-    case 'openai':
-      // OpenAI keys start with 'sk-' and are 51+ characters
-      if (!apiKey.startsWith('sk-')) {
-        return { valid: false, error: 'OpenAI API keys must start with "sk-"' };
-      }
-      if (apiKey.length < 40) {
-        return { valid: false, error: 'OpenAI API key appears to be too short' };
-      }
-      break;
+  const rules = PROVIDER_VALIDATION_RULES[provider];
+  if (!rules) {
+    return { valid: false, error: `Unknown provider: ${provider}` };
+  }
 
-    case 'anthropic':
-      // Anthropic keys start with 'sk-ant-'
-      if (!apiKey.startsWith('sk-ant-')) {
-        return { valid: false, error: 'Anthropic API keys must start with "sk-ant-"' };
-      }
-      if (apiKey.length < 50) {
-        return { valid: false, error: 'Anthropic API key appears to be too short' };
-      }
-      break;
+  if (rules.prefix && !apiKey.startsWith(rules.prefix)) {
+    return { valid: false, error: rules.prefixError };
+  }
 
-    case 'gemini':
-      // Google AI keys are typically 39 characters
-      if (apiKey.length < 30) {
-        return { valid: false, error: 'Google AI API key appears to be too short' };
-      }
-      break;
-
-    default:
-      return { valid: false, error: `Unknown provider: ${provider}` };
+  if (apiKey.length < rules.minLength) {
+    return { valid: false, error: rules.lengthError };
   }
 
   return { valid: true };
 }
+
+// API key test strategies - each provider has its own test function
+type TestResult = { valid: boolean; error?: string };
+type ApiKeyTester = (apiKey: string) => Promise<TestResult>;
+
+const testOpenAiKey: ApiKeyTester = async (apiKey) => {
+  const response = await fetch('https://api.openai.com/v1/models', {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+
+  if (response.status === 401) return { valid: false, error: 'Invalid API key' };
+  if (response.status === 429)
+    return { valid: false, error: 'Rate limited - key may be valid but quota exceeded' };
+  if (!response.ok) return { valid: false, error: `API returned status ${response.status}` };
+  return { valid: true };
+};
+
+const testAnthropicKey: ApiKeyTester = async (apiKey) => {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'claude-3-haiku-20240307',
+      max_tokens: 1,
+      messages: [{ role: 'user', content: 'Hi' }],
+    }),
+  });
+
+  if (response.status === 401) return { valid: false, error: 'Invalid API key' };
+  if (response.status === 429)
+    return { valid: false, error: 'Rate limited - key may be valid but quota exceeded' };
+  return { valid: true };
+};
+
+const testGeminiKey: ApiKeyTester = async (apiKey) => {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`,
+    { method: 'GET' }
+  );
+
+  if (response.status === 400 || response.status === 403)
+    return { valid: false, error: 'Invalid API key' };
+  if (!response.ok) return { valid: false, error: `API returned status ${response.status}` };
+  return { valid: true };
+};
+
+// Strategy lookup table for API key testing
+const API_KEY_TESTERS: Record<string, ApiKeyTester> = {
+  openai: testOpenAiKey,
+  anthropic: testAnthropicKey,
+  gemini: testGeminiKey,
+};
 
 /**
  * Tests an API key by making a minimal API call to the provider
@@ -133,72 +194,13 @@ export async function testApiKey(
   provider: string,
   apiKey: string
 ): Promise<{ valid: boolean; error?: string }> {
+  const tester = API_KEY_TESTERS[provider];
+  if (!tester) {
+    return { valid: false, error: `Unknown provider: ${provider}` };
+  }
+
   try {
-    switch (provider) {
-      case 'openai': {
-        const response = await fetch('https://api.openai.com/v1/models', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        });
-
-        if (response.status === 401) {
-          return { valid: false, error: 'Invalid API key' };
-        }
-        if (response.status === 429) {
-          return { valid: false, error: 'Rate limited - key may be valid but quota exceeded' };
-        }
-        if (!response.ok) {
-          return { valid: false, error: `API returned status ${response.status}` };
-        }
-        return { valid: true };
-      }
-
-      case 'anthropic': {
-        // Anthropic doesn't have a simple models endpoint, use a minimal completion test
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'claude-3-haiku-20240307',
-            max_tokens: 1,
-            messages: [{ role: 'user', content: 'Hi' }],
-          }),
-        });
-
-        if (response.status === 401) {
-          return { valid: false, error: 'Invalid API key' };
-        }
-        if (response.status === 429) {
-          return { valid: false, error: 'Rate limited - key may be valid but quota exceeded' };
-        }
-        // A successful response or validation error means the key is valid
-        return { valid: true };
-      }
-
-      case 'gemini': {
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`,
-          { method: 'GET' }
-        );
-
-        if (response.status === 400 || response.status === 403) {
-          return { valid: false, error: 'Invalid API key' };
-        }
-        if (!response.ok) {
-          return { valid: false, error: `API returned status ${response.status}` };
-        }
-        return { valid: true };
-      }
-
-      default:
-        return { valid: false, error: `Unknown provider: ${provider}` };
-    }
+    return await tester(apiKey);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return { valid: false, error: `Connection error: ${message}` };
