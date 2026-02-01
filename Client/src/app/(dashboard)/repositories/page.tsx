@@ -22,8 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import type { RepositoryWithStats } from '@/lib/api';
+import { type RepositoryWithStats } from '@/lib/api';
 
 // Mock data for demonstration (will be replaced with real API calls)
 const mockRepositories: RepositoryWithStats[] = [
