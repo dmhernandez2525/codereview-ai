@@ -1,6 +1,8 @@
 # Demo Mode
 
-Demo mode allows CodeReview AI to be showcased without requiring real authentication, database connections, or API keys. This is useful for portfolio demonstrations and evaluating the product.
+Demo mode allows CodeReview AI to be showcased without requiring real
+authentication, database connections, or API keys. This is useful for portfolio
+demonstrations and evaluating the product.
 
 ## How It Works
 
@@ -34,7 +36,7 @@ Demo mode is enabled by default in `render.yaml`:
 
 ```yaml
 - key: NEXT_PUBLIC_DEMO_MODE
-  value: "true"
+  value: 'true'
 ```
 
 To disable demo mode and use real authentication, set the value to `"false"`.
@@ -44,17 +46,21 @@ To disable demo mode and use real authentication, set the value to `"false"`.
 The demo mode includes:
 
 ### Demo User
+
 - Username: `demo_user`
 - Email: `demo@codereview.ai`
 
 ### Demo Repositories
+
 - `acme-corp/react-dashboard` - Active React project
 - `acme-corp/node-api` - Active Node.js API
 - `acme-corp/mobile-app` - Inactive mobile project
 - `acme-corp/shared-utils` - Shared utilities library
 
 ### Demo Reviews
+
 Sample code reviews demonstrating:
+
 - OAuth2 authentication implementation
 - Rate limiting middleware
 - React 18 upgrade
@@ -62,7 +68,9 @@ Sample code reviews demonstrating:
 - Various review statuses (completed, pending, in_progress, failed)
 
 ### Demo Review Comments
+
 Realistic AI-generated review comments showcasing:
+
 - Security issues (error severity)
 - Reliability warnings
 - Code quality suggestions
@@ -84,10 +92,10 @@ Client/src/app/(demo)/
 
 ## Switching Between Demo and Real Mode
 
-| Mode | NEXT_PUBLIC_DEMO_MODE | Behavior |
-|------|----------------------|----------|
-| Demo | `"true"` | Uses mock data, no auth required |
-| Real | `"false"` | Requires database, Strapi CMS, auth |
+| Mode | NEXT_PUBLIC_DEMO_MODE | Behavior                            |
+| ---- | --------------------- | ----------------------------------- |
+| Demo | `"true"`              | Uses mock data, no auth required    |
+| Real | `"false"`             | Requires database, Strapi CMS, auth |
 
 ## Testing Demo Mode
 
