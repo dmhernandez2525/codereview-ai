@@ -19,9 +19,7 @@ export default function DemoReviewDetailPage() {
       <div className="flex flex-col items-center justify-center py-20">
         <NotFoundIcon className="h-16 w-16 text-muted-foreground mb-4" />
         <h1 className="text-2xl font-bold">Review Not Found</h1>
-        <p className="text-muted-foreground mt-2">
-          The review you are looking for does not exist.
-        </p>
+        <p className="text-muted-foreground mt-2">The review you are looking for does not exist.</p>
         <Link href="/demo/reviews">
           <Button className="mt-6">Back to Reviews</Button>
         </Link>
@@ -35,23 +33,27 @@ export default function DemoReviewDetailPage() {
     0
   );
 
-  const commentsByCategory = files.flatMap((file) => review.commentsByFile?.[file] || []).reduce(
-    (acc, comment) => {
-      const category = comment.category || 'other';
-      acc[category] = (acc[category] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  );
+  const commentsByCategory = files
+    .flatMap((file) => review.commentsByFile?.[file] || [])
+    .reduce(
+      (acc, comment) => {
+        const category = comment.category || 'other';
+        acc[category] = (acc[category] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
-  const commentsBySeverity = files.flatMap((file) => review.commentsByFile?.[file] || []).reduce(
-    (acc, comment) => {
-      const severity = comment.severity || 'info';
-      acc[severity] = (acc[severity] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  );
+  const commentsBySeverity = files
+    .flatMap((file) => review.commentsByFile?.[file] || [])
+    .reduce(
+      (acc, comment) => {
+        const severity = comment.severity || 'info';
+        acc[severity] = (acc[severity] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
   return (
     <div className="space-y-6">

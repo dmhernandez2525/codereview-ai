@@ -13,7 +13,9 @@ export default function DemoDashboardPage() {
       {/* Welcome header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Welcome back, {user.username}</h1>
-        <p className="text-muted-foreground">Here&apos;s what&apos;s happening with your code reviews.</p>
+        <p className="text-muted-foreground">
+          Here&apos;s what&apos;s happening with your code reviews.
+        </p>
       </div>
 
       {/* Stats grid */}

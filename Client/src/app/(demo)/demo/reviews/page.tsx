@@ -200,9 +200,7 @@ function StatusFilterButton({
     <button
       onClick={onClick}
       className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-        active
-          ? 'ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-900'
-          : 'hover:opacity-80'
+        active ? 'ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-900' : 'hover:opacity-80'
       } ${variants[variant]}`}
     >
       {children}

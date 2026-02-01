@@ -18,9 +18,7 @@ export default function DemoSettingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
-        <p className="text-muted-foreground">
-          Manage your account settings and preferences.
-        </p>
+        <p className="text-muted-foreground">Manage your account settings and preferences.</p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
@@ -94,18 +92,12 @@ function TabButton({
   );
 }
 
-function ProfileSettings({
-  user,
-}: {
-  user: { username: string; email: string };
-}) {
+function ProfileSettings({ user }: { user: { username: string; email: string } }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Profile Settings</CardTitle>
-        <CardDescription>
-          Update your personal information and preferences.
-        </CardDescription>
+        <CardDescription>Update your personal information and preferences.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex items-center gap-6">
@@ -116,9 +108,7 @@ function ProfileSettings({
             <Button variant="outline" size="sm" disabled>
               Change Avatar
             </Button>
-            <p className="text-xs text-muted-foreground mt-1">
-              JPG, GIF or PNG. Max size 2MB.
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">JPG, GIF or PNG. Max size 2MB.</p>
           </div>
         </div>
 
@@ -187,10 +177,7 @@ function ApiKeysSettings() {
         </CardHeader>
         <CardContent className="space-y-4">
           {demoApiKeys.map((key) => (
-            <div
-              key={key.id}
-              className="flex items-center justify-between p-4 border rounded-lg"
-            >
+            <div key={key.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <div
                   className={`p-2 rounded-lg ${
@@ -202,9 +189,7 @@ function ApiKeysSettings() {
                   <ProviderIcon
                     provider={key.provider}
                     className={`h-5 w-5 ${
-                      key.isConfigured
-                        ? 'text-green-600 dark:text-green-400'
-                        : 'text-gray-500'
+                      key.isConfigured ? 'text-green-600 dark:text-green-400' : 'text-gray-500'
                     }`}
                   />
                 </div>
@@ -212,9 +197,7 @@ function ApiKeysSettings() {
                   <p className="font-medium">{key.name}</p>
                   <p className="text-sm text-muted-foreground">
                     {key.isConfigured ? (
-                      <>
-                        Configured - Last used {key.lastUsed}
-                      </>
+                      <>Configured - Last used {key.lastUsed}</>
                     ) : (
                       'Not configured'
                     )}
@@ -239,7 +222,10 @@ function ApiKeysSettings() {
         <CardContent>
           <div className="flex items-center gap-4">
             <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
-              <ProviderIcon provider="openai" className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <ProviderIcon
+                provider="openai"
+                className="h-5 w-5 text-green-600 dark:text-green-400"
+              />
             </div>
             <div className="flex-1">
               <p className="font-medium">OpenAI (GPT-4o)</p>
@@ -291,9 +277,7 @@ function NotificationSettings() {
     <Card>
       <CardHeader>
         <CardTitle>Notification Preferences</CardTitle>
-        <CardDescription>
-          Choose how you want to be notified about activity.
-        </CardDescription>
+        <CardDescription>Choose how you want to be notified about activity.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
@@ -334,17 +318,13 @@ function BillingSettings() {
       <Card>
         <CardHeader>
           <CardTitle>Current Plan</CardTitle>
-          <CardDescription>
-            You are currently on the Free plan.
-          </CardDescription>
+          <CardDescription>You are currently on the Free plan.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
             <div>
               <p className="font-semibold text-lg">Free Plan</p>
-              <p className="text-sm text-muted-foreground">
-                100 reviews/month - Basic AI models
-              </p>
+              <p className="text-sm text-muted-foreground">100 reviews/month - Basic AI models</p>
             </div>
             <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
               Current
@@ -359,9 +339,7 @@ function BillingSettings() {
       <Card>
         <CardHeader>
           <CardTitle>Usage This Month</CardTitle>
-          <CardDescription>
-            Track your usage against your plan limits.
-          </CardDescription>
+          <CardDescription>Track your usage against your plan limits.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <UsageBar label="Reviews" used={48} limit={100} />
@@ -373,9 +351,7 @@ function BillingSettings() {
       <Card>
         <CardHeader>
           <CardTitle>Payment Method</CardTitle>
-          <CardDescription>
-            Add a payment method to upgrade your plan.
-          </CardDescription>
+          <CardDescription>Add a payment method to upgrade your plan.</CardDescription>
         </CardHeader>
         <CardContent>
           <Button variant="outline" disabled>
@@ -413,7 +389,9 @@ function UsageBar({ label, used, limit }: { label: string; used: number; limit: 
     <div>
       <div className="flex justify-between text-sm mb-1">
         <span>{label}</span>
-        <span className={isNearLimit ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground'}>
+        <span
+          className={isNearLimit ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground'}
+        >
           {used.toLocaleString()} / {limit.toLocaleString()}
         </span>
       </div>
@@ -429,12 +407,7 @@ function UsageBar({ label, used, limit }: { label: string; used: number; limit: 
   );
 }
 
-function ProviderIcon({
-  className,
-}: {
-  provider: string;
-  className?: string;
-}) {
+function ProviderIcon({ className }: { provider: string; className?: string }) {
   // Simple icon for demo purposes
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
