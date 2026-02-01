@@ -430,7 +430,6 @@ function UsageBar({ label, used, limit }: { label: string; used: number; limit: 
 }
 
 function ProviderIcon({
-  provider,
   className,
 }: {
   provider: string;

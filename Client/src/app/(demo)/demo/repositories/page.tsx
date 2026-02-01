@@ -11,9 +11,15 @@ export default function DemoRepositoriesPage() {
   const [filter, setFilter] = useState<'all' | 'active' | 'inactive'>('all');
 
   const filteredRepos = repositories.filter((repo) => {
-    if (filter === 'all') return true;
-    if (filter === 'active') return repo.isActive;
-    if (filter === 'inactive') return !repo.isActive;
+    if (filter === 'all') {
+      return true;
+    }
+    if (filter === 'active') {
+      return repo.isActive;
+    }
+    if (filter === 'inactive') {
+      return !repo.isActive;
+    }
     return true;
   });
 
@@ -157,10 +163,18 @@ function formatRelativeTime(dateString: string): string {
   const diffMs = now.getTime() - date.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) return 'Today';
-  if (diffDays === 1) return 'Yesterday';
-  if (diffDays < 7) return `${diffDays} days ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+  if (diffDays === 0) {
+    return 'Today';
+  }
+  if (diffDays === 1) {
+    return 'Yesterday';
+  }
+  if (diffDays < 7) {
+    return `${diffDays} days ago`;
+  }
+  if (diffDays < 30) {
+    return `${Math.floor(diffDays / 7)} weeks ago`;
+  }
   return `${Math.floor(diffDays / 30)} months ago`;
 }
 
