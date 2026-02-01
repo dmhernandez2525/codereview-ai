@@ -80,13 +80,13 @@ Realistic AI-generated review comments showcasing:
 
 The demo mode provides the following pages:
 
-| Route                | Description                         |
-| -------------------- | ----------------------------------- |
-| `/demo`              | Dashboard with stats and recent reviews |
-| `/demo/repositories` | Repository list with filter by status |
-| `/demo/reviews`      | Reviews list with search and status filters |
-| `/demo/reviews/[id]` | Review detail with comments by file |
-| `/demo/analytics`    | Usage analytics and metrics |
+| Route                | Description                                          |
+| -------------------- | ---------------------------------------------------- |
+| `/demo`              | Dashboard with stats and recent reviews              |
+| `/demo/repositories` | Repository list with filter by status                |
+| `/demo/reviews`      | Reviews list with search and status filters          |
+| `/demo/reviews/[id]` | Review detail with comments by file                  |
+| `/demo/analytics`    | Usage analytics and metrics                          |
 | `/demo/settings`     | Settings (profile, API keys, notifications, billing) |
 
 ## Architecture
@@ -164,6 +164,7 @@ export const demoReviews: Review[] = [
 ### Navigation
 
 The demo layout includes a sidebar with links to:
+
 - Dashboard
 - Repositories
 - Reviews
@@ -173,6 +174,7 @@ The demo layout includes a sidebar with links to:
 ### Demo Banner
 
 A banner at the top of every demo page indicates:
+
 - "Demo Mode" label
 - "Exit demo" link to return to the main site
 - "Sign up for free" link to registration
@@ -180,9 +182,11 @@ A banner at the top of every demo page indicates:
 ### Disabled Actions
 
 In demo mode, certain actions are disabled:
+
 - Creating new repositories (button is disabled)
 - Updating settings (save buttons are disabled)
 - Adding payment methods
 - Changing notification preferences
 
-This prevents confusion and clearly indicates that the user is viewing sample data.
+This prevents confusion and clearly indicates that the user is viewing sample
+data.

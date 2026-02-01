@@ -136,14 +136,18 @@ configuration reference.
 
 **Powered by PersonaPlex Full Duplex AI**
 
-Transform how you interact with code reviews through natural voice conversation. Discuss review feedback, ask questions about suggestions, and navigate PRs hands-free.
+Transform how you interact with code reviews through natural voice conversation.
+Discuss review feedback, ask questions about suggestions, and navigate PRs
+hands-free.
 
 ### Current Experience
+
 ```
 Open PR → Read AI comments → Type responses → Click resolve → Repeat
 ```
 
 ### With PersonaPlex
+
 ```
 You: "What are the main issues in this PR?"
 PersonaPlex: "I found 3 issues. First, there's a potential null pointer on line 42..."
@@ -156,12 +160,12 @@ You: "Mark that as valid. What's the third?"
 
 ### Features
 
-| Feature | Description |
-|---------|-------------|
-| **Voice Discussion** | Discuss review feedback conversationally |
-| **Code Navigation** | Ask to see specific sections by voice |
-| **Contextual Q&A** | Ask "why" questions about suggestions |
-| **Voice Resolution** | Accept, dismiss, or respond to comments |
+| Feature               | Description                                  |
+| --------------------- | -------------------------------------------- |
+| **Voice Discussion**  | Discuss review feedback conversationally     |
+| **Code Navigation**   | Ask to see specific sections by voice        |
+| **Contextual Q&A**    | Ask "why" questions about suggestions        |
+| **Voice Resolution**  | Accept, dismiss, or respond to comments      |
 | **Hands-Free Review** | Perfect for reviewing while referencing docs |
 
 ### Technical Requirements

@@ -18,7 +18,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-
 // Mock data for demonstration
 const mockReviews: Review[] = [
   {

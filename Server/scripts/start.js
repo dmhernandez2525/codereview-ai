@@ -24,12 +24,7 @@ console.log('TRANSFER_TOKEN_SALT:', process.env.TRANSFER_TOKEN_SALT ? '[SET]' : 
 console.log('====================================');
 
 // Validate required environment variables (warn only, don't exit)
-const requiredEnvVars = [
-  'APP_KEYS',
-  'ADMIN_JWT_SECRET',
-  'API_TOKEN_SALT',
-  'TRANSFER_TOKEN_SALT',
-];
+const requiredEnvVars = ['APP_KEYS', 'ADMIN_JWT_SECRET', 'API_TOKEN_SALT', 'TRANSFER_TOKEN_SALT'];
 
 const missingVars = requiredEnvVars.filter((v) => !process.env[v]);
 if (missingVars.length > 0) {

@@ -202,8 +202,7 @@ export default factories.createCoreController('api::review.review', ({ strapi })
         d.setDate(d.getDate() - dayOfWeek);
         return d.toISOString().split('T')[0];
       },
-      month: (date) =>
-        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`,
+      month: (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`,
       day: (date) => date.toISOString().split('T')[0],
     };
 
