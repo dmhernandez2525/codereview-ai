@@ -44,7 +44,7 @@
     "vitest": "^4.0.17"
   },
   "optionalDependencies": {
-    "@swc/core-linux-x64-gnu": "^1.3.107",
+    "@swc/core-linux-x64-gnu": "^1.15.11",
     "@swc/core-linux-x64-musl": "^1.3.107",
     "@img/sharp-linux-x64": "^0.33.5",
     "@img/sharp-libvips-linux-x64": "1.0.4"
