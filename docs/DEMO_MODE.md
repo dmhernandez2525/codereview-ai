@@ -76,6 +76,19 @@ Realistic AI-generated review comments showcasing:
 - Code quality suggestions
 - Best practice recommendations
 
+## Demo Pages
+
+The demo mode provides the following pages:
+
+| Route                | Description                         |
+| -------------------- | ----------------------------------- |
+| `/demo`              | Dashboard with stats and recent reviews |
+| `/demo/repositories` | Repository list with filter by status |
+| `/demo/reviews`      | Reviews list with search and status filters |
+| `/demo/reviews/[id]` | Review detail with comments by file |
+| `/demo/analytics`    | Usage analytics and metrics |
+| `/demo/settings`     | Settings (profile, API keys, notifications, billing) |
+
 ## Architecture
 
 ```
@@ -85,9 +98,19 @@ Client/src/lib/demo/
   └── data.ts        # All demo data (users, repos, reviews)
 
 Client/src/app/(demo)/
-  ├── layout.tsx     # Demo layout with banner and navigation
+  ├── layout.tsx           # Demo layout with banner and navigation
   └── demo/
-      └── page.tsx   # Demo dashboard page
+      ├── page.tsx         # Demo dashboard page
+      ├── repositories/
+      │   └── page.tsx     # Repositories list
+      ├── reviews/
+      │   ├── page.tsx     # Reviews list
+      │   └── [id]/
+      │       └── page.tsx # Review detail
+      ├── analytics/
+      │   └── page.tsx     # Analytics dashboard
+      └── settings/
+          └── page.tsx     # Settings pages
 ```
 
 ## Switching Between Demo and Real Mode
@@ -106,3 +129,60 @@ NEXT_PUBLIC_DEMO_MODE=true npm run dev
 ```
 
 The demo should function fully without any external dependencies.
+
+## Extending Demo Data
+
+To add more demo data, edit `Client/src/lib/demo/data.ts`:
+
+```typescript
+// Add a new repository
+export const demoRepositories: RepositoryWithStats[] = [
+  // ... existing repos
+  {
+    id: 5,
+    name: 'new-repo',
+    fullName: 'acme-corp/new-repo',
+    platform: 'github',
+    // ... other fields
+  },
+];
+
+// Add a new review
+export const demoReviews: Review[] = [
+  // ... existing reviews
+  {
+    id: 8,
+    prNumber: 100,
+    prTitle: 'New feature',
+    // ... other fields
+  },
+];
+```
+
+## Demo Mode Behavior
+
+### Navigation
+
+The demo layout includes a sidebar with links to:
+- Dashboard
+- Repositories
+- Reviews
+- Analytics
+- Settings
+
+### Demo Banner
+
+A banner at the top of every demo page indicates:
+- "Demo Mode" label
+- "Exit demo" link to return to the main site
+- "Sign up for free" link to registration
+
+### Disabled Actions
+
+In demo mode, certain actions are disabled:
+- Creating new repositories (button is disabled)
+- Updating settings (save buttons are disabled)
+- Adding payment methods
+- Changing notification preferences
+
+This prevents confusion and clearly indicates that the user is viewing sample data.
