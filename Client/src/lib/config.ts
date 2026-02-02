@@ -30,6 +30,9 @@ export const config = {
   /** GitHub OAuth Client ID */
   githubClientId: getEnvVar('NEXT_PUBLIC_GITHUB_CLIENT_ID', ''),
 
+  /** Whether demo mode is enabled (shows demo data without auth) */
+  demoMode: getEnvVar('NEXT_PUBLIC_DEMO_MODE', 'false') === 'true',
+
   /** Whether in development mode */
   isDev: process.env.NODE_ENV === 'development',
 

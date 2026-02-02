@@ -169,7 +169,9 @@ export default {
     } catch (error) {
       // Log the error but don't fail startup - permissions can be set manually
       strapi.log.error('Bootstrap error:', error);
-      strapi.log.warn('Continuing startup despite bootstrap errors. Some features may need manual configuration.');
+      strapi.log.warn(
+        'Continuing startup despite bootstrap errors. Some features may need manual configuration.'
+      );
     }
   },
 };

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { config } from '@/lib/config';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { login, clearError } from '@/lib/store/slices/authSlice';
 
@@ -19,6 +20,13 @@ export default function LoginPage() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
 
+  // Redirect to demo mode if enabled
+  useEffect(() => {
+    if (config.demoMode) {
+      router.replace('/demo');
+    }
+  }, [router]);
+
   useEffect(() => {
     if (isAuthenticated) {
       router.push('/dashboard');
@@ -29,6 +37,18 @@ export default function LoginPage() {
     // Clear any previous errors when component mounts
     dispatch(clearError());
   }, [dispatch]);
+
+  // Show loading while redirecting to demo mode
+  if (config.demoMode) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" />
+          <p className="text-muted-foreground">Entering demo mode...</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

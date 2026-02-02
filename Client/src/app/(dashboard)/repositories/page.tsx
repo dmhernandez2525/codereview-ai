@@ -3,8 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import type { RepositoryWithStats } from '@/lib/api';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -24,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { type RepositoryWithStats } from '@/lib/api';
 
 // Mock data for demonstration (will be replaced with real API calls)
 const mockRepositories: RepositoryWithStats[] = [

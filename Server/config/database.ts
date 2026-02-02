@@ -20,7 +20,8 @@ export default ({ env }) => {
     if (!shouldUseSSL()) return false;
 
     // If explicit SSL config is provided, use it
-    const hasExplicitConfig = env('DATABASE_SSL_KEY') || env('DATABASE_SSL_CERT') || env('DATABASE_SSL_CA');
+    const hasExplicitConfig =
+      env('DATABASE_SSL_KEY') || env('DATABASE_SSL_CERT') || env('DATABASE_SSL_CA');
     if (hasExplicitConfig) {
       return {
         key: env('DATABASE_SSL_KEY', undefined),

@@ -108,6 +108,8 @@ services:
         value: "20"
       - key: NODE_ENV
         value: production
+      - key: NEXT_PUBLIC_DEMO_MODE
+        value: "true"
       - key: NEXT_PUBLIC_STRAPI_URL
         fromService:
           type: web
